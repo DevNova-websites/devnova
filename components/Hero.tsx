@@ -22,12 +22,14 @@ function FloatingCard({
   className = "",
   floatDuration = 5,
   floatOffset = 10,
+  style,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
   floatDuration?: number;
   floatOffset?: number;
+  style?: React.CSSProperties;
 }) {
   return (
     <motion.div
@@ -53,6 +55,7 @@ function FloatingCard({
         border: "1px solid rgba(245,196,0,0.22)",
         backdropFilter: "blur(14px)",
         WebkitBackdropFilter: "blur(14px)",
+        ...style,
       }}
     >
       {children}
