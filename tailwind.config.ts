@@ -14,15 +14,16 @@ const config: Config = {
       },
       colors: {
         brand: {
-          DEFAULT: "#6366f1",
-          violet: "#8b5cf6",
-          blue: "#3b82f6",
-          pink: "#ec4899",
+          DEFAULT: "#F5C400",
+          amber: "#FF9F0A",
+          fire: "#FF5722",
+          gold: "#FFD60A",
         },
       },
       animation: {
         float: "float 5s ease-in-out infinite",
         "pulse-ring": "pulse-ring 2s ease-out infinite",
+        "spin-slow": "spin 8s linear infinite",
       },
       keyframes: {
         float: {
@@ -30,9 +31,9 @@ const config: Config = {
           "50%": { transform: "translateY(-12px)" },
         },
         "pulse-ring": {
-          "0%": { boxShadow: "0 0 0 0 rgba(99,102,241,0.4)" },
-          "70%": { boxShadow: "0 0 0 12px rgba(99,102,241,0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(99,102,241,0)" },
+          "0%": { boxShadow: "0 0 0 0 rgba(245,196,0,0.5)" },
+          "70%": { boxShadow: "0 0 0 12px rgba(245,196,0,0)" },
+          "100%": { boxShadow: "0 0 0 0 rgba(245,196,0,0)" },
         },
       },
     },

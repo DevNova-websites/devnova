@@ -1,58 +1,53 @@
-﻿"use client";
+"use client";
 import { motion } from "framer-motion";
 import { Users, Clock, HeadphonesIcon, Sparkles } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
 const icons = [Users, Clock, HeadphonesIcon, Sparkles];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0 },
-};
+const iconStyles = [
+  { bg: "rgba(245,196,0,0.12)", color: "#F5C400" },
+  { bg: "rgba(255,159,10,0.12)", color: "#FF9F0A" },
+  { bg: "rgba(255,214,10,0.12)", color: "#FFD60A" },
+  { bg: "rgba(245,196,0,0.12)", color: "#F5C400" },
+];
 
 export default function About() {
   const { t } = useLang();
 
   return (
-    <section id="about" className="relative py-28 overflow-hidden">
-      {/* Background glow */}
+    <section id="about" className="relative py-36 overflow-hidden">
+      {/* Divider line */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 50% 50%, rgba(99,102,241,0.05) 0%, transparent 70%)",
-        }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Left — text */}
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          {/* Left */}
           <div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6"
-              style={{
-                background: "rgba(99,102,241,0.1)",
-                border: "1px solid rgba(99,102,241,0.25)",
-                color: "#a5b4fc",
-              }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="mb-7"
             >
-              <Sparkles size={12} />
-              {t.about.badge}
+              <span className="badge">
+                <Sparkles size={10} className="fill-current" />
+                {t.about.badge}
+              </span>
             </motion.div>
 
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6"
+              transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="text-5xl md:text-6xl font-black text-white leading-[1.06] tracking-tight mb-7"
             >
               {t.about.title}{" "}
-              <br />
               <span className="gradient-text">{t.about.titleAccent}</span>
             </motion.h2>
 
@@ -60,26 +55,25 @@ export default function About() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white/55 text-lg leading-relaxed mb-10"
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="text-lg text-white/50 leading-relaxed mb-10"
             >
               {t.about.desc}
             </motion.p>
 
-            {/* Trust badges */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap gap-3"
+              transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-wrap gap-2.5"
             >
               {["Stripe Secure", "SSL Incluido", "GDPR Friendly", "99.9% Uptime"].map((badge) => (
                 <span
                   key={badge}
-                  className="px-3 py-1.5 text-xs font-medium rounded-lg text-white/60"
+                  className="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-white/50"
                   style={{
-                    background: "rgba(255,255,255,0.04)",
+                    background: "#111111",
                     border: "1px solid rgba(255,255,255,0.08)",
                   }}
                 >
@@ -89,32 +83,28 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* Right — feature cards */}
+          {/* Right — feature cards 2×2 */}
           <div className="grid grid-cols-2 gap-4">
             {t.about.features.map((feature, i) => {
               const Icon = icons[i];
+              const style = iconStyles[i];
               return (
                 <motion.div
                   key={i}
-                  variants={fadeUp}
-                  initial="hidden"
-                  whileInView="show"
+                  initial={{ opacity: 0, y: 28 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="glass glass-hover rounded-2xl p-6 group cursor-default"
-                  style={{ transition: "all 0.3s ease" }}
+                  transition={{ duration: 0.7, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+                  className="card p-7 group cursor-default"
                 >
                   <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(99,102,241,0.2), rgba(139,92,246,0.2))",
-                      border: "1px solid rgba(99,102,241,0.2)",
-                    }}
+                    className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"
+                    style={{ background: style.bg, border: `1px solid ${style.color}22` }}
                   >
-                    <Icon size={18} style={{ color: "#a5b4fc" }} />
+                    <Icon size={19} style={{ color: style.color }} />
                   </div>
-                  <h3 className="font-bold text-white text-lg mb-1">{feature.title}</h3>
-                  <p className="text-sm text-white/50 leading-relaxed">{feature.desc}</p>
+                  <h3 className="font-bold text-white text-base mb-1.5">{feature.title}</h3>
+                  <p className="text-sm text-white/45 leading-relaxed">{feature.desc}</p>
                 </motion.div>
               );
             })}

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
@@ -9,37 +9,34 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-28 overflow-hidden">
+    <section id="faq" className="relative py-36 overflow-hidden">
       <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(99,102,241,0.3), transparent)" }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
       />
 
-      <div className="max-w-3xl mx-auto px-6 relative z-10">
+      <div className="max-w-2xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-14">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5"
-            style={{
-              background: "rgba(99,102,241,0.1)",
-              border: "1px solid rgba(99,102,241,0.25)",
-              color: "#a5b4fc",
-            }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-6"
           >
-            <HelpCircle size={12} />
-            {t.faq.badge}
+            <span className="badge">
+              <HelpCircle size={10} />
+              {t.faq.badge}
+            </span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-extrabold text-white"
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-5xl md:text-6xl font-black text-white leading-[1.06] tracking-tight"
           >
             {t.faq.title}{" "}
             <span className="gradient-text">{t.faq.titleAccent}</span>
@@ -47,28 +44,28 @@ export default function FAQ() {
         </div>
 
         {/* Accordion */}
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {t.faq.items.map((item, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="rounded-2xl overflow-hidden"
+              transition={{ duration: 0.6, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
+              className="rounded-[18px] overflow-hidden"
               style={{
-                background: open === i ? "rgba(99,102,241,0.08)" : "rgba(255,255,255,0.03)",
-                border: open === i ? "1px solid rgba(99,102,241,0.3)" : "1px solid rgba(255,255,255,0.07)",
+                background: open === i ? "rgba(245,196,0,0.06)" : "#111111",
+                border: open === i ? "1px solid rgba(245,196,0,0.3)" : "1px solid rgba(255,255,255,0.07)",
                 transition: "all 0.3s ease",
               }}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between p-5 text-left group"
+                className="w-full flex items-center justify-between p-6 text-left gap-4"
               >
                 <span
-                  className="font-semibold text-sm md:text-base pr-4 transition-colors"
-                  style={{ color: open === i ? "#a5b4fc" : "rgba(255,255,255,0.85)" }}
+                  className="font-bold text-sm md:text-base transition-colors duration-200"
+                  style={{ color: open === i ? "#F5C400" : "rgba(255,255,255,0.85)" }}
                 >
                   {item.q}
                 </span>
@@ -76,7 +73,7 @@ export default function FAQ() {
                   size={18}
                   className="flex-shrink-0 transition-transform duration-300"
                   style={{
-                    color: open === i ? "#a5b4fc" : "rgba(255,255,255,0.3)",
+                    color: open === i ? "#F5C400" : "rgba(255,255,255,0.25)",
                     transform: open === i ? "rotate(180deg)" : "rotate(0deg)",
                   }}
                 />
@@ -88,12 +85,12 @@ export default function FAQ() {
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+                    transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <div className="px-5 pb-5">
+                    <div className="px-6 pb-6">
                       <div
-                        className="pt-3 border-t text-sm text-white/55 leading-relaxed"
-                        style={{ borderColor: "rgba(99,102,241,0.15)" }}
+                        className="pt-4 text-sm text-white/50 leading-relaxed"
+                        style={{ borderTop: "1px solid rgba(245,196,0,0.12)" }}
                       >
                         {item.a}
                       </div>

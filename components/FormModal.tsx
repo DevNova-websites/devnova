@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { NovaLogo } from "./NovaMascot";
 
 interface FormModalProps {
   open: boolean;
@@ -25,7 +26,7 @@ export default function FormModal({ open, onClose }: FormModalProps) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-100 flex items-center justify-center p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -33,7 +34,7 @@ export default function FormModal({ open, onClose }: FormModalProps) {
         >
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-black/80 backdrop-blur-md"
+            className="absolute inset-0 bg-black/85 backdrop-blur-md"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -42,34 +43,32 @@ export default function FormModal({ open, onClose }: FormModalProps) {
 
           {/* Modal */}
           <motion.div
-            className="relative z-10 w-full max-w-3xl rounded-2xl overflow-hidden"
+            className="relative z-10 w-full max-w-3xl rounded-[24px] overflow-hidden"
             style={{
-              background: "linear-gradient(145deg, #0d0d2b, #0a0a1f)",
-              border: "1px solid rgba(99,102,241,0.3)",
-              boxShadow: "0 25px 80px rgba(0,0,0,0.8), 0 0 60px rgba(99,102,241,0.15)",
+              background: "#0D0D0D",
+              border: "1px solid rgba(245,196,0,0.25)",
+              boxShadow: "0 30px 90px rgba(0,0,0,0.85), 0 0 60px rgba(245,196,0,0.07)",
             }}
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            initial={{ opacity: 0, scale: 0.9, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
-            transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/6">
+            <div
+              className="flex items-center justify-between px-6 py-4"
+              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+            >
               <div className="flex items-center gap-3">
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold text-white"
-                  style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}
-                >
-                  D
-                </div>
+                <NovaLogo size={30} />
                 <div>
-                  <p className="text-white font-semibold text-sm">DevNova</p>
-                  <p className="text-white/40 text-xs">Formulario de relevamiento</p>
+                  <p className="text-white font-bold text-sm">DevNova</p>
+                  <p className="text-white/35 text-xs">Formulario de relevamiento</p>
                 </div>
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white/50 hover:text-white hover:bg-white/10 transition-all"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-white/40 hover:text-white hover:bg-white/08 transition-all"
               >
                 <X size={16} />
               </button>

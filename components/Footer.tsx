@@ -1,7 +1,7 @@
-﻿"use client";
-import { motion } from "framer-motion";
+"use client";
 import { Mail, MessageCircle, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
+import { NovaLogo } from "./NovaMascot";
 
 export default function Footer() {
   const { t } = useLang();
@@ -18,30 +18,25 @@ export default function Footer() {
     <footer
       className="relative pt-20 pb-8 overflow-hidden"
       style={{
-        background: "linear-gradient(to bottom, #050510, #03030c)",
+        background: "#050505",
         borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
     >
-      {/* Top glow */}
+      {/* Gold top accent */}
       <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-1 rounded-full blur-sm pointer-events-none"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(99,102,241,0.4), transparent)" }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-2/5 h-px pointer-events-none"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.35), transparent)" }}
       />
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-10 mb-14">
           {/* Brand */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold text-white"
-                style={{ background: "linear-gradient(135deg, #6366f1, #8b5cf6)" }}
-              >
-                D
-              </div>
-              <span className="font-bold text-white text-lg tracking-tight">DevNova</span>
-            </div>
-            <p className="text-sm text-white/45 leading-relaxed max-w-xs mb-5">
+            <a href="#" className="flex items-center gap-2.5 mb-5 w-fit">
+              <NovaLogo size={32} />
+              <span className="font-black text-white text-lg tracking-tight">DevNova</span>
+            </a>
+            <p className="text-sm text-white/40 leading-relaxed max-w-xs mb-6">
               {t.footer.desc}
             </p>
             <div className="flex items-center gap-3">
@@ -50,35 +45,32 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
-                style={{ background: "rgba(37,211,102,0.1)", border: "1px solid rgba(37,211,102,0.2)" }}
+                style={{ background: "rgba(37,211,102,0.09)", border: "1px solid rgba(37,211,102,0.18)" }}
               >
                 <MessageCircle size={16} style={{ color: "#4ade80" }} />
               </a>
               <a
                 href="mailto:info@devnova.com"
                 className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
-                style={{ background: "rgba(99,102,241,0.1)", border: "1px solid rgba(99,102,241,0.2)" }}
+                style={{ background: "rgba(245,196,0,0.09)", border: "1px solid rgba(245,196,0,0.18)" }}
               >
-                <Mail size={16} style={{ color: "#a5b4fc" }} />
+                <Mail size={16} style={{ color: "#F5C400" }} />
               </a>
             </div>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">{t.footer.links}</h4>
+            <h4 className="text-xs font-bold text-white/30 uppercase tracking-widest mb-5">{t.footer.links}</h4>
             <ul className="space-y-2.5">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-white/45 hover:text-white transition-colors flex items-center gap-1 group"
+                    className="text-sm text-white/40 hover:text-white transition-colors duration-200 flex items-center gap-1 group"
                   >
                     {link.label}
-                    <ArrowUpRight
-                      size={12}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
+                    <ArrowUpRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
                 </li>
               ))}
@@ -87,38 +79,32 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4">Contacto</h4>
+            <h4 className="text-xs font-bold text-white/30 uppercase tracking-widest mb-5">Contacto</h4>
             <ul className="space-y-2.5">
               <li>
-                <a
-                  href="mailto:info@devnova.com"
-                  className="text-sm text-white/45 hover:text-white transition-colors"
-                >
+                <a href="mailto:info@devnova.com" className="text-sm text-white/40 hover:text-white transition-colors">
                   info@devnova.com
                 </a>
               </li>
               <li>
-                <a
-                  href="https://wa.me/5491166046030"
-                  className="text-sm text-white/45 hover:text-white transition-colors"
-                >
+                <a href="https://wa.me/5491166046030" className="text-sm text-white/40 hover:text-white transition-colors">
                   +54 11 6604-6030
                 </a>
               </li>
-              <li className="text-sm text-white/30">Argentina ðŸ‡¦ðŸ‡·</li>
+              <li className="text-sm text-white/25">Argentina 🇦🇷</li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom */}
         <div
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
           style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
         >
-          <p className="text-xs text-white/30">
-            Â© {new Date().getFullYear()} DevNova. {t.footer.copyright}
+          <p className="text-xs text-white/25">
+            © {new Date().getFullYear()} DevNova. {t.footer.copyright}
           </p>
-          <p className="text-xs text-white/25">{t.footer.tagline}</p>
+          <p className="text-xs text-white/20">{t.footer.tagline}</p>
         </div>
       </div>
     </footer>

@@ -1,31 +1,30 @@
-﻿"use client";
+"use client";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
-const avatarGradients = [
-  "linear-gradient(135deg, #6366f1, #8b5cf6)",
-  "linear-gradient(135deg, #3b82f6, #6366f1)",
-  "linear-gradient(135deg, #8b5cf6, #ec4899)",
-  "linear-gradient(135deg, #10b981, #3b82f6)",
-  "linear-gradient(135deg, #f59e0b, #ec4899)",
-  "linear-gradient(135deg, #06b6d4, #6366f1)",
+const avatarColors = [
+  { from: "#F5C400", to: "#FF9F0A" },
+  { from: "#FF9F0A", to: "#FF5722" },
+  { from: "#FFD60A", to: "#F5C400" },
+  { from: "#FF5722", to: "#FF9F0A" },
+  { from: "#F5C400", to: "#FFD60A" },
+  { from: "#FF9F0A", to: "#F5C400" },
 ];
 
 export default function Testimonials() {
   const { t } = useLang();
 
   return (
-    <section className="relative py-28 overflow-hidden">
+    <section className="relative py-36 overflow-hidden">
       <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(59,130,246,0.3), transparent)" }}
+        className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
       />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse 70% 50% at 50% 50%, rgba(59,130,246,0.04) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 60% 40% at 50% 50%, rgba(245,196,0,0.025) 0%, transparent 70%)",
         }}
       />
 
@@ -36,85 +35,78 @@ export default function Testimonials() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5"
-            style={{
-              background: "rgba(59,130,246,0.1)",
-              border: "1px solid rgba(59,130,246,0.25)",
-              color: "#93c5fd",
-            }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-6"
           >
-            <Star size={12} className="fill-current" />
-            {t.testimonials.badge}
+            <span className="badge">
+              <Star size={10} className="fill-current" />
+              {t.testimonials.badge}
+            </span>
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-extrabold text-white mb-4"
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-5xl md:text-6xl font-black text-white leading-[1.06] tracking-tight"
           >
             {t.testimonials.title}{" "}
             <span className="gradient-text">{t.testimonials.titleAccent}</span>
           </motion.h2>
         </div>
 
-        {/* Masonry-ish grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {t.testimonials.items.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="group relative rounded-2xl p-6 cursor-default"
-              style={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.07)",
-                transition: "all 0.3s ease",
-              }}
-              whileHover={{ y: -4 }}
-            >
-              {/* Hover glow */}
-              <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ border: "1px solid rgba(99,102,241,0.25)" }}
-              />
+        {/* Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {t.testimonials.items.map((item, i) => {
+            const av = avatarColors[i % avatarColors.length];
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                className="card p-7 group cursor-default flex flex-col"
+              >
+                {/* Quote icon */}
+                <Quote
+                  size={22}
+                  className="mb-5 opacity-25 group-hover:opacity-50 transition-opacity duration-300"
+                  style={{ color: "#F5C400" }}
+                />
 
-              {/* Quote icon */}
-              <Quote
-                size={20}
-                className="mb-4 opacity-30 group-hover:opacity-60 transition-opacity"
-                style={{ color: "#a5b4fc" }}
-              />
-
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} size={13} className="fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-
-              {/* Text */}
-              <p className="text-sm text-white/65 leading-relaxed mb-6 italic">&ldquo;{item.text}&rdquo;</p>
-
-              {/* Author */}
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                  style={{ background: avatarGradients[i % avatarGradients.length] }}
-                >
-                  {item.avatar}
+                {/* Stars */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, j) => (
+                    <Star key={j} size={13} className="fill-yellow-400 text-yellow-400" />
+                  ))}
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-white">{item.name}</p>
-                  <p className="text-xs text-white/40">{item.role}</p>
+
+                {/* Text */}
+                <p className="text-sm text-white/60 leading-relaxed mb-6 italic flex-1">
+                  &ldquo;{item.text}&rdquo;
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0"
+                    style={{
+                      background: `linear-gradient(135deg, ${av.from}, ${av.to})`,
+                      color: "#080808",
+                    }}
+                  >
+                    {item.avatar}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white">{item.name}</p>
+                    <p className="text-xs text-white/35">{item.role}</p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
