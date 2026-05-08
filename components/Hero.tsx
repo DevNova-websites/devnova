@@ -71,7 +71,7 @@ export default function Hero() {
     <>
       <section
         id="home"
-        className="relative min-h-screen flex flex-col justify-center overflow-hidden dot-pattern"
+        className="relative min-h-screen flex flex-col justify-center overflow-hidden"
         style={{ paddingTop: "80px" }}
       >
         {/* Gold ambient glow — right side (behind mascot) */}

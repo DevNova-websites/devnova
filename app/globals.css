@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  background: #080808;
+  background: #030310;
   color: #ffffff;
   font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
@@ -21,7 +21,7 @@ body {
 
 /* ── Scrollbar ─────────────────────────────────────── */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-track { background: #030310; }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, #F5C400, #FF9F0A);
   border-radius: 3px;
@@ -162,4 +162,23 @@ body {
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
+}
+
+/* ── Content stacking layer ────────────────────────── */
+/* Ensures page content sits above the z-index:0 canvas background */
+.content-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Section top divider ───────────────────────────── */
+.section-divider {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245,196,0,0.18), transparent);
+  pointer-events: none;
 }
