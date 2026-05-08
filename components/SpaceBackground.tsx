@@ -37,11 +37,14 @@ export default function SpaceBackground() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Non-null aliases — TypeScript can't narrow closed-over vars in nested fns
+    const cv: HTMLCanvasElement = canvas;
+    const cx: CanvasRenderingContext2D = ctx;
+
     let W = 0, H = 0;
 
     function buildStars() {
       starsRef.current = Array.from({ length: STAR_COUNT }, () => {
-        // 55 % distant / 30 % mid / 15 % close
         const layer = Math.random() < 0.55 ? 1 : Math.random() < 0.75 ? 2 : 3;
         return {
           x:   Math.random() * W,
@@ -61,8 +64,8 @@ export default function SpaceBackground() {
     }
 
     function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
+      W = cv.width  = window.innerWidth;
+      H = cv.height = window.innerHeight;
       buildStars();
     }
 
@@ -76,21 +79,19 @@ export default function SpaceBackground() {
       const sec    = t * 0.001;
       const scroll = scrollRef.current;
 
-      ctx.clearRect(0, 0, W, H);
+      cx.clearRect(0, 0, W, H);
 
       for (const star of starsRef.current) {
-        // Wrap-around parallax
         let y = (star.y - scroll * star.pf) % H;
         if (y < 0) y += H;
 
-        // Twinkling
         const twinkle = Math.sin(sec * star.ts + star.to) * 0.22;
         const opacity  = Math.max(0.02, Math.min(1, star.o + twinkle));
 
-        ctx.beginPath();
-        ctx.arc(star.x, y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${star.rgb},${opacity.toFixed(3)})`;
-        ctx.fill();
+        cx.beginPath();
+        cx.arc(star.x, y, star.r, 0, Math.PI * 2);
+        cx.fillStyle = `rgba(${star.rgb},${opacity.toFixed(3)})`;
+        cx.fill();
       }
 
       rafRef.current = requestAnimationFrame(draw);
