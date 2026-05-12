@@ -14,9 +14,9 @@ const translations = {
     },
     hero: {
       badge: "🚀 +100 proyectos lanzados",
-      headline: "Desarrollamos páginas web que convierten visitas en clientes",
-      sub: "En DevNova ayudamos a marcas, negocios y profesionales a crecer online con sitios web modernos, rápidos y diseñados para vender.",
-      cta1: "Comenzar mi proyecto",
+      headline: "Tu web debería trabajar para vos. Nosotros nos encargamos de que cada visita sea una oportunidad ganada.",
+      sub: "En DevNova transformamos tu idea en una página web moderna y veloz. Vos ponés el talento, nosotros la tecnología para que tu negocio no pare de crecer.",
+      cta1: "Cotizar",
       cta2: "Ver portfolio",
       stat1: "+100",
       stat1Label: "Clientes",
@@ -29,7 +29,7 @@ const translations = {
       badge: "¿Por qué DevNova?",
       title: "Más que una agencia,",
       titleAccent: "tu equipo de tecnología",
-      desc: "Somos una empresa de desarrollo web con más de 4 años transformando ideas en experiencias digitales que generan resultados reales. Trabajamos con marcas, negocios y profesionales de toda Latinoamérica.",
+      desc: "Desde hace 4 años trabajamos mano a mano con profesionales de Latinoamérica para que su presencia en internet esté a la altura de su talento. Tu idea merece una experiencia digital que la potencie.",
       features: [
         { title: "+100 clientes", desc: "Marcas y negocios confían en nosotros" },
         { title: "4+ años", desc: "De experiencia en desarrollo web" },

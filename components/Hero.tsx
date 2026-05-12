@@ -123,9 +123,8 @@ export default function Hero() {
               >
                 {lang === "es" ? (
                   <>
-                    Desarrollamos webs que{" "}
-                    <span className="gradient-text">convierten</span>{" "}
-                    visitas en clientes
+                    Tu web debería trabajar para vos. Nosotros nos encargamos de que cada visita sea una{" "}
+                    <span className="gradient-text">oportunidad ganada.</span>
                   </>
                 ) : (
                   <>
