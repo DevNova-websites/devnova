@@ -1,15 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
-import { Users, Clock, HeadphonesIcon, Sparkles } from "lucide-react";
+import { Users, Clock, HeadphonesIcon, Sparkles, Globe } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
-const icons = [Users, Clock, HeadphonesIcon, Sparkles];
+const icons = [Sparkles, Clock, HeadphonesIcon, Globe, Users];
 
 const iconStyles = [
   { bg: "rgba(245,196,0,0.12)", color: "#F5C400" },
   { bg: "rgba(255,159,10,0.12)", color: "#FF9F0A" },
   { bg: "rgba(255,214,10,0.12)", color: "#FFD60A" },
   { bg: "rgba(245,196,0,0.12)", color: "#F5C400" },
+  { bg: "rgba(255,159,10,0.12)", color: "#FF9F0A" },
 ];
 
 export default function About() {
@@ -83,11 +84,12 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* Right — feature cards 2×2 */}
+          {/* Right — feature cards */}
           <div className="grid grid-cols-2 gap-4">
             {t.about.features.map((feature, i) => {
               const Icon = icons[i];
               const style = iconStyles[i];
+              const isLastOdd = i === t.about.features.length - 1 && t.about.features.length % 2 !== 0;
               return (
                 <motion.div
                   key={i}
@@ -95,7 +97,7 @@ export default function About() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.7, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-                  className="card p-7 group cursor-default"
+                  className={`card p-7 group cursor-default${isLastOdd ? " col-span-2 max-w-sm mx-auto w-full" : ""}`}
                 >
                   <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300"

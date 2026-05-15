@@ -123,14 +123,13 @@ export default function Hero() {
               >
                 {lang === "es" ? (
                   <>
-                    Tu web debería trabajar para vos. Nosotros nos encargamos de que cada visita sea una{" "}
-                    <span className="gradient-text">oportunidad ganada.</span>
+                    Websites que{" "}
+                    <span className="gradient-text">impulsan tu negocio</span>
                   </>
                 ) : (
                   <>
-                    We build webs that turn{" "}
-                    <span className="gradient-text">visitors</span>{" "}
-                    into customers
+                    Websites that{" "}
+                    <span className="gradient-text">drive your business</span>
                   </>
                 )}
               </motion.h1>
@@ -163,23 +162,6 @@ export default function Hero() {
                 </a>
               </motion.div>
 
-              {/* Stats */}
-              <motion.div
-                {...fadeUp(0.4)}
-                className="grid grid-cols-3 gap-6 pt-10"
-                style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
-              >
-                {[
-                  { value: t.hero.stat1, label: t.hero.stat1Label },
-                  { value: t.hero.stat2, label: t.hero.stat2Label },
-                  { value: t.hero.stat3, label: t.hero.stat3Label },
-                ].map((stat, i) => (
-                  <div key={i}>
-                    <div className="text-3xl xl:text-4xl font-black gradient-text">{stat.value}</div>
-                    <div className="text-sm text-white/35 mt-1 font-medium">{stat.label}</div>
-                  </div>
-                ))}
-              </motion.div>
 
               {/* Mobile mascot */}
               {mounted && (
@@ -266,7 +248,7 @@ export default function Hero() {
                       ))}
                       <span className="text-xs font-bold text-white ml-1">5.0</span>
                     </div>
-                    <p className="text-[10px] text-white/45">+100 clientes felices</p>
+                    <p className="text-[10px] text-white/45">Clientes satisfechos</p>
                   </div>
                 </FloatingCard>
 

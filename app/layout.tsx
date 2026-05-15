@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "DevNova — Desarrollo Web que Convierte",
   description:
-    "Agencia de desarrollo web en Argentina. Creamos sitios modernos, rápidos y diseñados para vender. Más de 100 clientes satisfechos. Solicitá tu presupuesto gratis.",
-  keywords: ["desarrollo web", "agencia web", "landing page", "ecommerce", "DevNova", "diseño web Argentina"],
+    "Agencia de diseño web en Argentina. Creamos sitios modernos, rápidos y a medida. Diseño web, branding y gestión de redes sociales. Solicitá tu presupuesto gratis.",
+  keywords: ["desarrollo web", "agencia web", "landing page", "diseño web", "branding", "redes sociales", "DevNova", "diseño web Argentina"],
   authors: [{ name: "DevNova" }],
   openGraph: {
     title: "DevNova — Desarrollo Web que Convierte",
