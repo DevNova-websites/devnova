@@ -26,7 +26,6 @@ const translations = {
       desc: "Desde hace 4 años trabajamos mano a mano con profesionales de Latinoamérica para que su presencia en internet esté a la altura de su talento. Tu idea merece una experiencia digital que la potencie.",
       features: [
         { title: "UX/UI experto", desc: "Diseño de experiencias centrado en el usuario y la conversión." },
-        { title: "+4 años de experiencia", desc: "Años construyendo presencias digitales que generan resultados." },
         { title: "Soporte real", desc: "Acompañamiento genuino durante y después del lanzamiento." },
         { title: "Desarrollo a medida", desc: "Cada web es única, construida según tu negocio y objetivos." },
         { title: "Redes sociales", desc: "Gestión y diseño de contenido para tus canales digitales." },
@@ -186,7 +185,6 @@ const translations = {
       desc: "We are a web development company with 4+ years transforming ideas into digital experiences that generate real results. We work with brands and businesses across Latin America and beyond.",
       features: [
         { title: "Expert UX/UI", desc: "User-centered design focused on experience and conversion." },
-        { title: "4+ years", desc: "Years building digital presences that generate real results." },
         { title: "Real support", desc: "Genuine accompaniment during and after your launch." },
         { title: "Custom development", desc: "Every website is unique, built around your business and goals." },
         { title: "Social media", desc: "Content management and design for your digital channels." },

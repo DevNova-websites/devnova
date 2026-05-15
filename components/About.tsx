@@ -1,16 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
-import { Users, Clock, HeadphonesIcon, Sparkles, Globe } from "lucide-react";
+import { Users, HeadphonesIcon, Sparkles, Globe } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
-const icons = [Sparkles, Clock, HeadphonesIcon, Globe, Users];
+const icons = [Sparkles, HeadphonesIcon, Globe, Users];
 
 const iconStyles = [
   { bg: "rgba(245,196,0,0.12)", color: "#F5C400" },
   { bg: "rgba(255,159,10,0.12)", color: "#FF9F0A" },
   { bg: "rgba(255,214,10,0.12)", color: "#FFD60A" },
   { bg: "rgba(245,196,0,0.12)", color: "#F5C400" },
-  { bg: "rgba(255,159,10,0.12)", color: "#FF9F0A" },
 ];
 
 export default function About() {
