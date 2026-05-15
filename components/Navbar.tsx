@@ -41,9 +41,9 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 h-[68px] flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group">
-            <NovaLogo size={34} className="transition-transform duration-300 group-hover:scale-110" />
-            <span className="font-black text-white text-lg tracking-tight">DevNova</span>
+          <a href="#" className="flex items-center gap-1.5 group">
+            <NovaLogo size={44} className="transition-transform duration-300 group-hover:scale-110 block" />
+            <span className="font-black text-white text-lg tracking-tight leading-none">DevNova</span>
           </a>
 
           {/* Desktop nav */}

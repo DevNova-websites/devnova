@@ -1,35 +1,18 @@
 "use client";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 // ─── Small logo mark: Navbar, Footer, Modal ───────────────────────────────
 export function NovaLogo({ size = 36, className = "" }: { size?: number; className?: string }) {
   return (
-    <svg
+    <Image
+      src="/imagenes/logo-devnova.png"
+      alt="DevNova"
       width={size}
       height={size}
-      viewBox="0 0 300 300"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
       className={className}
-    >
-      <defs>
-        <linearGradient id="nv-lg" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFD60A" />
-          <stop offset="100%" stopColor="#FF9F0A" />
-        </linearGradient>
-      </defs>
-      {/* 8-pointed angular star */}
-      <path
-        d="M150,55 L170,102 L217,83 L198,130 L245,150 L198,170 L217,217 L170,198 L150,245 L130,198 L83,217 L102,170 L55,150 L102,130 L83,83 L130,102 Z"
-        fill="url(#nv-lg)"
-      />
-      {/* Pixel eyes */}
-      <rect x="123" y="134" width="18" height="24" rx="4" fill="#080808" />
-      <rect x="159" y="134" width="18" height="24" rx="4" fill="#080808" />
-      {/* Eye highlights */}
-      <rect x="125" y="136" width="6" height="6" rx="1.5" fill="#FFD60A" />
-      <rect x="161" y="136" width="6" height="6" rx="1.5" fill="#FFD60A" />
-    </svg>
+      style={{ objectFit: "contain" }}
+    />
   );
 }
 
