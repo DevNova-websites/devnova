@@ -16,7 +16,7 @@ export default function About() {
   const { t } = useLang();
 
   return (
-    <section id="about" className="relative py-36 overflow-hidden">
+    <section id="about" className="relative py-20 overflow-hidden">
       {/* Divider line */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
@@ -24,7 +24,7 @@ export default function About() {
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-14 items-center">
           {/* Left */}
           <div>
             <motion.div

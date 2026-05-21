@@ -16,7 +16,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative pt-20 pb-8 overflow-hidden"
+      className="relative pt-14 pb-8 overflow-hidden"
       style={{
         background: "#050505",
         borderTop: "1px solid rgba(255,255,255,0.06)",
@@ -98,13 +98,12 @@ export default function Footer() {
 
         {/* Bottom */}
         <div
-          className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
+          className="pt-6 flex items-center justify-center"
           style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}
         >
-          <p className="text-xs text-white/25">
-            © {new Date().getFullYear()} DevNova. {t.footer.copyright}
+          <p className="text-xs text-white/30 text-center">
+            &copy; Desarrollado por DevNova &mdash; Todos los derechos reservados
           </p>
-          <p className="text-xs text-white/20">{t.footer.tagline}</p>
         </div>
       </div>
     </footer>

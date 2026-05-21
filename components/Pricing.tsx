@@ -11,7 +11,7 @@ export default function Pricing() {
 
   return (
     <>
-      <section id="pricing" className="relative py-36 overflow-hidden">
+      <section id="pricing" className="relative py-20 overflow-hidden">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
           style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
@@ -25,7 +25,7 @@ export default function Pricing() {
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           {/* Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}

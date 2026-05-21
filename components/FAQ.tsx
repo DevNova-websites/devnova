@@ -9,7 +9,7 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative py-36 overflow-hidden">
+    <section id="faq" className="relative py-20 overflow-hidden">
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
@@ -17,7 +17,7 @@ export default function FAQ() {
 
       <div className="max-w-2xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-14">
+        <div className="text-center mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

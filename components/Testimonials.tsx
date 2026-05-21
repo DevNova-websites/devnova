@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
+const profileImages: Record<string, string> = {
+  "Mercedes Chanquia Aguirre": "/imagenes/perfil-tu-tia.png",
+  "Jorge Ledesma": "/imagenes/perfil-chabon.png",
+  "Micaela Fabbiani": "/imagenes/perfil-micaelafabianni.png",
+};
+
 const avatarColors = [
   { from: "#F5C400", to: "#FF9F0A" },
   { from: "#FF9F0A", to: "#FF5722" },
@@ -16,7 +22,7 @@ export default function Testimonials() {
   const { t } = useLang();
 
   return (
-    <section className="relative py-36 overflow-hidden">
+    <section className="relative py-20 overflow-hidden">
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
@@ -30,7 +36,7 @@ export default function Testimonials() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -90,15 +96,25 @@ export default function Testimonials() {
 
                 {/* Author */}
                 <div className="flex items-center gap-3 pt-5" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-                  <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0"
-                    style={{
-                      background: `linear-gradient(135deg, ${av.from}, ${av.to})`,
-                      color: "#080808",
-                    }}
-                  >
-                    {item.avatar}
-                  </div>
+                  {profileImages[item.name] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={profileImages[item.name]}
+                      alt={item.name}
+                      className="w-9 h-9 rounded-full object-cover flex-shrink-0"
+                      style={{ border: `1px solid ${av.from}33` }}
+                    />
+                  ) : (
+                    <div
+                      className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0"
+                      style={{
+                        background: `linear-gradient(135deg, ${av.from}, ${av.to})`,
+                        color: "#080808",
+                      }}
+                    >
+                      {item.avatar}
+                    </div>
+                  )}
                   <div>
                     <p className="text-sm font-bold text-white">{item.name}</p>
                     <p className="text-xs text-white/35">{item.role}</p>

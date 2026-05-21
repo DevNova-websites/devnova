@@ -97,7 +97,7 @@ const translations = {
       items: [
         { name: "Mercedes Chanquia Aguirre", role: "Artista", text: "Trabajar con DevNova fue súper simple. Entendieron mi identidad artística y lograron una web elegante, moderna y muy alineada con mi marca personal.", avatar: "M" },
         { name: "Jorge Ledesma", role: "Dueño JL BJJ Academy", text: "Necesitábamos una presencia online profesional para nuestra academia y DevNova resolvió todo de forma rápida y prolija. Muy recomendable.", avatar: "J" },
-        { name: "Monica Gomez", role: "LideraMaps", text: "Nos ayudaron a ordenar nuestra presencia digital y crear una web clara, profesional y pensada para crecer.", avatar: "M" },
+        { name: "Micaela Fabbiani", role: "LideraMaps", text: "Nos ayudaron a ordenar nuestra presencia digital y crear una web clara, profesional y pensada para crecer.", avatar: "MF" },
       ],
     },
     faq: {
@@ -105,7 +105,7 @@ const translations = {
       title: "Todo lo que",
       titleAccent: "necesitás saber",
       items: [
-        { q: "¿Cuánto tarda en estar lista una página web?", a: "Depende del proyecto. Una landing page puede estar lista en 5-7 días. Una web corporativa puede tomar entre 3 y 6 semanas. Te damos un plazo exacto antes de comenzar." },
+        { q: "¿Cuánto tarda en estar lista una página web?", a: "La mayoría de los proyectos se entregan entre 1 y 2 semanas, dependiendo de la complejidad. Antes de comenzar te damos un plazo exacto." },
         { q: "¿El diseño es completamente personalizado?", a: "Sí. Cada web que desarrollamos se diseña desde cero en base a tu marca, objetivos y audiencia. No usamos plantillas genéricas." },
         { q: "¿También trabajan gestión y diseño de redes sociales?", a: "Sí. Ofrecemos servicios de diseño y gestión de contenido para redes sociales para que toda tu presencia digital sea consistente y activa." },
         { q: "¿El precio incluye dominio y hosting?", a: "Nuestros presupuestos base no incluyen dominio y hosting (son servicios de terceros con renovación anual). Sin embargo, los gestionamos por vos y te recomendamos las mejores opciones." },
@@ -259,7 +259,7 @@ const translations = {
       items: [
         { name: "Mercedes Chanquia Aguirre", role: "Artist", text: "Working with DevNova was super simple. They understood my artistic identity and created an elegant, modern website perfectly aligned with my personal brand.", avatar: "M" },
         { name: "Jorge Ledesma", role: "Owner, JL BJJ Academy", text: "We needed a professional online presence for our academy and DevNova solved everything quickly and neatly. Highly recommended.", avatar: "J" },
-        { name: "Monica Gomez", role: "LideraMaps", text: "They helped us organize our digital presence and create a clear, professional website built to grow.", avatar: "M" },
+        { name: "Micaela Fabbiani", role: "LideraMaps", text: "They helped us organize our digital presence and create a clear, professional website built to grow.", avatar: "MF" },
       ],
     },
     faq: {

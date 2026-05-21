@@ -33,7 +33,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-36 overflow-hidden">
+    <section id="contact" className="relative py-20 overflow-hidden">
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
@@ -47,7 +47,7 @@ export default function Contact() {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function Contact() {
             </a>
 
             <a
-              href="mailto:info@devnova.com"
+              href="mailto:info@devnova.com.ar"
               className="group flex items-center gap-4 p-5 rounded-[18px] transition-all duration-300"
               style={{ background: "rgba(245,196,0,0.05)", border: "1px solid rgba(245,196,0,0.15)" }}
             >
@@ -115,7 +115,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="font-bold text-white text-sm">Email</p>
-                <p className="text-sm text-white/45">info@devnova.com</p>
+                <p className="text-sm text-white/45">info@devnova.com.ar</p>
                 <p className="text-xs mt-0.5" style={{ color: "rgba(245,196,0,0.55)" }}>{t.contact.or}</p>
               </div>
             </a>

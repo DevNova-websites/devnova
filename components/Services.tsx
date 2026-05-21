@@ -20,7 +20,7 @@ export default function Services() {
   const { t } = useLang();
 
   return (
-    <section id="services" className="relative py-36 overflow-hidden">
+    <section id="services" className="relative py-20 overflow-hidden">
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-px"
         style={{ background: "linear-gradient(90deg, transparent, rgba(245,196,0,0.2), transparent)" }}
@@ -28,7 +28,7 @@ export default function Services() {
 
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
-        <div className="mb-16">
+        <div className="mb-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
