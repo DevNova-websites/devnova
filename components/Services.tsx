@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Globe, Rocket, ShoppingCart, Zap, Search, Shield } from "lucide-react";
+import { Globe, Rocket, ShoppingCart, Zap, Search, Shield, Layers } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -36,7 +36,10 @@ export default function Services() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mb-6"
           >
-            <span className="badge">{t.services.badge}</span>
+            <span className="badge">
+              <Layers size={10} />
+              {t.services.badge}
+            </span>
           </motion.div>
 
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">

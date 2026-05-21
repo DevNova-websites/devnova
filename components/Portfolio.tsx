@@ -38,28 +38,16 @@ export default function Portfolio() {
             </span>
           </motion.div>
 
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-            <motion.h2
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="text-5xl md:text-6xl font-black text-white leading-[1.06] tracking-tight"
-            >
-              {t.portfolio.title}{" "}
-              <span className="gradient-text">{t.portfolio.titleAccent}</span>
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-              className="text-white/40 max-w-xs text-sm sm:text-right leading-relaxed flex-shrink-0"
-            >
-              {t.portfolio.sub}
-            </motion.p>
-          </div>
+          <motion.h2
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            className="text-5xl md:text-6xl font-black text-white leading-[1.06] tracking-tight"
+          >
+            {t.portfolio.title}{" "}
+            <span className="gradient-text">{t.portfolio.titleAccent}</span>
+          </motion.h2>
         </div>
 
         {/* Grid */}

@@ -6,7 +6,6 @@ import Pricing from "@/components/Pricing";
 import Portfolio from "@/components/Portfolio";
 import Testimonials from "@/components/Testimonials";
 import Benefits from "@/components/Benefits";
-import FormSection from "@/components/FormSection";
 import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -29,11 +28,10 @@ export default function Home() {
         <Hero />
         <About />
         <Services />
+        <Benefits />
         <Pricing />
         <Portfolio />
         <Testimonials />
-        <Benefits />
-        <FormSection />
         <FAQ />
         <Contact />
       </main>
