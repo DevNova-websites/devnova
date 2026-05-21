@@ -19,10 +19,6 @@ export const metadata: Metadata = {
     "Agencia de diseño web en Argentina. Creamos sitios modernos, rápidos y a medida. Diseño web, branding y gestión de redes sociales. Solicitá tu presupuesto gratis.",
   keywords: ["desarrollo web", "agencia web", "landing page", "diseño web", "branding", "redes sociales", "DevNova", "diseño web Argentina"],
   authors: [{ name: "DevNova" }],
-  icons: {
-    icon: "/imagenes/logo-para-favicon-nuevo.png",
-    apple: "/imagenes/logo-para-favicon-nuevo.png",
-  },
   openGraph: {
     title: "DevNova — Desarrollo Web",
     description: "Creamos sitios web modernos y rápidos diseñados para vender.",
