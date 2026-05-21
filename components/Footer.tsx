@@ -50,7 +50,7 @@ export default function Footer() {
                 <MessageCircle size={16} style={{ color: "#4ade80" }} />
               </a>
               <a
-                href="mailto:info@devnova.com"
+                href="mailto:info@devnova.com.ar"
                 className="w-9 h-9 rounded-xl flex items-center justify-center transition-all hover:scale-110"
                 style={{ background: "rgba(245,196,0,0.09)", border: "1px solid rgba(245,196,0,0.18)" }}
               >
@@ -83,7 +83,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li>
                 <a href="mailto:info@devnova.com" className="text-sm text-white/40 hover:text-white transition-colors">
-                  info@devnova.com
+                  info@devnova.com.ar
                 </a>
               </li>
               <li>
