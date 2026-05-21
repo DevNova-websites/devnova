@@ -121,17 +121,9 @@ export default function Hero() {
                 {...fadeUp(0.1)}
                 className="text-5xl sm:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tight leading-[1.04] text-white mb-7"
               >
-                {lang === "es" ? (
-                  <>
-                    Websites que{" "}
-                    <span className="gradient-text">impulsan tu negocio</span>
-                  </>
-                ) : (
-                  <>
-                    Websites that{" "}
-                    <span className="gradient-text">drive your business</span>
-                  </>
-                )}
+                <span className="gradient-text">
+                  {lang === "es" ? "Desarrollo Web" : "Web Development"}
+                </span>
               </motion.h1>
 
               {/* Subtitle */}

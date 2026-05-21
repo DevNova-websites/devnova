@@ -98,6 +98,9 @@ export default function Pricing() {
                 <div className="mb-7">
                   <h3 className="text-xl font-black text-white mb-1">{plan.name}</h3>
                   <p className="text-sm text-white/40 mb-5">{plan.desc}</p>
+                  {plan.pricePrefix && (
+                    <p className="text-[11px] uppercase tracking-widest text-white/40 mb-1">{plan.pricePrefix}</p>
+                  )}
                   <div className="text-4xl font-black gradient-text">{plan.price}</div>
                 </div>
 
