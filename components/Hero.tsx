@@ -155,17 +155,6 @@ export default function Hero() {
               </motion.div>
 
 
-              {/* Mobile mascot */}
-              {mounted && (
-                <motion.div
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.5, ease: EASE }}
-                  className="flex lg:hidden justify-center mt-14"
-                >
-                  <NovaMascot size={200} className="float" />
-                </motion.div>
-              )}
             </div>
 
             {/* ── RIGHT: Mascot + Floating Cards ─────────────── */}
@@ -245,7 +234,7 @@ export default function Hero() {
                 </FloatingCard>
 
                 {/* Nova mascot */}
-                <NovaMascot size={310} className="float" animated />
+                <NovaMascot size={400} className="float" animated />
               </div>
             )}
           </div>

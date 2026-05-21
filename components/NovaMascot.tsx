@@ -16,7 +16,7 @@ export function NovaLogo({ size = 36, className = "" }: { size?: number; classNa
   );
 }
 
-// ─── Full animated mascot: Hero illustration ──────────────────────────────
+// ─── Planet hero illustration ─────────────────────────────────────────────
 export default function NovaMascot({
   size = 300,
   className = "",
@@ -37,89 +37,168 @@ export default function NovaMascot({
       <svg
         width={size}
         height={size}
-        viewBox="0 0 300 300"
+        viewBox="0 0 400 400"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="nv-star" x1="15%" y1="0%" x2="85%" y2="100%">
-            <stop offset="0%" stopColor="#FFD60A" />
-            <stop offset="45%" stopColor="#F5C400" />
-            <stop offset="100%" stopColor="#FF9F0A" />
-          </linearGradient>
-          <filter id="nv-glow" x="-28%" y="-28%" width="156%" height="156%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="blur" />
-            <feFlood floodColor="#F5C400" floodOpacity="0.5" result="color" />
+          {/* Outer ambient halo */}
+          <radialGradient id="nv-halo" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stopColor="#F5C400" stopOpacity="0.10" />
+            <stop offset="55%"  stopColor="#F5C400" stopOpacity="0.03" />
+            <stop offset="100%" stopColor="#F5C400" stopOpacity="0"    />
+          </radialGradient>
+
+          {/* Planet atmosphere rim */}
+          <radialGradient id="nv-atmo" cx="38%" cy="34%" r="66%">
+            <stop offset="62%"  stopColor="#F5C400" stopOpacity="0"    />
+            <stop offset="100%" stopColor="#F5C400" stopOpacity="0.22" />
+          </radialGradient>
+
+          {/* Planet surface dark base */}
+          <radialGradient id="nv-surface" cx="36%" cy="32%" r="70%">
+            <stop offset="0%"   stopColor="#1c1400" />
+            <stop offset="100%" stopColor="#060606" />
+          </radialGradient>
+
+          {/* Planet glow filter */}
+          <filter id="nv-planet-glow" x="-22%" y="-22%" width="144%" height="144%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="8" result="blur" />
+            <feFlood floodColor="#F5C400" floodOpacity="0.25" result="color" />
             <feComposite in="color" in2="blur" operator="in" result="shadow" />
             <feMerge>
               <feMergeNode in="shadow" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <radialGradient id="nv-halo" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#F5C400" stopOpacity="0.14" />
-            <stop offset="65%" stopColor="#F5C400" stopOpacity="0.04" />
-            <stop offset="100%" stopColor="#F5C400" stopOpacity="0" />
-          </radialGradient>
+
+          {/* Star dot glow */}
+          <filter id="nv-dot-glow" x="-150%" y="-150%" width="400%" height="400%">
+            <feGaussianBlur stdDeviation="1.8" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          {/* Logo circular clip */}
+          <clipPath id="nv-logo-clip">
+            <circle cx="200" cy="200" r="76" />
+          </clipPath>
         </defs>
 
-        {/* Ambient halo */}
-        <circle cx="150" cy="150" r="148" fill="url(#nv-halo)" />
+        {/* ── Outer ambient halo ─────────────────────────────── */}
+        <circle cx="200" cy="200" r="192" fill="url(#nv-halo)" />
 
-        {/* Outer orbit ring — rotates clockwise */}
+        {/* ── Static background sparkles ─────────────────────── */}
+        <circle cx="62"  cy="82"  r="1.2" fill="white"   opacity="0.35" />
+        <circle cx="330" cy="68"  r="1.5" fill="white"   opacity="0.28" />
+        <circle cx="44"  cy="295" r="1.0" fill="white"   opacity="0.22" />
+        <circle cx="352" cy="310" r="1.3" fill="white"   opacity="0.25" />
+        <circle cx="158" cy="34"  r="1.0" fill="#FFD60A" opacity="0.55" />
+        <circle cx="255" cy="355" r="1.2" fill="#FFD60A" opacity="0.40" />
+        <circle cx="366" cy="155" r="0.9" fill="white"   opacity="0.28" />
+        <circle cx="36"  cy="175" r="0.8" fill="#FFD60A" opacity="0.32" />
+        <circle cx="295" cy="42"  r="1.0" fill="white"   opacity="0.20" />
+        <circle cx="108" cy="358" r="0.9" fill="white"   opacity="0.22" />
+
+        {/* ── Back half of outer ring (behind planet) ─────────── */}
+        <ellipse
+          cx="200" cy="200" rx="166" ry="46"
+          stroke="#F5C400" strokeWidth="0.9" strokeDasharray="5 22"
+          opacity="0.15" transform="rotate(-16 200 200)"
+        />
+
+        {/* ── Outer orbit — rotating stars (clockwise, slow) ──── */}
         <motion.g
           animate={animated ? { rotate: 360 } : undefined}
-          transition={animated ? { duration: 32, repeat: Infinity, ease: "linear" } : undefined}
-          style={{ transformOrigin: "150px 150px" }}
+          transition={animated ? { duration: 24, repeat: Infinity, ease: "linear" } : undefined}
+          style={{ transformOrigin: "200px 200px" }}
         >
-          <circle cx="150" cy="150" r="132" stroke="#F5C400" strokeWidth="1" strokeDasharray="4 16" opacity="0.28" />
-          {/* Cardinal nodes */}
-          <circle cx="150" cy="18"  r="4"   fill="#F5C400" opacity="0.7" />
-          <circle cx="282" cy="150" r="4"   fill="#F5C400" opacity="0.7" />
-          <circle cx="150" cy="282" r="4"   fill="#F5C400" opacity="0.7" />
-          <circle cx="18"  cy="150" r="4"   fill="#F5C400" opacity="0.7" />
-          {/* Diagonal minor nodes */}
-          <circle cx="243" cy="57"  r="2.5" fill="#FF9F0A" opacity="0.45" />
-          <circle cx="243" cy="243" r="2.5" fill="#FF9F0A" opacity="0.45" />
-          <circle cx="57"  cy="243" r="2.5" fill="#FF9F0A" opacity="0.45" />
-          <circle cx="57"  cy="57"  r="2.5" fill="#FF9F0A" opacity="0.45" />
+          {/* top */}
+          <circle cx="200" cy="34"  r="4"   fill="#F5C400" opacity="0.70" filter="url(#nv-dot-glow)" />
+          {/* right */}
+          <circle cx="352" cy="190" r="2.8" fill="#FFD60A" opacity="0.55" filter="url(#nv-dot-glow)" />
+          {/* bottom-left */}
+          <circle cx="72"  cy="218" r="2.2" fill="#FF9F0A" opacity="0.45" />
         </motion.g>
 
-        {/* Inner ring — counter-rotates */}
+        {/* ── Inner ring (behind planet) ───────────────────────── */}
+        <ellipse
+          cx="200" cy="200" rx="124" ry="33"
+          stroke="#FFD60A" strokeWidth="0.6" strokeDasharray="3 16"
+          opacity="0.18" transform="rotate(18 200 200)"
+        />
+
+        {/* ── Inner orbit — rotating stars (counter-clockwise) ─── */}
         <motion.g
           animate={animated ? { rotate: -360 } : undefined}
-          transition={animated ? { duration: 22, repeat: Infinity, ease: "linear" } : undefined}
-          style={{ transformOrigin: "150px 150px" }}
+          transition={animated ? { duration: 16, repeat: Infinity, ease: "linear" } : undefined}
+          style={{ transformOrigin: "200px 200px" }}
         >
-          <circle cx="150" cy="150" r="108" stroke="#FFD60A" strokeWidth="0.6" strokeDasharray="2 22" opacity="0.16" />
+          {/* top */}
+          <circle cx="200" cy="76"  r="3.2" fill="#FFD60A" opacity="0.65" filter="url(#nv-dot-glow)" />
+          {/* bottom-right */}
+          <circle cx="318" cy="205" r="2"   fill="#F5C400" opacity="0.48" />
         </motion.g>
 
-        {/* 8-pointed angular star — subtle breathe pulse */}
-        <motion.path
-          d="M150,55 L170,102 L217,83 L198,130 L245,150 L198,170 L217,217 L170,198 L150,245 L130,198 L83,217 L102,170 L55,150 L102,130 L83,83 L130,102 Z"
-          fill="url(#nv-star)"
-          filter="url(#nv-glow)"
-          animate={animated ? { scale: [1, 1.02, 1] } : undefined}
-          transition={animated ? { duration: 5, repeat: Infinity, ease: "easeInOut" } : undefined}
-          style={{ transformOrigin: "150px 150px" }}
+        {/* ── Planet soft glow shell ─────────────────────────── */}
+        <circle cx="200" cy="200" r="90"
+          fill="#F5C400" opacity="0.025"
         />
 
-        {/* Inner octagon ring — geometric detail */}
-        <polygon
-          points="150,100 186,114 200,150 186,186 150,200 114,186 100,150 114,114"
-          stroke="#FFD60A"
-          strokeWidth="0.8"
+        {/* ── Planet body ────────────────────────────────────── */}
+        <circle
+          cx="200" cy="200" r="76"
+          fill="url(#nv-surface)"
+          filter="url(#nv-planet-glow)"
+        />
+
+        {/* ── Logo texture (clipped to circle) ──────────────── */}
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+        <image
+          href="/imagenes/logo-devnova.png"
+          x="124" y="124"
+          width="152" height="152"
+          clipPath="url(#nv-logo-clip)"
+          preserveAspectRatio="xMidYMid meet"
+        />
+
+        {/* ── Atmosphere rim overlay ─────────────────────────── */}
+        <circle cx="200" cy="200" r="76" fill="url(#nv-atmo)" />
+
+        {/* ── Specular highlight (top-left glint) ───────────── */}
+        <ellipse
+          cx="176" cy="164" rx="22" ry="14"
+          fill="white" opacity="0.055"
+          transform="rotate(-30 176 164)"
+        />
+
+        {/* ── Front arc of outer ring (in front of planet) ──── */}
+        <path
+          d="M 34 200 A 166 46 0 0 0 366 200"
+          stroke="#F5C400" strokeWidth="0.9" strokeDasharray="5 22"
+          opacity="0.32" transform="rotate(-16 200 200)"
           fill="none"
-          opacity="0.2"
         />
 
-        {/* Eyes */}
-        <rect x="123" y="134" width="18" height="24" rx="4" fill="#080808" />
-        <rect x="159" y="134" width="18" height="24" rx="4" fill="#080808" />
+        {/* ── Front arc of inner ring ────────────────────────── */}
+        <path
+          d="M 76 200 A 124 33 0 0 0 324 200"
+          stroke="#FFD60A" strokeWidth="0.7" strokeDasharray="3 16"
+          opacity="0.28" transform="rotate(18 200 200)"
+          fill="none"
+        />
 
-        {/* Eye highlights — LED glow dots */}
-        <rect x="125" y="136" width="6" height="6" rx="1.5" fill="#FFD60A" />
-        <rect x="161" y="136" width="6" height="6" rx="1.5" fill="#FFD60A" />
+        {/* ── Breathing pulse ring ───────────────────────────── */}
+        <motion.circle
+          cx="200" cy="200" r="92"
+          stroke="#F5C400" strokeWidth="0.6"
+          fill="none"
+          opacity="0"
+          animate={animated ? { opacity: [0, 0.08, 0], r: [88, 102, 88] } : undefined}
+          transition={animated ? { duration: 4, repeat: Infinity, ease: "easeInOut" } : undefined}
+        />
       </svg>
     </motion.div>
   );
