@@ -79,7 +79,7 @@ const translations = {
       ],
     },
     portfolio: {
-      badge: "Nuestro trabajo",
+      badge: "Nuestros trabajos",
       title: "Algunos proyectos",
       titleAccent: "realizados",
       sub: "Diseñamos experiencias digitales para marcas, negocios y profesionales",

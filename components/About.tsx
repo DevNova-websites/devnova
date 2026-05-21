@@ -68,7 +68,7 @@ export default function About() {
               transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-wrap gap-2.5"
             >
-              {["Stripe Secure", "SSL Incluido", "GDPR Friendly", "99.9% Uptime"].map((badge) => (
+              {["SSL Incluido", "GDPR Friendly", "99.9% Uptime"].map((badge) => (
                 <span
                   key={badge}
                   className="px-3.5 py-1.5 text-xs font-semibold rounded-lg text-white/50"
