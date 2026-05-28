@@ -4,7 +4,7 @@ import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 
 const screenshotUrl = (url: string) =>
-  `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url`;
+  `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url&waitFor=2500`;
 
 const tagStyles = [
   { bg: "rgba(245,196,0,0.1)",  border: "rgba(245,196,0,0.3)",  text: "#F5C400"  },

@@ -86,8 +86,8 @@ const translations = {
       viewProject: "Ver proyecto",
       projects: [
         { name: "Mercedes Chanquia", category: "Portfolio personal / marca personal", desc: "Sitio de portfolio profesional con diseño elegante y secciones de presentación.", url: "https://mercedeschanquia.netlify.app/#home" },
-        { name: "Lidera Maps", category: "Plataforma / negocio digital", desc: "Plataforma web para negocio digital con experiencia de usuario optimizada.", url: "https://lideramaps.com.ar/" },
         { name: "Samuray BJJ", category: "Academia / servicios", desc: "Web para academia de artes marciales con información de clases y sistema de contacto.", url: "https://samuray-bjj.netlify.app/" },
+        { name: "El Teatro Abasto", category: "Teatro / Cultura", desc: "Sitio institucional para sala de teatro con cartelera de obras, información del espacio y reserva de entradas.", url: "https://elteatroabasto.com.ar" },
       ],
     },
     testimonials: {
@@ -248,8 +248,8 @@ const translations = {
       viewProject: "View project",
       projects: [
         { name: "Mercedes Chanquia", category: "Personal portfolio / personal brand", desc: "Professional portfolio site with elegant design and presentation sections.", url: "https://mercedeschanquia.netlify.app/#home" },
-        { name: "Lidera Maps", category: "Platform / digital business", desc: "Web platform for digital business with optimized user experience.", url: "https://lideramaps.com.ar/" },
         { name: "Samuray BJJ", category: "Academy / services", desc: "Website for martial arts academy with class info and contact system.", url: "https://samuray-bjj.netlify.app/" },
+        { name: "El Teatro Abasto", category: "Theater / Culture", desc: "Institutional website for a theater venue with show listings, venue info and ticket reservations.", url: "https://elteatroabasto.com.ar" },
       ],
     },
     testimonials: {
