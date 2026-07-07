@@ -85,9 +85,11 @@ const translations = {
       sub: "Diseñamos experiencias digitales para marcas, negocios y profesionales",
       viewProject: "Ver proyecto",
       projects: [
-        { name: "Mercedes Chanquia", category: "Portfolio personal / marca personal", desc: "Sitio de portfolio profesional con diseño elegante y secciones de presentación.", url: "https://mercedeschanquia.netlify.app/#home" },
+        { name: "Mercedes Chanquia", category: "Portfolio personal / marca personal", desc: "Sitio de portfolio profesional con diseño elegante y secciones de presentación.", url: "https://mercedeschanquia.netlify.app/#home", thumbnail: "/imagenes/preview-mercedeschanquia.png" },
         { name: "Samuray BJJ", category: "Academia / servicios", desc: "Web para academia de artes marciales con información de clases y sistema de contacto.", url: "https://samuray-bjj.netlify.app/" },
         { name: "El Teatro Abasto", category: "Teatro / Cultura", desc: "Sitio institucional para sala de teatro con cartelera de obras, información del espacio y reserva de entradas.", url: "https://elteatroabasto.com.ar" },
+        { name: "Nor-Falk", category: "Sitio corporativo", desc: "Sitio web institucional con diseño moderno y presentación de servicios.", url: "https://nor-falk.com" },
+        { name: "Dragisela Rodríguez", category: "Portfolio personal / marca personal", desc: "Sitio de portfolio profesional con presentación de trabajos y servicios.", url: "https://dragiselarodriguez.com.ar/" },
       ],
     },
     testimonials: {
@@ -247,9 +249,11 @@ const translations = {
       sub: "We design digital experiences for brands, businesses and professionals",
       viewProject: "View project",
       projects: [
-        { name: "Mercedes Chanquia", category: "Personal portfolio / personal brand", desc: "Professional portfolio site with elegant design and presentation sections.", url: "https://mercedeschanquia.netlify.app/#home" },
+        { name: "Mercedes Chanquia", category: "Personal portfolio / personal brand", desc: "Professional portfolio site with elegant design and presentation sections.", url: "https://mercedeschanquia.netlify.app/#home", thumbnail: "/imagenes/preview-mercedeschanquia.png" },
         { name: "Samuray BJJ", category: "Academy / services", desc: "Website for martial arts academy with class info and contact system.", url: "https://samuray-bjj.netlify.app/" },
         { name: "El Teatro Abasto", category: "Theater / Culture", desc: "Institutional website for a theater venue with show listings, venue info and ticket reservations.", url: "https://elteatroabasto.com.ar" },
+        { name: "Nor-Falk", category: "Corporate site", desc: "Institutional website with modern design and services presentation.", url: "https://nor-falk.com" },
+        { name: "Dragisela Rodríguez", category: "Personal portfolio / personal brand", desc: "Professional portfolio site showcasing work and services.", url: "https://dragiselarodriguez.com.ar/" },
       ],
     },
     testimonials: {

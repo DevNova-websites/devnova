@@ -101,7 +101,7 @@ export default function Portfolio() {
 
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={screenshotUrl(project.url)}
+                    src={"thumbnail" in project && project.thumbnail ? project.thumbnail : screenshotUrl(project.url)}
                     alt={project.name}
                     className="w-full h-full object-cover object-top group-hover:scale-106 transition-transform duration-700"
                     style={{ transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1)" }}
