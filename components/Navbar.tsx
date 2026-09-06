@@ -1,14 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Logo from "@/components/Logo";
 
 const links = [
-  { key: "work", href: "#work" },
-  { key: "services", href: "#services" },
-  { key: "process", href: "#process" },
-  { key: "about", href: "#about" },
+  { key: "work", href: "/#work" },
+  { key: "services", href: "/#services" },
+  { key: "process", href: "/#process" },
+  { key: "about", href: "/#about" },
+  { key: "contact", href: "/#contact" },
 ] as const;
 
 export default function Navbar() {
@@ -18,19 +20,19 @@ export default function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-stardust/90 backdrop-blur-sm hairline-b">
       <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 md:px-8 h-16 md:h-20">
-        <a href="#">
+        <Link href="/">
           <Logo className="text-lg" />
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
-            <a
+            <Link
               key={link.key}
               href={link.href}
               className="text-sm text-deepspace/70 hover:text-deepspace transition-colors"
             >
               {t.nav[link.key]}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -42,9 +44,9 @@ export default function Navbar() {
           >
             {lang === "en" ? "ES" : "EN"}
           </button>
-          <a href="mailto:info@devnova.com" className="btn-primary px-5 py-2.5 text-sm">
+          <Link href="/#contact" className="btn-primary px-5 py-2.5 text-sm">
             {t.nav.cta}
-          </a>
+          </Link>
         </div>
 
         <button
@@ -65,22 +67,22 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden hairline-b bg-stardust px-6 pb-6 flex flex-col gap-4">
           {links.map((link) => (
-            <a
+            <Link
               key={link.key}
               href={link.href}
               onClick={() => setMenuOpen(false)}
               className="text-sm text-deepspace/70"
             >
               {t.nav[link.key]}
-            </a>
+            </Link>
           ))}
           <div className="flex items-center gap-3 pt-2">
             <button onClick={toggle} className="pill">
               {lang === "en" ? "ES" : "EN"}
             </button>
-            <a href="mailto:info@devnova.com" className="btn-primary px-5 py-2.5 text-sm">
+            <Link href="/#contact" className="btn-primary px-5 py-2.5 text-sm">
               {t.nav.cta}
-            </a>
+            </Link>
           </div>
         </div>
       )}

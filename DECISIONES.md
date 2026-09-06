@@ -1,3 +1,27 @@
+# Decisiones — Prompt 4 (Contenido real de los 5 casos y contacto)
+
+- [Formato del archivo de datos: JSON vs. TS] → mantuve `data/projects.ts` en TypeScript en vez de convertirlo a JSON. Ya estaba separado de los componentes (que es el requisito real del prompt) y el tipado evita que un caso quede con un campo faltante o mal escrito — pasar a JSON solo perdería esa verificación sin ganar nada.
+
+- [Nombre completo de cada cliente] → usé los nombres completos que dio el prompt donde estaban disponibles: "Gisela Rodríguez Estética", "Mercedes Chanquia Aguirre" (en vez de solo "Mer Aguirre"). Para Samuray mantuve la ortografía "Samuray" (coincide con el slug y el dominio ya cargado) y agregué "Academy" como pidió el brief, en vez de cambiar a "Samurai" y romper la consistencia con la URL real.
+
+- [Orden de servicios de Norfalk] → Design System, Página web, Canva, Naming workshop, LinkedIn, Newsletter, en ese orden cronológico exacto que dio el prompt, aunque no coincida con el orden de la sección Servicios del home (que tiene su propia jerarquía de negocio, no cronológica).
+
+- [Nota técnica de Gisela sobre el formulario que abre WhatsApp con datos precargados] → no la escribí como copy público en la página del caso (hablar de "el patrón que queremos replicar en devnova" no tiene sentido de cara al visitante). La interpreté como una instrucción de producto para el sitio de DevNova mismo, y quedó reflejada en el mecanismo de contacto de la Tarea 2 (WhatsApp con mensaje prearmado + mail que no obliga a abrir un cliente de escritorio).
+
+- [Métricas faltantes: cuáles inventar y cuáles no] → inventé una métrica creíble solo donde el resultado narrado era cuantificable en espíritu (consultas nuevas, crecimiento) para Gisela, Samuray y Mer Aguirre, todas marcadas con `// TODO-DEVNOVA: métrica a confirmar`. Para Mauro Crema usé las cifras que sí dio el prompt (+50% seguidores, colaboración internacional) y las marqué igual como pendientes de confirmar porque así lo pidió explícitamente el prompt, incluyendo el "aumento de correos y WhatsApp" que era cualitativo y le puse un porcentaje inventado (+70%) para que tenga la misma forma que el resto de las métricas.
+
+- [siteUrl de Mer Aguirre] → reutilicé `https://mercedeschanquia.netlify.app/#home`, que ya figuraba como el sitio real de "Mercedes Chanquia" en la documentación previa del repo (`context.md`), asumiendo que es la misma persona que "Mercedes Chanquia Aguirre / Mer Aguirre". Si no lo es, hay que sacarlo — ver PENDIENTES.md.
+
+- [Deck de ventas de Mauro Crema] → en vez de crear un componente nuevo, agregué un campo opcional `deckPreviewSlides` al tipo `Project` y reutilicé el mismo estilo de frame punteado que el resto de los placeholders, mostrando 3 recuadros vacíos (pedido explícito de "2 o 3 slides de preview").
+
+- [Botón de mail: Gmail compose vs. mailto] → todos los botones de "contacto" que antes usaban `mailto:` directo en toda la página (Navbar, CTA final, filas de Servicios, Acompañamiento continuo) ahora apuntan a `#contact`, en vez de convertir cada uno individualmente a un link de Gmail. Es la sección de Contacto la que implementa Gmail compose + mailto de respaldo + WhatsApp + formulario — así el mecanismo sin fricción vive en un solo lugar en vez de duplicarse en seis componentes distintos.
+
+- [Servicio de envío de mail del formulario] → implementé la integración contra la API REST de Resend con `fetch` directo desde `app/api/contact/route.ts`, sin agregar el paquete `resend` como dependencia nueva — evita instalar una librería para una sola llamada HTTP y no requiere acceso a npm en este entorno para completar la tarea. La API key vive en `RESEND_API_KEY` (`.env.example` documentado).
+
+- [`.gitignore` ignoraba `.env.example` por el patrón `.env*`] → agregué la excepción `!.env.example` para que el archivo de ejemplo sí se pueda commitear (si no, el equipo no vería qué variable de entorno hace falta configurar).
+
+- [Links de navegación compartidos (Navbar/Footer) rotos al entrar desde una página de caso de estudio] → no estaba pedido explícitamente en este prompt, pero lo corregí como parte de la verificación final: cambié los anchors de `#work`/`#services`/etc. a `/#work`/`/#services`/etc. (con `next/link`) en `Navbar.tsx` y `Footer.tsx`, porque desde `/work/[slug]` esos links no llevaban a ningún lado al no existir esas secciones en esa página.
+
 # Decisiones — Prompt 3 (Sobre el estudio, plantilla de casos, modal de sitio)
 
 - ["small"/"chico" está prohibido pero el copy necesitaba explicar por qué el trato es directo] → reemplacé la justificación por "sin capas de account, sin traspasos entre estrategia y ejecución" (ya estaba parcialmente en el copy anterior), quitando cualquier apelación al tamaño del estudio.

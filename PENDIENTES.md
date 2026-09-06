@@ -1,20 +1,33 @@
-# Pendientes — Prompt 3
+# Pendientes — lista consolidada (a cargo del equipo DevNova)
 
-- [ ] **siteUrl real de Norfalk, Gisela Estética, Mer Aguirre y Mauro Crema**: hoy solo Samuray BJJ tiene URL cargada (`https://samuray-bjj.netlify.app/`, tomada de la documentación previa del repo). El resto muestra "Sitio próximamente" en la página de caso — cargar la URL real en `data/projects.ts` (campo `siteUrl`) apenas esté disponible.
-- [ ] **Verificar que `https://samuray-bjj.netlify.app/` siga siendo el dominio vigente de ese cliente** antes de depender de él en producción.
-- [ ] **Contenido real de los casos Gisela Estética, Mer Aguirre y Mauro Crema**: las secciones de acordeón (qué encontramos / qué propusimos / cómo evolucionó / resultado) siguen en placeholder "Coming soon" para estos 3 casos.
-- [ ] **Screenshots reales para los frames de laptop/mobile** en cada página de caso de estudio (`components/graphics/DeviceMockups.tsx`), igual que en la home.
+Todo lo de acá está marcado en el código con `// TODO-DEVNOVA` (o, para textos de copy, con el comentario correspondiente en `lib/i18n.tsx` / `data/projects.ts`) para que sea fácil de encontrar y reemplazar.
 
-# Pendientes — Prompt 2
+## Imágenes y screenshots
 
-- [ ] **Screenshot del sitio de Norfalk**: reemplazar el wireframe placeholder dentro de `LaptopMockup` (usado en `components/Work.tsx`) por el screenshot real de la web actual del cliente.
-- [ ] **Capturas de LinkedIn antes/después de Norfalk**: reemplazar los dos `PhoneMockup` en `components/Work.tsx` por capturas reales del perfil de LinkedIn.
-- [ ] **Número real de seguidores "antes"**: hoy el lado "antes" de la comparación de LinkedIn muestra una frase cualitativa ("Poca o ninguna actividad") en vez de un número, porque no se proveyó el conteo exacto previo al crecimiento del +600%. Reemplazar si se consigue el dato.
-- [ ] **Caso Mer Aguirre**: completar industria, servicios, desafío, entregables y screenshots reales en `data/projects.ts` (slug `mer-aguirre`).
-- [ ] **Caso Mauro Crema**: completar industria, servicios, desafío, entregables y screenshots reales en `data/projects.ts` (slug `mauro-crema`).
+- [ ] **Fuente "Cine"**: subir `Cine-Regular.woff2` y `Cine-Bold.woff2` a `public/fonts/cine/`. Hasta entonces, todos los títulos del sitio renderizan con el fallback serif (Georgia) declarado en `styles/tokens.css`.
+- [ ] **Norfalk** — screenshot real del sitio actual (mockup de laptop en la home y en la página de caso) y capturas reales de LinkedIn antes/después (los dos mockups de teléfono en la home).
+- [ ] **Gisela Rodríguez Estética, Samuray BJJ, Mercedes Chanquia Aguirre, Mauro Crema** — screenshots reales de web/mobile para los frames de laptop + teléfono en cada página de caso (`/work/[slug]`).
+- [ ] **Mauro Crema** — contenido real del deck de ventas: hoy se muestran 3 recuadros vacíos como preview (`deckPreviewSlides` en `data/projects.ts`).
+- [ ] **Logo**: `<Logo />` (`components/Logo.tsx`) sigue mostrando el wordmark de texto "DevNova", a la espera del rediseño. El archivo `public/imagenes/logo-devnova.png` no se usa en ningún lado — decidir si se descarta o se retoma con el nuevo diseño.
 
-# Pendientes — Prompt 1
+## Métricas a confirmar
 
-- [ ] **Fuente "Cine"**: subir los archivos reales (`Cine-Regular.woff2`, `Cine-Bold.woff2`) a `public/fonts/cine/`. Hoy `styles/tokens.css` declara el `@font-face` apuntando ahí, pero como los archivos no existen, todos los títulos están renderizando con el fallback (Georgia/serif).
-- [ ] **Métrica de clientes internacionales**: el hero muestra "2+ international clients" como placeholder (basado en Dinamarca + Argentina mencionados en la reunión). Confirmar el número real y, si aplica, cuántos países.
-- [ ] **Logo**: `<Logo />` (`components/Logo.tsx`) sigue mostrando el wordmark de texto "DevNova" — está aislado para que el rediseño del logo se pueda insertar ahí sin tocar Navbar/Footer. El archivo `public/imagenes/logo-devnova.png` existe en el repo pero no se usa en ningún lado; evaluar si se descarta o se retoma con el nuevo diseño.
+- [ ] **Hero** (`lib/i18n.tsx`): "2+ clientes internacionales" es un placeholder verificable (Dinamarca + Argentina mencionados en la reunión) — confirmar el número real y, si aplica, cuántos países.
+- [ ] **Norfalk**: no tenemos el número real de seguidores de LinkedIn "antes" del crecimiento del +600% — hoy se muestra una frase cualitativa en su lugar.
+- [ ] **Gisela Rodríguez Estética**: "+35% de nuevas consultas de reserva vía la web" es un número inventado a modo de placeholder — reemplazar por el dato real o quitar la métrica si no se puede medir.
+- [ ] **Samuray BJJ**: "+40% de solicitudes de membresía vía mail" es un número inventado — mismo caso que el anterior.
+- [ ] **Mercedes Chanquia Aguirre**: "6 consultas por el formulario de contacto" es un número inventado — mismo caso.
+- [ ] **Mauro Crema**: las 3 métricas (+50% seguidores en Instagram, +70% de correos/WhatsApp, 1 colaboración internacional) están cargadas con los datos que se dieron de forma verbal — confirmar las cifras exactas antes de dejarlas como definitivas.
+
+## URLs de sitio real (para el botón "Ver el sitio en vivo")
+
+- [ ] **Norfalk, Gisela Rodríguez Estética, Mauro Crema**: no tienen `siteUrl` cargado todavía — la página de caso muestra "Sitio próximamente" en su lugar. Completar en `data/projects.ts`.
+- [ ] **Samuray BJJ**: usa `https://samuray-bjj.netlify.app/`, tomado de la documentación previa del repo — verificar que siga siendo el dominio vigente.
+- [ ] **Mercedes Chanquia Aguirre**: usa `https://mercedeschanquia.netlify.app/#home`, asumiendo que es el mismo sitio de la misma persona — confirmarlo o reemplazarlo.
+
+## Contacto
+
+- [ ] **Número de WhatsApp real** de DevNova: reemplazar el placeholder `WHATSAPP_NUMBER` en `lib/contact.ts` (formato internacional, solo dígitos).
+- [ ] **RESEND_API_KEY**: crear una cuenta en Resend, generar la API key y cargarla como variable de entorno (ver `.env.example`) para que el formulario de contacto pueda enviar mails.
+- [ ] **Dominio verificado en Resend**: hoy `app/api/contact/route.ts` envía los mails desde `onboarding@resend.dev` (el remitente de prueba de Resend) — reemplazar por un remitente en un dominio propio verificado apenas esté configurado.
+- [ ] **LinkedIn de DevNova**: hay un slot ya armado y comentado en `components/Footer.tsx` y `components/Contact.tsx` — activarlo (descomentar y poner la URL real) cuando la cuenta esté operativa.

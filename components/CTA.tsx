@@ -53,7 +53,7 @@ export default function CTA() {
           <p className="text-stardust/70 font-light text-base md:text-lg max-w-xl mx-auto mb-10">
             {t.finalCta.sub}
           </p>
-          <a href="mailto:info@devnova.com" className="btn-light inline-block px-8 py-4 text-sm">
+          <a href="#contact" className="btn-light inline-block px-8 py-4 text-sm">
             {t.finalCta.cta}
           </a>
         </div>

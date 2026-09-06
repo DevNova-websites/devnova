@@ -227,6 +227,25 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </div>
       </section>
 
+      {/* Frame reservado: preview del deck de ventas (cuando el proyecto lo incluye) */}
+      {project.deckPreviewSlides && project.deckPreviewSlides > 0 && (
+        <section className="case-fade opacity-0 mb-20 md:mb-28">
+          <p className="section-label mb-6">{t.caseStudy.deckPreview}</p>
+          <div className="flex gap-4 overflow-x-auto">
+            {Array.from({ length: project.deckPreviewSlides }).map((_, i) => (
+              <div
+                key={i}
+                className="shrink-0 w-56 md:w-64 rounded-card border-2 border-dashed border-deepspace/25 bg-orbit/50 aspect-[16/10] flex items-center justify-center"
+              >
+                <span className="text-xs uppercase tracking-wide text-deepspace/40">
+                  {t.caseStudy.previewLabel}
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {project.beforeImage && (
         <section className="case-fade opacity-0 mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.transformation}</p>

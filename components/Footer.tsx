@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Logo from "@/components/Logo";
 
@@ -23,23 +24,25 @@ export default function Footer() {
               {t.footer.linksTitle}
             </div>
             <div className="flex flex-col gap-2 text-sm">
-              <a href="#work" className="text-deepspace/70 hover:text-nebula transition-colors">
+              <Link href="/#work" className="text-deepspace/70 hover:text-nebula transition-colors">
                 {t.footer.work}
-              </a>
-              <a
-                href="mailto:info@devnova.com"
+              </Link>
+              <Link
+                href="/#contact"
                 className="text-deepspace/70 hover:text-nebula transition-colors"
               >
                 {t.footer.contact}
-              </a>
+              </Link>
+              {/* TODO-DEVNOVA: activar cuando la cuenta de LinkedIn de DevNova esté operativa.
               <a
-                href="https://www.linkedin.com"
+                href="https://www.linkedin.com/company/devnova"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-deepspace/70 hover:text-nebula transition-colors"
               >
                 {t.footer.linkedin}
               </a>
+              */}
             </div>
           </div>
         </div>

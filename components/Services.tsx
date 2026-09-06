@@ -61,7 +61,7 @@ export default function Services() {
             return (
               <a
                 key={item.title}
-                href="mailto:info@devnova.com"
+                href="#contact"
                 className={`service-row opacity-0 group hairline-b flex items-center justify-between gap-6 py-9 md:py-12 px-4 -mx-4 transition-all duration-300 ease-out hover:translate-x-3 hover:bg-nebula/5 ${
                   isRecurring ? "bg-nebula/5" : ""
                 }`}

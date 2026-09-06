@@ -61,7 +61,7 @@ export default function OngoingSupport() {
               </li>
             ))}
           </ul>
-          <a href="mailto:info@devnova.com" className="btn-primary inline-block px-7 py-3.5 text-sm">
+          <a href="#contact" className="btn-primary inline-block px-7 py-3.5 text-sm">
             {t.ongoing.cta}
           </a>
         </div>
