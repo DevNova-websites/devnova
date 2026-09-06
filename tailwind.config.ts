@@ -18,6 +18,8 @@ const config: Config = {
         nebula: "var(--color-nebula)",
         saturn: "var(--color-saturn)",
         orbit: "var(--color-orbit)",
+        negative: "var(--color-negative)",
+        positive: "var(--color-positive)",
       },
       borderRadius: {
         card: "12px",

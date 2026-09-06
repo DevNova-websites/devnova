@@ -1,3 +1,23 @@
+# Decisiones — Prompt 2 (Trabajos seleccionados y Proceso)
+
+- ["El Teatro Abasto" no está en la lista final de trabajos del prompt (Gisela, Mer Aguirre, Samurai, Mauro Crema, Norfalk)] → lo saqué de `data/projects.ts` en vez de dejarlo como caso huérfano sin link, porque el prompt enumera explícitamente qué proyectos van en la página de todos los trabajos.
+
+- [No hay contenido real (industria, servicios, entregables) para "Mer Aguirre" y "Mauro Crema"] → creé sus entradas en `data/projects.ts` con placeholders "Case study details coming soon" / "Detalles próximamente" y comentario TODO-DEVNOVA, siguiendo el mismo patrón que ya existía para Gisela y Samuray.
+
+- [No hay screenshot real del sitio de Norfalk ni de su LinkedIn antes/después] → construí `LaptopMockup` y `PhoneMockup` (`components/graphics/DeviceMockups.tsx`) como frames de borde punteado con un wireframe genérico adentro (no una imagen de stock), con la etiqueta "Screenshot pendiente" visible, tal como pidió el prompt. El wireframe interno también sirve para el efecto de scroll/parallax pedido, sin depender de tener la imagen real todavía.
+
+- [El dato "+600%" antes decía "(7 días)" en el sitio, pero el prompt aclaró que es "en 3 meses"] → corregí la etiqueta de esa métrica en `data/projects.ts` (EN y ES) para reflejar el dato real que dio el cliente.
+
+- ["LinkedIn antes" pide "números" pero no tenemos el conteo real de seguidores previo al crecimiento] → en vez de inventar un número, usé una frase cualitativa en tono apagado ("Poca o ninguna actividad" / "Little to no activity") para el "antes", y reservé el número real y verificado (+600% en 3 meses) para el "hoy", que es el dato duro que sí tenemos. Evita fabricar una cifra que no fue provista.
+
+- [No usar los colores de marca de Norfalk] → todos los elementos de esa sección (mockups, textos, pills) usan exclusivamente los tokens de DevNova (`nebula`, `deepspace`, `positive`, `negative`), nunca un color específico del cliente.
+
+- [Colores "rojo apagado" / "verde positivo" no existían en la paleta de 5 tokens] → agregué dos tokens nuevos, planos y sobrios (`--color-negative`, `--color-positive`), a `styles/tokens.css`, en vez de usar rojo/verde saturados que romperían la estética minimalista.
+
+- [Nombres de las 4 etapas del Double Diamond: mantenerlos en inglés (Discover/Define/Develop/Deliver) en ambos idiomas] → decidí no traducir los títulos de las etapas ni en la versión ES, porque son términos de framework reconocidos internacionalmente (y el prompt menciona explícitamente que "agile" en inglés posiciona bien con clientes internacionales, especialmente Dinamarca) — solo se tradujeron las descripciones de cada etapa.
+
+- [Diagrama Double Diamond: qué tan literal hacerlo] → usé dos rombos en línea (SVG simple, un solo trazo, sin relleno ni ilustración) en vez de reproducir el diagrama oficial con textos "Problem/Solution", porque el prompt pidió explícitamente algo simple y legible para un CEO, no un gráfico de metodología de diseño.
+
 # Decisiones — Prompt 1 (Fundaciones de diseño, Hero y Servicios)
 
 - [Fuente "Cine" no está en el repo ni es una Google Font estándar] → decidí declararla como `@font-face` local en `styles/tokens.css` apuntando a `/fonts/cine/`, con fallback a Georgia/serif, porque el prompt pedía explícitamente ese comportamiento ante la ausencia de archivos.

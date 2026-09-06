@@ -1,7 +1,8 @@
 export type ProjectSlug =
   | "norfalk"
   | "gisela-estetica"
-  | "teatro-abasto"
+  | "mer-aguirre"
+  | "mauro-crema"
   | "samuray-bjj";
 
 export interface ProjectDeliverable {
@@ -83,7 +84,7 @@ export const projects: Project[] = [
         { label: "Lighthouse Performance (desktop)", value: "95/100" },
         { label: "Lighthouse SEO", value: "100/100" },
         { label: "LinkedIn followers", value: "2,470" },
-        { label: "LinkedIn new followers (7 days)", value: "+600%" },
+        { label: "LinkedIn follower growth (3 months)", value: "+600%" },
       ],
     },
     es: {
@@ -128,7 +129,7 @@ export const projects: Project[] = [
         { label: "Lighthouse Performance (desktop)", value: "95/100" },
         { label: "Lighthouse SEO", value: "100/100" },
         { label: "Seguidores en LinkedIn", value: "2.470" },
-        { label: "Nuevos seguidores en LinkedIn (7 días)", value: "+600%" },
+        { label: "Crecimiento de seguidores en LinkedIn (3 meses)", value: "+600%" },
       ],
     },
   },
@@ -165,25 +166,49 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "teatro-abasto",
-    client: "El Teatro Abasto",
-    year: "2023",
+    // TODO-DEVNOVA: reemplazar categoría, industria y entregables reales del caso Mer Aguirre.
+    slug: "mer-aguirre",
+    client: "Mer Aguirre",
+    year: "2024",
     images: [],
     en: {
-      category: "Web design",
-      description: "A website for a theater venue.",
-      industry: "Theater & live performance",
-      services: ["Web design"],
+      category: "Case study coming soon",
+      description: "Case study details coming soon.",
+      industry: "Details coming soon",
+      services: ["Details coming soon"],
       challenge: "Case study details coming soon.",
-      deliverables: [{ title: "Web design", desc: "Details coming soon." }],
+      deliverables: [{ title: "Details coming soon", desc: "Details coming soon." }],
     },
     es: {
-      category: "Diseño web",
-      description: "Un sitio web para una sala de teatro.",
-      industry: "Teatro y artes escénicas",
-      services: ["Diseño web"],
+      category: "Caso próximamente",
+      description: "Detalles del caso próximamente.",
+      industry: "Detalles próximamente",
+      services: ["Detalles próximamente"],
       challenge: "Detalles del caso próximamente.",
-      deliverables: [{ title: "Diseño web", desc: "Detalles próximamente." }],
+      deliverables: [{ title: "Detalles próximamente", desc: "Detalles próximamente." }],
+    },
+  },
+  {
+    // TODO-DEVNOVA: reemplazar categoría, industria y entregables reales del caso Mauro Crema.
+    slug: "mauro-crema",
+    client: "Mauro Crema",
+    year: "2024",
+    images: [],
+    en: {
+      category: "Case study coming soon",
+      description: "Case study details coming soon.",
+      industry: "Details coming soon",
+      services: ["Details coming soon"],
+      challenge: "Case study details coming soon.",
+      deliverables: [{ title: "Details coming soon", desc: "Details coming soon." }],
+    },
+    es: {
+      category: "Caso próximamente",
+      description: "Detalles del caso próximamente.",
+      industry: "Detalles próximamente",
+      services: ["Detalles próximamente"],
+      challenge: "Detalles del caso próximamente.",
+      deliverables: [{ title: "Detalles próximamente", desc: "Detalles próximamente." }],
     },
   },
   {

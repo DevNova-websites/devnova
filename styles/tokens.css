@@ -11,6 +11,8 @@
   --color-nebula: #9b8ec4; /* acento */
   --color-saturn: #c4a98a; /* acento secundario */
   --color-orbit: #e8e4dc; /* fondo alterno */
+  --color-negative: #b3543f; /* comparativas "antes" — rojo apagado, sin neón */
+  --color-positive: #4c7a5d; /* comparativas "hoy/después" — verde apagado, sin neón */
 
   /* ── Tipografía ────────────────────────────────────────────── */
   /* Cine: usada solo para títulos/headings. */
