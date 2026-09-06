@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 import { projects, type Project } from "@/data/projects";
+import { LaptopMockup, PhoneMockup } from "@/components/graphics/DeviceMockups";
+import WebsiteModal from "@/components/WebsiteModal";
 
 function ImageSlot({
   src,
@@ -19,7 +21,7 @@ function ImageSlot({
 }) {
   return (
     <div
-      className="relative w-full overflow-hidden rounded-card bg-orbit"
+      className="relative w-full overflow-hidden rounded-card border-2 border-dashed border-deepspace/25 bg-orbit/50"
       style={{ aspectRatio: ratio }}
     >
       {src ? (
@@ -35,16 +37,80 @@ function ImageSlot({
   );
 }
 
+function ServiceAccordion({
+  sections,
+  labels,
+}: {
+  sections: Project["en"]["sections"];
+  labels: { discover: string; propose: string; iterate: string; result: string };
+}) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <div className="hairline">
+      {sections.map((section, i) => {
+        const isOpen = openIndex === i;
+        return (
+          <div key={section.title} className="hairline-b">
+            <button
+              onClick={() => setOpenIndex(isOpen ? null : i)}
+              aria-expanded={isOpen}
+              className="w-full flex items-center justify-between gap-6 py-6 md:py-7 text-left group"
+            >
+              <h3 className="font-heading font-bold text-lg md:text-2xl tracking-[-0.02em] text-deepspace group-hover:text-nebula transition-colors duration-300">
+                {section.title}
+              </h3>
+              <span
+                className={`shrink-0 text-2xl text-deepspace/40 transition-transform duration-300 group-hover:text-nebula ${
+                  isOpen ? "rotate-45" : ""
+                }`}
+              >
+                +
+              </span>
+            </button>
+            {isOpen && (
+              <div className="pb-8 grid sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl">
+                <div>
+                  <p className="section-label mb-2">{labels.discover}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.discover}
+                  </p>
+                </div>
+                <div>
+                  <p className="section-label mb-2">{labels.propose}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.propose}
+                  </p>
+                </div>
+                <div>
+                  <p className="section-label mb-2">{labels.iterate}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.iterate}
+                  </p>
+                </div>
+                <div>
+                  <p className="section-label mb-2">{labels.result}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.result}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function CaseStudyContent({ project }: { project: Project }) {
   const { t, lang } = useLang();
   const rootRef = useRef<HTMLDivElement>(null);
   const content = project[lang];
+  const [siteModalOpen, setSiteModalOpen] = useState(false);
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
-
-  const lighthouseMetrics =
-    content.metrics?.filter((m) => m.label.toLowerCase().includes("lighthouse")) ?? [];
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -101,6 +167,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         ← {t.caseStudy.back}
       </Link>
 
+      {/* 1. Encabezado */}
       <section className="case-fade opacity-0 mb-16 md:mb-20">
         <p className="section-label mb-4">
           {content.category} · {project.year}
@@ -127,11 +194,37 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         ))}
       </div>
 
+      {/* 2. El desafío (Discovery) */}
       <section className="case-fade opacity-0 mb-20 md:mb-28">
         <p className="section-label mb-6">{t.caseStudy.challenge}</p>
         <p className="text-lg md:text-xl text-deepspace/80 font-light leading-relaxed">
           {content.challenge}
         </p>
+      </section>
+
+      {/* 3. Acordeón por servicio (Double Diamond narrado, sin nombrarlo) */}
+      <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <p className="section-label mb-6">{t.caseStudy.whatWeDid}</p>
+        <ServiceAccordion
+          sections={content.sections}
+          labels={{
+            discover: t.caseStudy.discover,
+            propose: t.caseStudy.propose,
+            iterate: t.caseStudy.iterate,
+            result: t.caseStudy.result,
+          }}
+        />
+      </section>
+
+      {/* Frames reservados: preview de web y mobile */}
+      <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <div className="grid sm:grid-cols-[1.4fr_1fr] gap-8 items-end">
+          <LaptopMockup label={t.caseStudy.previewLabel} />
+          <div className="flex gap-4 justify-center sm:justify-start">
+            <PhoneMockup label={t.caseStudy.previewLabel} />
+            <PhoneMockup label={t.caseStudy.previewLabel} />
+          </div>
+        </div>
       </section>
 
       {project.beforeImage && (
@@ -150,81 +243,17 @@ export default function CaseStudyContent({ project }: { project: Project }) {
               </span>
             </div>
 
-            <div className="relative w-full overflow-hidden rounded-card bg-orbit" style={{ aspectRatio: "16/9" }}>
-              {project.images[0] ? (
-                <Image
-                  src={project.images[0]}
-                  alt={t.caseStudy.after}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-xs uppercase tracking-wide text-deepspace/40">
-                    {t.caseStudy.imagePlaceholder}
-                  </span>
-                </div>
-              )}
+            <div className="relative">
+              <ImageSlot src={project.images[0]} ratio="16/9" label={t.caseStudy.imagePlaceholder} />
               <span className="absolute top-4 left-4 rounded-full bg-nebula px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-white">
                 {t.caseStudy.after}
               </span>
             </div>
-
-            {lighthouseMetrics.length > 0 && (
-              <div className="grid grid-cols-2 gap-4 pt-2">
-                {lighthouseMetrics.map((m) => (
-                  <div
-                    key={m.label}
-                    className="rounded-card border border-deepspace/12 p-6"
-                  >
-                    <div className="font-heading font-bold text-2xl md:text-3xl text-deepspace mb-2">
-                      {m.value}
-                    </div>
-                    <div className="text-sm text-deepspace/60">{m.label}</div>
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         </section>
       )}
 
-      <section className="case-fade opacity-0 mb-20 md:mb-28">
-        <p className="section-label mb-6">{t.caseStudy.whatWeDid}</p>
-        <div className="space-y-8">
-          {content.deliverables.map((d) => (
-            <div key={d.title} className="hairline pt-6">
-              <h3 className="font-heading font-bold text-xl text-deepspace mb-2">
-                {d.title}
-              </h3>
-              <p className="text-sm md:text-base text-deepspace/60 font-light leading-relaxed">
-                {d.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="case-fade opacity-0 mb-20 md:mb-28 space-y-4">
-        <ImageSlot
-          src={project.images[0]}
-          ratio="16/9"
-          label={t.caseStudy.imagePlaceholder}
-        />
-        <div className="grid grid-cols-2 gap-4">
-          <ImageSlot
-            src={project.images[1]}
-            ratio="4/3"
-            label={t.caseStudy.imagePlaceholder}
-          />
-          <ImageSlot
-            src={project.images[2]}
-            ratio="4/3"
-            label={t.caseStudy.imagePlaceholder}
-          />
-        </div>
-      </section>
-
+      {/* 4. Resultados y métricas */}
       {content.metrics && content.metrics.length > 0 && (
         <section className="case-fade opacity-0 mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.results}</p>
@@ -232,9 +261,19 @@ export default function CaseStudyContent({ project }: { project: Project }) {
             {content.metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-card border border-deepspace/12 p-6"
+                className={
+                  m.positive
+                    ? "rounded-card border-2 border-positive/30 bg-positive/5 p-6 md:p-8 col-span-2 sm:col-span-1"
+                    : "rounded-card border border-deepspace/12 p-6"
+                }
               >
-                <div className="font-heading font-bold text-2xl md:text-3xl text-deepspace mb-2">
+                <div
+                  className={
+                    m.positive
+                      ? "font-heading font-bold text-4xl md:text-6xl text-positive mb-2 tracking-tight"
+                      : "font-heading font-bold text-2xl md:text-3xl text-deepspace mb-2"
+                  }
+                >
                   {m.value}
                 </div>
                 <div className="text-sm text-deepspace/60">{m.label}</div>
@@ -244,6 +283,33 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </section>
       )}
 
+      {/* 5. Link al sitio real — siempre secundario, nunca lo primero que se ve */}
+      <section className="case-fade opacity-0 mb-16 md:mb-20">
+        {project.siteUrl ? (
+          <>
+            <button
+              onClick={() => setSiteModalOpen(true)}
+              className="text-sm text-deepspace/50 hover:text-nebula transition-colors underline underline-offset-4"
+            >
+              {t.caseStudy.visitSite} ↗
+            </button>
+            {siteModalOpen && (
+              <WebsiteModal
+                url={project.siteUrl}
+                onClose={() => setSiteModalOpen(false)}
+                clientName={project.client}
+                fallbackMessage={t.caseStudy.modalFallback}
+                openNewTabLabel={t.caseStudy.openNewTab}
+                closeLabel={t.caseStudy.closeModal}
+              />
+            )}
+          </>
+        ) : (
+          <span className="text-sm text-deepspace/40">{t.caseStudy.noSite}</span>
+        )}
+      </section>
+
+      {/* 6. Navegación al proyecto siguiente */}
       <section className="case-fade opacity-0 pt-10 hairline">
         <Link
           href={`/work/${nextProject.slug}`}

@@ -5,7 +5,7 @@ import Services from "@/components/Services";
 import Work from "@/components/Work";
 import Process from "@/components/Process";
 import About from "@/components/About";
-import BrandPartnership from "@/components/BrandPartnership";
+import OngoingSupport from "@/components/OngoingSupport";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
@@ -20,7 +20,7 @@ export default function Home() {
         <Work />
         <Process />
         <About />
-        <BrandPartnership />
+        <OngoingSupport />
         <CTA />
       </main>
       <Footer />

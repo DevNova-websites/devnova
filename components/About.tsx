@@ -56,7 +56,15 @@ export default function About() {
         <div className="about-fade opacity-0 space-y-6">
           <p className="text-base md:text-lg text-deepspace/70 font-light leading-relaxed">{t.about.p1}</p>
           <p className="text-base md:text-lg text-deepspace/70 font-light leading-relaxed">{t.about.p2}</p>
-          <p className="text-base md:text-lg text-deepspace/70 font-light leading-relaxed">{t.about.p3}</p>
+
+          <div className="rounded-card border border-deepspace/12 bg-orbit/50 px-6 py-8 md:px-8 md:py-9 mt-8">
+            <h3 className="font-heading font-bold text-xl md:text-2xl tracking-[-0.02em] text-deepspace mb-3">
+              {t.about.ecosystem.title}
+            </h3>
+            <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+              {t.about.ecosystem.desc}
+            </p>
+          </div>
         </div>
       </div>
     </section>

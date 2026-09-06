@@ -1,3 +1,10 @@
+# Pendientes — Prompt 3
+
+- [ ] **siteUrl real de Norfalk, Gisela Estética, Mer Aguirre y Mauro Crema**: hoy solo Samuray BJJ tiene URL cargada (`https://samuray-bjj.netlify.app/`, tomada de la documentación previa del repo). El resto muestra "Sitio próximamente" en la página de caso — cargar la URL real en `data/projects.ts` (campo `siteUrl`) apenas esté disponible.
+- [ ] **Verificar que `https://samuray-bjj.netlify.app/` siga siendo el dominio vigente de ese cliente** antes de depender de él en producción.
+- [ ] **Contenido real de los casos Gisela Estética, Mer Aguirre y Mauro Crema**: las secciones de acordeón (qué encontramos / qué propusimos / cómo evolucionó / resultado) siguen en placeholder "Coming soon" para estos 3 casos.
+- [ ] **Screenshots reales para los frames de laptop/mobile** en cada página de caso de estudio (`components/graphics/DeviceMockups.tsx`), igual que en la home.
+
 # Pendientes — Prompt 2
 
 - [ ] **Screenshot del sitio de Norfalk**: reemplazar el wireframe placeholder dentro de `LaptopMockup` (usado en `components/Work.tsx`) por el screenshot real de la web actual del cliente.

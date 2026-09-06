@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 
-export default function BrandPartnership() {
+export default function OngoingSupport() {
   const { t } = useLang();
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -18,11 +18,11 @@ export default function BrandPartnership() {
 
     const ctx = gsap.context(() => {
       if (prefersReducedMotion) {
-        gsap.set(".partnership-fade", { opacity: 1, y: 0 });
+        gsap.set(".ongoing-fade", { opacity: 1, y: 0 });
         return;
       }
       gsap.fromTo(
-        ".partnership-fade",
+        ".ongoing-fade",
         { opacity: 0, y: 16 },
         {
           opacity: 1,
@@ -41,23 +41,20 @@ export default function BrandPartnership() {
   }, []);
 
   return (
-    <section
-      ref={rootRef}
-      className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8 bg-orbit"
-    >
-      <div className="max-w-6xl mx-auto partnership-fade opacity-0 grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-start">
+    <section ref={rootRef} className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8 bg-orbit">
+      <div className="max-w-6xl mx-auto ongoing-fade opacity-0 grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-start">
         <div>
-          <p className="section-label block mb-16">{t.partnership.eyebrow}</p>
+          <p className="section-label block mb-16">{t.ongoing.eyebrow}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace">
-            {t.partnership.title}
+            {t.ongoing.title}
           </h2>
         </div>
         <div>
           <p className="text-base md:text-lg text-deepspace/70 font-light leading-relaxed mb-8">
-            {t.partnership.desc}
+            {t.ongoing.desc}
           </p>
           <ul className="space-y-3 mb-8">
-            {t.partnership.points.map((point) => (
+            {t.ongoing.points.map((point) => (
               <li key={point} className="flex items-start gap-3 text-sm md:text-base text-deepspace/70">
                 <span className="text-nebula mt-0.5">•</span>
                 {point}
@@ -65,7 +62,7 @@ export default function BrandPartnership() {
             ))}
           </ul>
           <a href="mailto:info@devnova.com" className="btn-primary inline-block px-7 py-3.5 text-sm">
-            {t.partnership.cta}
+            {t.ongoing.cta}
           </a>
         </div>
       </div>

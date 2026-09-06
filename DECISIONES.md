@@ -1,3 +1,25 @@
+# Decisiones — Prompt 3 (Sobre el estudio, plantilla de casos, modal de sitio)
+
+- ["small"/"chico" está prohibido pero el copy necesitaba explicar por qué el trato es directo] → reemplacé la justificación por "sin capas de account, sin traspasos entre estrategia y ejecución" (ya estaba parcialmente en el copy anterior), quitando cualquier apelación al tamaño del estudio.
+
+- [Cuánto "más énfasis" ponerle al ecosistema como diferencial] → además del párrafo en `About`, agregué un bloque visual destacado (borde + fondo `orbit`, mismo tratamiento que el bloque "iterativo y ágil" de Proceso) para que no compita como un párrafo más entre otros tres, sino que se lea como el punto central de la sección.
+
+- [Renombrar "Brand partnership" sin usar esa frase en ningún lado] → renombré el componente de `BrandPartnership.tsx` a `OngoingSupport.tsx` y la clave de traducción de `partnership` a `ongoing`, no solo el texto visible, para que no quede ningún rastro del término ni siquiera en el código.
+
+- [Plantilla de caso de estudio: cómo mostrar el método Double Diamond sin nombrarlo] → cada servicio de cada caso ahora tiene 4 campos narrativos (`discover`, `propose`, `iterate`, `result`) en un acordeón, con etiquetas en lenguaje llano ("Qué encontramos", "Qué propusimos", "Cómo evolucionó con el cliente", "El resultado") que nunca mencionan "Double Diamond" ni "descubrir/definir/desarrollar/entregar" como jerga de proceso.
+
+- [Cambio de tipo de dato `deliverables` → `sections` en `data/projects.ts`] → fue necesario reescribir el contenido de los 5 casos; para Norfalk (el único con información real completa) escribí las 5 secciones completas con las 4 etapas narradas; para los 4 casos con datos pendientes (Gisela, Mer Aguirre, Mauro Crema, Samuray) dejé una sola sección placeholder "Coming soon" por caso, ya en línea con el patrón que esos casos ya tenían.
+
+- [Métrica "positiva" para destacar en grande]: marqué como `positive: true` los resultados que leen como un logro (Lighthouse, crecimiento de seguidores) y dejé como neutral el conteo bruto de seguidores (2.470), que es informativo pero no un "antes/después" en sí mismo.
+
+- [Link al sitio real del cliente: no tenemos URLs confirmadas para 4 de los 5 casos] → solo agregué `siteUrl` para Samuray BJJ (`https://samuray-bjj.netlify.app/`), porque es el único dato que ya figuraba como real en la documentación previa del repo (`context.md`). Para el resto, el bloque muestra "Sitio próximamente" sin link, en vez de inventar una URL. Ver PENDIENTES.md.
+
+- [Detección de bloqueo de iframe (X-Frame-Options/CSP) no tiene una API confiable]: no existe forma 100% segura de saber desde JS si un iframe fue bloqueado por el sitio de destino (el evento `load` puede disparar igual en algunos navegadores). Implementé una heurística por timeout (3.5s): si el iframe no confirma carga en ese margen, se asume bloqueado y se muestra el fallback con link `target="_blank" rel="noopener"`. Es la técnica estándar de la industria para este problema, no una solución exacta.
+
+- [Reset de estado del modal al reabrirlo] → en vez de resetear el estado dentro de un `useEffect` (dispara una regla de lint sobre `setState` síncrona en efectos, y es un anti-patrón de React), el modal ahora se monta/desmonta condicionalmente desde `CaseStudyContent` (`{siteModalOpen && <WebsiteModal ... />}`), así cada apertura arranca con estado limpio de fábrica.
+
+- [Frames de laptop/mobile "en todos lados" vs. duplicar la galería genérica de 3 imágenes que ya existía] → reemplacé la galería genérica de `ImageSlot` sin marcar por los mismos mockups de laptop/teléfono ya creados en el Prompt 2 (`components/graphics/DeviceMockups.tsx`), reutilizándolos en vez de crear un tercer tipo de placeholder, y conservé `ImageSlot` (ahora con borde punteado) solo para el par antes/después de la transformación.
+
 # Decisiones — Prompt 2 (Trabajos seleccionados y Proceso)
 
 - ["El Teatro Abasto" no está en la lista final de trabajos del prompt (Gisela, Mer Aguirre, Samurai, Mauro Crema, Norfalk)] → lo saqué de `data/projects.ts` en vez de dejarlo como caso huérfano sin link, porque el prompt enumera explícitamente qué proyectos van en la página de todos los trabajos.
