@@ -44,7 +44,6 @@ devnova/
 │   ├── Footer.tsx          # Links, redes, copyright
 │   ├── FloatingCTA.tsx     # Botón flotante (aparece a los 2.8s, dismissible)
 │   ├── FormModal.tsx       # Modal con iframe del formulario externo
-│   ├── NovaMascot.tsx      # SVG mascota + NovaLogo (usados en Hero y Footer)
 │   ├── SpaceBackground.tsx # Canvas starfield animado + nebulae CSS
 │   └── ShootingStar.tsx    # Animación de estrella fugaz
 ├── lib/

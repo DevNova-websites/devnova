@@ -1,266 +1,101 @@
 "use client";
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown, Star, CheckCircle2, Zap } from "lucide-react";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 import { useLang } from "@/lib/i18n";
-import FormModal from "./FormModal";
-import NovaMascot from "./NovaMascot";
-
-const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
-
-function fadeUp(delay: number) {
-  return {
-    initial: { opacity: 0, y: 28 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, delay, ease: EASE },
-  };
-}
-
-function FloatingCard({
-  children,
-  delay = 0,
-  className = "",
-  floatDuration = 5,
-  floatOffset = 10,
-  style,
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-  floatDuration?: number;
-  floatOffset?: number;
-  style?: React.CSSProperties;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.85, y: 16 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        y: [0, -floatOffset, 0],
-      }}
-      transition={{
-        opacity: { duration: 0.6, delay, ease: EASE },
-        scale: { duration: 0.6, delay, ease: EASE },
-        y: {
-          delay: delay + 0.6,
-          duration: floatDuration,
-          repeat: Infinity,
-          ease: "easeInOut",
-        },
-      }}
-      className={`absolute z-20 rounded-2xl px-4 py-3 shadow-2xl ${className}`}
-      style={{
-        background: "rgba(13,13,13,0.92)",
-        border: "1px solid rgba(245,196,0,0.22)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        ...style,
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+import { scrollToSection } from "@/components/SmoothScroll";
+import { OrbitRing } from "@/components/graphics/SpaceElements";
 
 export default function Hero() {
-  const { t, lang } = useLang();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const { t } = useLang();
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const ctx = gsap.context(() => {
+      if (prefersReducedMotion) {
+        gsap.set([".hero-word", ".hero-fade"], { opacity: 1, y: 0 });
+        return;
+      }
+
+      const words = headlineRef.current?.querySelectorAll(".hero-word");
+      if (words) {
+        gsap.fromTo(
+          words,
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.7, stagger: 0.04, ease: "power3.out", delay: 0.1 }
+        );
+      }
+      gsap.fromTo(
+        ".hero-fade",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: "power2.out", delay: 0.5 }
+      );
+    }, rootRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  const headlineWords = t.hero.headline.split(" ");
 
   return (
-    <>
-      <section
-        id="home"
-        className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-        style={{ paddingTop: "80px" }}
-      >
-        {/* Gold ambient glow — right side (behind mascot) */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            right: "10%",
-            top: "50%",
-            transform: "translateY(-50%)",
-            width: "600px",
-            height: "600px",
-            background: "radial-gradient(circle, rgba(245,196,0,0.07) 0%, transparent 65%)",
-            filter: "blur(20px)",
-          }}
-        />
-        {/* Subtle left glow */}
-        <div
-          className="absolute pointer-events-none"
-          style={{
-            left: "-5%",
-            top: "40%",
-            width: "400px",
-            height: "400px",
-            background: "radial-gradient(circle, rgba(245,196,0,0.04) 0%, transparent 70%)",
-            filter: "blur(30px)",
-          }}
-        />
+    <section
+      ref={rootRef}
+      className="relative pt-[var(--space-hero-top)] pb-[var(--space-hero-bottom)] md:pt-[var(--space-hero-top-lg)] md:pb-[var(--space-hero-bottom-lg)] px-6 md:px-8 overflow-hidden"
+    >
+      <OrbitRing className="hidden md:block absolute top-10 right-0 w-40 h-40 text-nebula/60" />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 w-full py-16 lg:py-0">
-          <div className="grid lg:grid-cols-[1fr_460px] gap-10 xl:gap-16 items-center min-h-[calc(100vh-80px)]">
+      <div className="max-w-6xl mx-auto">
+        <p className="hero-fade pill mb-8 opacity-0">{t.hero.eyebrow}</p>
 
-            {/* ── LEFT: Content ─────────────────────────────── */}
-            <div className="flex flex-col justify-center">
-              {/* Badge */}
-              <motion.div {...fadeUp(0)} className="mb-8">
-                <span className="badge">
-                  <Star size={10} className="fill-current" />
-                  {t.hero.badge}
-                </span>
-              </motion.div>
+        <h1
+          ref={headlineRef}
+          className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-[-0.02em] md:tracking-[-0.03em] text-deepspace max-w-3xl"
+        >
+          {headlineWords.map((word, i) => (
+            <span key={i} className="hero-word inline-block opacity-0 mr-[0.25em]">
+              {word}
+            </span>
+          ))}
+        </h1>
 
-              {/* Headline */}
-              <motion.h1
-                {...fadeUp(0.1)}
-                className="text-5xl sm:text-6xl lg:text-[5rem] xl:text-[5.5rem] font-black tracking-tight leading-[1.04] text-white mb-7"
-              >
-                <span className="gradient-text">
-                  {lang === "es" ? "Desarrollo Web" : "Web Development"}
-                </span>
-              </motion.h1>
+        <p className="hero-fade opacity-0 mt-8 text-base md:text-lg text-deepspace/70 max-w-xl font-light leading-relaxed">
+          {t.hero.sub}
+        </p>
 
-              {/* Subtitle */}
-              <motion.p
-                {...fadeUp(0.2)}
-                className="text-xl text-white/50 max-w-xl leading-relaxed mb-10"
-              >
-                {t.hero.sub}
-              </motion.p>
-
-              {/* CTAs */}
-              <motion.div
-                {...fadeUp(0.3)}
-                className="flex flex-col sm:flex-row gap-4 mb-14"
-              >
-                <button
-                  onClick={() => setModalOpen(true)}
-                  className="btn-primary inline-flex items-center justify-center gap-2.5 px-8 py-4 text-base rounded-2xl group pulse-ring"
-                >
-                  <span>{t.hero.cta1}</span>
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
-                </button>
-                <a
-                  href="#portfolio"
-                  className="btn-secondary inline-flex items-center justify-center gap-2.5 px-8 py-4 text-base rounded-2xl"
-                >
-                  {t.hero.cta2}
-                </a>
-              </motion.div>
-
-
-            </div>
-
-            {/* ── RIGHT: Mascot + Floating Cards ─────────────── */}
-            {mounted && (
-              <div className="relative hidden lg:flex items-center justify-center" style={{ height: "520px" }}>
-                {/* Card 1 — Proyecto entregado (top-left) */}
-                <FloatingCard
-                  delay={0.75}
-                  floatDuration={6}
-                  floatOffset={9}
-                  className="-top-4 left-0"
-                  style={{ transform: "rotate(-4deg)" } as React.CSSProperties}
-                >
-                  <div className="flex items-start gap-3" style={{ minWidth: "190px" }}>
-                    <div
-                      className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{ background: "rgba(245,196,0,0.15)" }}
-                    >
-                      <CheckCircle2 size={17} style={{ color: "#F5C400" }} />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-white">Proyecto entregado</p>
-                      <p className="text-xs text-white/50 mt-0.5">Luna Boutique Online</p>
-                      <div className="flex items-center gap-1.5 mt-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                        <span className="text-[10px] text-white/40">Entregado en 8 días</span>
-                      </div>
-                    </div>
-                  </div>
-                </FloatingCard>
-
-                {/* Card 2 — Performance (bottom-right) */}
-                <FloatingCard
-                  delay={0.9}
-                  floatDuration={7.5}
-                  floatOffset={11}
-                  className="-bottom-2 right-0"
-                  style={{ transform: "rotate(4deg)" } as React.CSSProperties}
-                >
-                  <div className="flex items-center gap-4" style={{ minWidth: "170px" }}>
-                    <div>
-                      <div className="text-3xl font-black gradient-text leading-none">99</div>
-                      <div className="text-[10px] text-white/40 mt-0.5 uppercase tracking-wider">Performance</div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-1 mb-1">
-                        <Zap size={11} style={{ color: "#F5C400" }} />
-                        <span className="text-[10px] text-white/50">Lighthouse</span>
-                      </div>
-                      <div className="w-full h-1.5 rounded-full" style={{ background: "rgba(255,255,255,0.1)" }}>
-                        <div
-                          className="h-full rounded-full"
-                          style={{ width: "99%", background: "linear-gradient(90deg, #F5C400, #FF9F0A)" }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </FloatingCard>
-
-                {/* Card 3 — Rating (top-right) */}
-                <FloatingCard
-                  delay={0.82}
-                  floatDuration={5.5}
-                  floatOffset={8}
-                  className="top-8 -right-4"
-                  style={{ transform: "rotate(3deg)" } as React.CSSProperties}
-                >
-                  <div style={{ minWidth: "148px" }}>
-                    <div className="flex items-center gap-1 mb-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={11} className="fill-yellow-400 text-yellow-400" />
-                      ))}
-                      <span className="text-xs font-bold text-white ml-1">5.0</span>
-                    </div>
-                    <p className="text-[10px] text-white/45">Clientes satisfechos</p>
-                  </div>
-                </FloatingCard>
-
-                {/* Nova mascot */}
-                <NovaMascot size={400} className="float" animated />
-              </div>
-            )}
-          </div>
+        <div className="hero-fade opacity-0 mt-10">
+          <a
+            href="#work"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("#work");
+            }}
+            className="btn-primary inline-block px-8 py-3.5 text-sm"
+          >
+            {t.hero.cta2}
+          </a>
         </div>
 
-        {/* Scroll hint */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 0.6 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 hover:text-white/50 transition-colors"
-        >
-          <a href="#about" className="flex flex-col items-center gap-1.5 group">
-            <span className="text-[10px] uppercase tracking-widest font-semibold">Scroll</span>
-            <ChevronDown size={14} className="animate-bounce" />
-          </a>
-        </motion.div>
-
-        {/* Bottom fade */}
-        <div
-          className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #080808)" }}
-        />
-      </section>
-
-      <FormModal open={modalOpen} onClose={() => setModalOpen(false)} />
-    </>
+        <div className="hero-fade opacity-0 mt-16 md:mt-24 grid grid-cols-3 gap-4 md:gap-6 max-w-xl">
+          {t.hero.stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="rounded-card border border-deepspace/10 bg-orbit/60 px-4 py-5 md:px-6 md:py-7"
+            >
+              <div className="font-heading font-bold text-2xl md:text-4xl text-nebula tracking-tight">
+                {stat.value}
+              </div>
+              <div className="text-xs md:text-sm text-deepspace/60 mt-2 leading-snug">
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

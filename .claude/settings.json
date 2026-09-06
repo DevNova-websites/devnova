@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Read", "Write", "Edit", "Glob", "Grep",
+      "Bash(npm run *)", "Bash(npm install *)", "Bash(npx *)",
+      "Bash(git add *)", "Bash(git commit *)", "Bash(git status)", "Bash(git diff *)",
+      "Bash(mkdir *)", "Bash(cp *)", "Bash(mv *)", "Bash(ls *)", "Bash(cat *)"
+    ]
+  }
+}

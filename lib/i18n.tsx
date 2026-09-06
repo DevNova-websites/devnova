@@ -1,357 +1,368 @@
 "use client";
 import { createContext, useContext, useState, ReactNode } from "react";
 
-type Lang = "es" | "en";
+type Lang = "en" | "es";
 
 const translations = {
-  es: {
-    nav: {
-      services: "Servicios",
-      portfolio: "Portfolio",
-      pricing: "Precios",
-      contact: "Contacto",
-      cta: "Solicitar presupuesto",
-    },
-    hero: {
-      badge: "🚀 Diseño web · Branding · Redes sociales",
-      headline: "Websites que impulsan tu negocio",
-      sub: "Diseñamos y desarrollamos tu presencia digital con creatividad, estrategia y tecnología pensada para crecer.",
-      cta1: "Cotizar",
-      cta2: "Ver portfolio",
-    },
-    about: {
-      badge: "¿Por qué DevNova?",
-      title: "Más que una agencia,",
-      titleAccent: "tu equipo de tecnología",
-      desc: "Desde hace 4 años trabajamos mano a mano con profesionales de Latinoamérica para que su presencia en internet esté a la altura de su talento. Tu idea merece una experiencia digital que la potencie.",
-      features: [
-        { title: "UX/UI experto", desc: "Diseño de experiencias centrado en el usuario y la conversión." },
-        { title: "Soporte real", desc: "Acompañamiento genuino durante y después del lanzamiento." },
-        { title: "Desarrollo a medida", desc: "Cada web es única, construida según tu negocio y objetivos." },
-        { title: "Redes sociales", desc: "Gestión y diseño de contenido para tus canales digitales." },
-      ],
-    },
-    services: {
-      badge: "Qué hacemos",
-      title: "Servicios",
-      titleAccent: "diseñados para crecer",
-      items: [
-        { title: "Desarrollo Web Corporativo", desc: "Sitios profesionales multipágina que reflejan la identidad de tu marca y convierten visitantes en clientes.", icon: "Globe" },
-        { title: "Landing Pages", desc: "Páginas de aterrizaje optimizadas para campañas publicitarias con máxima tasa de conversión.", icon: "Rocket" },
-        { title: "Catálogo de productos", desc: "Presentá tu oferta de forma visual y organizada para que tus clientes exploren y contacten.", icon: "ShoppingCart" },
-        { title: "Automatizaciones", desc: "Conectamos tus herramientas y automatizamos procesos para que tu negocio crezca solo.", icon: "Zap" },
-        { title: "SEO", desc: "Optimización para motores de búsqueda que te posiciona donde tus clientes te buscan.", icon: "Search" },
-        { title: "Mantenimiento Web", desc: "Actualizaciones, backups y soporte técnico continuo para que tu sitio siempre funcione perfecto.", icon: "Shield" },
-      ],
-    },
-    pricing: {
-      badge: "Planes y precios",
-      title: "Elegí el plan",
-      titleAccent: "ideal para tu negocio",
-      sub: "Sin costos ocultos. Sin sorpresas. Presupuesto personalizado según tu proyecto.",
-      popular: "Más elegido",
-      cta: "Cotizar",
-      plans: [
-        {
-          name: "Basic",
-          price: "Consultar",
-          pricePrefix: "",
-          desc: "Ideal para emprendedores y profesionales",
-          features: ["Landing page completa", "Diseño responsive mobile-first", "1 formulario de contacto", "SEO on-page", "1 ronda de revisiones", "Entrega en 7 días"],
-          popular: false,
-        },
-        {
-          name: "Business",
-          price: "Consultar",
-          pricePrefix: "",
-          desc: "Para empresas que quieren crecer online",
-          features: ["Web corporativa multipágina", "Hasta 5 secciones personalizadas", "Sección portfolio / galería", "Blog (opcional)", "Integración WhatsApp", "SEO intermedio", "Analytics integrado", "2 rondas de revisiones"],
-          popular: true,
-        },
-        {
-          name: "Premium",
-          price: "Consultar",
-          pricePrefix: "",
-          desc: "Proyectos complejos con integraciones avanzadas",
-          features: ["Desarrollo completamente a medida", "Plataforma web o aplicación personalizada", "Integraciones con APIs externas", "Automatizaciones de procesos", "Panel de administración", "Soporte prioritario 6 meses", "Analítica avanzada"],
-          popular: false,
-        },
-      ],
-    },
-    portfolio: {
-      badge: "Nuestros trabajos",
-      title: "Algunos proyectos",
-      titleAccent: "realizados",
-      sub: "Diseñamos experiencias digitales para marcas, negocios y profesionales",
-      viewProject: "Ver proyecto",
-      projects: [
-        { name: "Mercedes Chanquia", category: "Portfolio personal / marca personal", desc: "Sitio de portfolio profesional con diseño elegante y secciones de presentación.", url: "https://mercedeschanquia.netlify.app/#home", thumbnail: "/imagenes/preview-mercedeschanquia.png" },
-        { name: "Samuray BJJ", category: "Academia / servicios", desc: "Web para academia de artes marciales con información de clases y sistema de contacto.", url: "https://samuray-bjj.netlify.app/" },
-        { name: "El Teatro Abasto", category: "Teatro / Cultura", desc: "Sitio institucional para sala de teatro con cartelera de obras, información del espacio y reserva de entradas.", url: "https://elteatroabasto.com.ar" },
-        { name: "Nor-Falk", category: "Sitio corporativo", desc: "Sitio web institucional con diseño moderno y presentación de servicios.", url: "https://nor-falk.com" },
-        { name: "Dragisela Rodríguez", category: "Portfolio personal / marca personal", desc: "Sitio de portfolio profesional con presentación de trabajos y servicios.", url: "https://dragiselarodriguez.com.ar/" },
-      ],
-    },
-    testimonials: {
-      badge: "Lo que dicen nuestros clientes",
-      title: "Resultados que",
-      titleAccent: "hablan solos",
-      items: [
-        { name: "Mercedes Chanquia Aguirre", role: "Artista", text: "Trabajar con DevNova fue súper simple. Entendieron mi identidad artística y lograron una web elegante, moderna y muy alineada con mi marca personal.", avatar: "M" },
-        { name: "Jorge Ledesma", role: "Dueño JL BJJ Academy", text: "Necesitábamos una presencia online profesional para nuestra academia y DevNova resolvió todo de forma rápida y prolija. Muy recomendable.", avatar: "J" },
-        { name: "Micaela Fabbiani", role: "LideraMaps", text: "Nos ayudaron a ordenar nuestra presencia digital y crear una web clara, profesional y pensada para crecer.", avatar: "MF" },
-      ],
-    },
-    faq: {
-      badge: "Preguntas frecuentes",
-      title: "Todo lo que",
-      titleAccent: "necesitás saber",
-      items: [
-        { q: "¿Cuánto tarda en estar lista una página web?", a: "La mayoría de los proyectos se entregan entre 1 y 2 semanas, dependiendo de la complejidad. Antes de comenzar te damos un plazo exacto." },
-        { q: "¿El diseño es completamente personalizado?", a: "Sí. Cada web que desarrollamos se diseña desde cero en base a tu marca, objetivos y audiencia. No usamos plantillas genéricas." },
-        { q: "¿También trabajan gestión y diseño de redes sociales?", a: "Sí. Ofrecemos servicios de diseño y gestión de contenido para redes sociales para que toda tu presencia digital sea consistente y activa." },
-        { q: "¿El precio incluye dominio y hosting?", a: "Nuestros presupuestos base no incluyen dominio y hosting (son servicios de terceros con renovación anual). Sin embargo, los gestionamos por vos y te recomendamos las mejores opciones." },
-        { q: "¿Qué necesito para comenzar?", a: "Solo completar nuestro formulario de relevamiento con los detalles de tu proyecto. A partir de eso, armamos una propuesta personalizada sin costo." },
-        { q: "¿Hacen mantenimiento una vez lanzada la web?", a: "Sí. Ofrecemos planes de mantenimiento mensual que incluyen actualizaciones, backups, monitoreo y soporte técnico ante cualquier inconveniente." },
-      ],
-    },
-    benefits: {
-      badge: "¿Vale la pena?",
-      title: "¿Por qué tu negocio",
-      titleAccent: "necesita una web?",
-      prosTitle: "Con una web profesional",
-      consTitle: "Sin presencia digital",
-      pros: [
-        { title: "Más credibilidad", desc: "El 75% de los usuarios juzga la seriedad de un negocio por su sitio web." },
-        { title: "Más ventas", desc: "Una web bien diseñada puede aumentar tus conversiones hasta un 200%." },
-        { title: "Presencia 24/7", desc: "Tu negocio trabaja mientras dormís. Captás clientes en cualquier horario." },
-        { title: "Captación automática", desc: "Con SEO y formularios estratégicos, los clientes te encuentran a vos." },
-      ],
-      cons: [
-        { title: "Dependencia de redes", desc: "Si Instagram cae o cambia su algoritmo, perdés todo tu alcance." },
-        { title: "Menor confianza", desc: "Los clientes dudan de negocios que no tienen presencia web propia." },
-        { title: "Menos conversiones", desc: "Sin landing page, tus campañas tienen un techo bajo de resultados." },
-        { title: "Oportunidades perdidas", desc: "Cada día sin web es un cliente potencial que fue a la competencia." },
-      ],
-    },
-    formSection: {
-      badge: "¿Listo para empezar?",
-      title: "Contanos",
-      titleAccent: "tu proyecto",
-      desc: "Completá nuestro brief de desarrollo web y te enviaremos una propuesta personalizada según tus necesidades.",
-      benefits: ["Presupuesto personalizado", "Respuesta en menos de 24hs", "Asesoramiento sin compromiso"],
-      cta1: "Completar brief",
-      cta2: "Hablar por WhatsApp",
-    },
-    contact: {
-      badge: "Contacto",
-      title: "Hablemos de",
-      titleAccent: "tu proyecto",
-      name: "Nombre",
-      email: "Email",
-      company: "Empresa (opcional)",
-      message: "Contanos tu proyecto...",
-      send: "Enviar mensaje",
-      whatsapp: "WhatsApp",
-      or: "o escribinos directamente",
-      successTitle: "¡Mensaje enviado!",
-      successDesc: "Te respondemos en menos de 24 horas.",
-    },
-    footer: {
-      desc: "Más de 4 años construyendo presencia digital.",
-      links: "Enlaces",
-      legal: "Legal",
-      privacy: "Privacidad",
-      terms: "Términos",
-      copyright: "Todos los derechos reservados.",
-      tagline: "Hecho con ♥ en Argentina",
-    },
-    floating: "Solicitar presupuesto",
-  },
   en: {
     nav: {
+      work: "Work",
       services: "Services",
-      portfolio: "Portfolio",
-      pricing: "Pricing",
-      contact: "Contact",
-      cta: "Get a quote",
+      process: "Process",
+      about: "About",
+      cta: "Get in touch",
     },
+    // Copy variants considered for the hero headline (unification is the
+    // core value prop: one agency for brand system, templates, web, decks
+    // and LinkedIn). Variant 2 was used — it names the channels explicitly,
+    // which reads more concrete to a CEO than an abstract line.
+    // 1. "One agency for everything your brand says."
+    // 2. "Brand, web, decks, LinkedIn. One agency behind all of it." ← used
+    // 3. "Stop briefing five agencies. Start with one."
     hero: {
-      badge: "🚀 Web design · Branding · Social media",
-      headline: "Websites that drive your business",
-      sub: "We design and build your digital presence with creativity, strategy and technology to grow online.",
-      cta1: "Get a quote",
-      cta2: "View portfolio",
+      eyebrow: "Design & communication studio, Buenos Aires",
+      headline: "Brand, web, decks, LinkedIn. One agency behind all of it.",
+      sub: "We build your brand system and put it to work everywhere it needs to show up: web, templates, slide decks, LinkedIn. One team, one standard, nothing off-brand.",
+      cta2: "See the work",
+      stats: [
+        { value: "4+", label: "years in business" },
+        { value: "10+", label: "projects shipped" },
+        // TODO-DEVNOVA: confirm exact count of international clients — using
+        // "2+" as a verifiable placeholder (Denmark and Argentina, both
+        // mentioned in the brief).
+        { value: "2+", label: "international clients" },
+      ],
+    },
+    marquee: [
+      "Brand systems",
+      "Web design",
+      "Design systems",
+      "Sales decks",
+      "Investor decks",
+      "Naming workshops",
+      "Newsletters",
+      "Brand partnership",
+    ],
+    services: {
+      eyebrow: "What we do",
+      title: "Services",
+      recurringBadge: "Recurring revenue",
+      items: [
+        {
+          title: "Web design",
+          desc: "A site that turns a visit into a client, built on the same system as everything else you publish.",
+        },
+        {
+          title: "LinkedIn Management",
+          desc: "A steady, on-brand presence that keeps generating business opportunities month after month.",
+        },
+        {
+          title: "Brand systems & visual identity",
+          desc: "Color, type, tone: a system built to hold up across every format your team actually uses.",
+        },
+        {
+          title: "Communication design",
+          desc: "Sales decks, investor decks, internal presentations: the documents that close a meeting instead of filling it with slides.",
+        },
+        {
+          title: "Design systems in Canva",
+          desc: "Templates your team can open and use without a design background, so the identity survives without an agency on call.",
+        },
+        {
+          title: "Strategic workshops",
+          desc: "Naming, mission, vision: the working sessions that give a brand something real to say before we design a single pixel.",
+        },
+      ],
+    },
+    work: {
+      eyebrow: "Selected work",
+      title: "Work",
+      viewCase: "View case",
+      featured: {
+        client: "Norfalk",
+        tag: "Featured case",
+        location: "Nordic client",
+        desc: "Naming workshop, full design system, Canva setup, sales decks, internal decks, a monthly newsletter, and LinkedIn: one system built and maintained end to end.",
+        scope: ["Naming workshop", "Design system", "Canva setup", "Sales decks", "Internal decks", "Newsletter", "LinkedIn"],
+      },
+      others: [
+        {
+          client: "Gisela Estética",
+          desc: "Brand manual, design system and web.",
+          scope: ["Brand manual", "Design system", "Web"],
+        },
+        {
+          client: "El Teatro Abasto",
+          desc: "Web design for a theater venue.",
+          scope: ["Web"],
+        },
+        {
+          client: "Samuray BJJ",
+          desc: "Web design for a martial arts academy.",
+          scope: ["Web"],
+        },
+      ],
+    },
+    process: {
+      eyebrow: "How we work",
+      title: "Process",
+      steps: [
+        {
+          number: "01",
+          title: "Define",
+          desc: "Workshops to get naming, mission and vision straight: the groundwork every design decision after this depends on.",
+        },
+        {
+          number: "02",
+          title: "Build",
+          desc: "The visual identity and the design system that carries it, built once, meant to hold.",
+        },
+        {
+          number: "03",
+          title: "Activate",
+          desc: "The system goes live across web, decks, LinkedIn and newsletters: everywhere the brand actually shows up.",
+        },
+        {
+          number: "04",
+          title: "Maintain",
+          desc: "Templates and tools handed over so your team keeps things consistent without waiting on us for every piece.",
+        },
+      ],
     },
     about: {
-      badge: "Why DevNova?",
-      title: "More than an agency,",
-      titleAccent: "your tech team",
-      desc: "We are a web development company with 4+ years transforming ideas into digital experiences that generate real results. We work with brands and businesses across Latin America and beyond.",
-      features: [
-        { title: "Expert UX/UI", desc: "User-centered design focused on experience and conversion." },
-        { title: "Real support", desc: "Genuine accompaniment during and after your launch." },
-        { title: "Custom development", desc: "Every website is unique, built around your business and goals." },
-        { title: "Social media", desc: "Content management and design for your digital channels." },
-      ],
+      eyebrow: "About the studio",
+      title: "A small studio, on purpose.",
+      p1: "DevNova is a design and communication studio based in Buenos Aires, working mostly with growing organizations across Europe.",
+      p2: "We stay small so the people who plan the work are the people who do it. No account layer, no handoffs between strategy and execution. You talk to whoever is holding the pen.",
+      p3: "What we're after isn't a nice logo. It's every piece you publish looking like it came from the same place, whether it's a website, a slide, or a LinkedIn post.",
     },
-    services: {
-      badge: "What we do",
-      title: "Services",
-      titleAccent: "designed to grow",
-      items: [
-        { title: "Corporate Web Development", desc: "Professional multi-page sites that reflect your brand identity and convert visitors into clients.", icon: "Globe" },
-        { title: "Landing Pages", desc: "Advertising-optimized landing pages with maximum conversion rate.", icon: "Rocket" },
-        { title: "Product Catalog", desc: "Showcase your products visually and clearly so customers can explore and contact you.", icon: "ShoppingCart" },
-        { title: "Automations", desc: "We connect your tools and automate processes so your business grows on its own.", icon: "Zap" },
-        { title: "SEO", desc: "Search engine optimization that positions you where your customers are looking.", icon: "Search" },
-        { title: "Web Maintenance", desc: "Updates, backups and continuous tech support so your site always runs perfectly.", icon: "Shield" },
+    partnership: {
+      eyebrow: "An ongoing option",
+      title: "Brand partnership",
+      desc: "Most studios finish a project and disappear until the next one. We offer another way: a standing relationship where we stay close to the brand as it grows (new decks, new campaigns, new channels) without renegotiating scope every time something comes up.",
+      points: [
+        "Consistent turnaround on new materials",
+        "A team that already knows your brand",
+        "No re-briefing from scratch each time",
       ],
+      cta: "Ask about partnership",
     },
-    pricing: {
-      badge: "Plans & Pricing",
-      title: "Choose the plan",
-      titleAccent: "ideal for your business",
-      sub: "No hidden costs. No surprises. Personalized quote based on your project.",
-      popular: "Most popular",
-      cta: "Get a quote",
-      plans: [
-        {
-          name: "Basic",
-          price: "Get a quote",
-          pricePrefix: "",
-          desc: "Ideal for entrepreneurs and professionals",
-          features: ["Complete landing page", "Mobile-first responsive design", "1 contact form", "On-page SEO", "1 revision round", "Delivery in 7 days"],
-          popular: false,
-        },
-        {
-          name: "Business",
-          price: "Get a quote",
-          pricePrefix: "",
-          desc: "For companies that want to grow online",
-          features: ["Multi-page corporate website", "Up to 5 custom sections", "Portfolio / gallery section", "Blog (optional)", "WhatsApp integration", "Intermediate SEO", "Analytics integrated", "2 revision rounds"],
-          popular: true,
-        },
-        {
-          name: "Premium",
-          price: "Get a quote",
-          pricePrefix: "",
-          desc: "Complex projects with advanced integrations",
-          features: ["Fully custom development", "Custom web platform or application", "External API integrations", "Process automations", "Admin dashboard", "Priority support 6 months", "Advanced analytics"],
-          popular: false,
-        },
-      ],
-    },
-    portfolio: {
-      badge: "Our work",
-      title: "Featured",
-      titleAccent: "projects",
-      sub: "We design digital experiences for brands, businesses and professionals",
-      viewProject: "View project",
-      projects: [
-        { name: "Mercedes Chanquia", category: "Personal portfolio / personal brand", desc: "Professional portfolio site with elegant design and presentation sections.", url: "https://mercedeschanquia.netlify.app/#home", thumbnail: "/imagenes/preview-mercedeschanquia.png" },
-        { name: "Samuray BJJ", category: "Academy / services", desc: "Website for martial arts academy with class info and contact system.", url: "https://samuray-bjj.netlify.app/" },
-        { name: "El Teatro Abasto", category: "Theater / Culture", desc: "Institutional website for a theater venue with show listings, venue info and ticket reservations.", url: "https://elteatroabasto.com.ar" },
-        { name: "Nor-Falk", category: "Corporate site", desc: "Institutional website with modern design and services presentation.", url: "https://nor-falk.com" },
-        { name: "Dragisela Rodríguez", category: "Personal portfolio / personal brand", desc: "Professional portfolio site showcasing work and services.", url: "https://dragiselarodriguez.com.ar/" },
-      ],
-    },
-    testimonials: {
-      badge: "What our clients say",
-      title: "Results that",
-      titleAccent: "speak for themselves",
-      items: [
-        { name: "Mercedes Chanquia Aguirre", role: "Artist", text: "Working with DevNova was super simple. They understood my artistic identity and created an elegant, modern website perfectly aligned with my personal brand.", avatar: "M" },
-        { name: "Jorge Ledesma", role: "Owner, JL BJJ Academy", text: "We needed a professional online presence for our academy and DevNova solved everything quickly and neatly. Highly recommended.", avatar: "J" },
-        { name: "Micaela Fabbiani", role: "LideraMaps", text: "They helped us organize our digital presence and create a clear, professional website built to grow.", avatar: "MF" },
-      ],
-    },
-    faq: {
-      badge: "FAQ",
-      title: "Everything you",
-      titleAccent: "need to know",
-      items: [
-        { q: "How long does it take to build a website?", a: "It depends on the project. A landing page can be ready in 5-7 days. A corporate website can take between 3 and 6 weeks. We give you an exact timeline before starting." },
-        { q: "Is the design fully custom?", a: "Yes. Every website we build is designed from scratch based on your brand, goals and target audience. We don't use generic templates." },
-        { q: "Do you also manage social media?", a: "Yes. We offer content design and management services for social media so your entire digital presence stays consistent and active." },
-        { q: "Does the price include domain and hosting?", a: "Our base quotes don't include domain and hosting (they're third-party services with annual renewal). However, we manage them for you and recommend the best options." },
-        { q: "What do I need to get started?", a: "Just complete our project brief form with your details. From there, we put together a personalized proposal at no cost." },
-        { q: "Do you maintain the website after launch?", a: "Yes. We offer monthly maintenance plans that include updates, backups, monitoring and technical support." },
-      ],
-    },
-    benefits: {
-      badge: "Is it worth it?",
-      title: "Why does your business",
-      titleAccent: "need a website?",
-      prosTitle: "With a professional website",
-      consTitle: "Without digital presence",
-      pros: [
-        { title: "More credibility", desc: "75% of users judge a business's seriousness by its website." },
-        { title: "More sales", desc: "A well-designed website can increase your conversions by up to 200%." },
-        { title: "24/7 presence", desc: "Your business works while you sleep. You capture clients at any time." },
-        { title: "Automatic acquisition", desc: "With SEO and strategic forms, clients find you." },
-      ],
-      cons: [
-        { title: "Social media dependency", desc: "If Instagram goes down or changes its algorithm, you lose all your reach." },
-        { title: "Less trust", desc: "Clients doubt businesses that don't have their own web presence." },
-        { title: "Fewer conversions", desc: "Without a landing page, your campaigns have a low ceiling of results." },
-        { title: "Lost opportunities", desc: "Every day without a website is a potential customer who went to the competition." },
-      ],
-    },
-    formSection: {
-      badge: "Ready to start?",
-      title: "Tell us about",
-      titleAccent: "your project",
-      desc: "Complete our web development brief and we'll send you a personalized proposal tailored to your needs.",
-      benefits: ["Personalized quote", "Response in less than 24h", "No-commitment consultation"],
-      cta1: "Complete brief",
-      cta2: "Message on WhatsApp",
-    },
-    contact: {
-      badge: "Contact",
-      title: "Let's talk about",
-      titleAccent: "your project",
-      name: "Name",
-      email: "Email",
-      company: "Company (optional)",
-      message: "Tell us about your project...",
-      send: "Send message",
-      whatsapp: "WhatsApp",
-      or: "or write to us directly",
-      successTitle: "Message sent!",
-      successDesc: "We'll respond within 24 hours.",
+    finalCta: {
+      title: "Let's talk about your brand.",
+      sub: "Tell us where things are inconsistent and we'll tell you what it takes to fix it.",
+      cta: "Email us",
     },
     footer: {
-      desc: "We develop websites that convert visitors into clients. 4+ years building digital presence.",
-      links: "Links",
-      legal: "Legal",
-      privacy: "Privacy",
-      terms: "Terms",
-      copyright: "All rights reserved.",
-      tagline: "Made with ♥ in Argentina",
+      tagline: "Design & communication studio",
+      location: "Buenos Aires, Argentina",
+      linksTitle: "Links",
+      work: "Work",
+      contact: "Contact",
+      linkedin: "LinkedIn",
+      copyright: "DevNova Studio. All rights reserved.",
     },
-    floating: "Get a quote",
+    caseStudy: {
+      back: "Back to work",
+      client: "Client",
+      industry: "Industry",
+      services: "Services",
+      year: "Year",
+      challenge: "The challenge",
+      whatWeDid: "What we did",
+      results: "Results",
+      nextProject: "Next project",
+      imagePlaceholder: "Image coming soon",
+      transformation: "The transformation",
+      before: "Before DevNova",
+      after: "After DevNova",
+    },
+  },
+  es: {
+    nav: {
+      work: "Trabajos",
+      services: "Servicios",
+      process: "Proceso",
+      about: "Nosotros",
+      cta: "Escribinos",
+    },
+    hero: {
+      eyebrow: "Estudio de diseño y comunicación, Buenos Aires",
+      headline: "Marca, web, decks, LinkedIn. Una sola agencia detrás de todo.",
+      sub: "Construimos el sistema de marca y lo ponemos a trabajar en todos lados donde necesita aparecer: web, templates, slides, LinkedIn. Un solo equipo, un solo estándar, nada fuera de marca.",
+      cta2: "Ver los trabajos",
+      stats: [
+        { value: "4+", label: "años de trayectoria" },
+        { value: "10+", label: "proyectos entregados" },
+        // TODO-DEVNOVA: confirmar el número real de clientes internacionales
+        // — se usa "2+" como placeholder verificable (Dinamarca y Argentina,
+        // ambos mencionados en el brief).
+        { value: "2+", label: "clientes internacionales" },
+      ],
+    },
+    marquee: [
+      "Brand systems",
+      "Diseño web",
+      "Design systems",
+      "Sales decks",
+      "Investor decks",
+      "Naming workshops",
+      "Newsletters",
+      "Brand partnership",
+    ],
+    services: {
+      eyebrow: "Qué hacemos",
+      title: "Servicios",
+      recurringBadge: "Ingreso recurrente",
+      items: [
+        {
+          title: "Diseño web",
+          desc: "Un sitio que convierte una visita en cliente, construido sobre el mismo sistema que todo lo demás que publicás.",
+        },
+        {
+          title: "LinkedIn Management",
+          desc: "Una presencia constante y on-brand que sigue generando oportunidades de negocio mes a mes.",
+        },
+        {
+          title: "Brand systems e identidad visual",
+          desc: "Color, tipografía, tono: un sistema construido para sostenerse en cada formato que tu equipo realmente usa.",
+        },
+        {
+          title: "Communication design",
+          desc: "Sales decks, investor decks, presentaciones internas: los documentos que cierran una reunión en vez de llenarla de slides.",
+        },
+        {
+          title: "Design systems en Canva",
+          desc: "Plantillas que tu equipo puede abrir y usar sin formación en diseño, para que la identidad se sostenga sin depender de una agencia.",
+        },
+        {
+          title: "Workshops estratégicos",
+          desc: "Naming, misión, visión: las sesiones de trabajo que le dan a una marca algo real para decir antes de diseñar un solo píxel.",
+        },
+      ],
+    },
+    work: {
+      eyebrow: "Trabajos seleccionados",
+      title: "Trabajos",
+      viewCase: "Ver caso",
+      featured: {
+        client: "Norfalk",
+        tag: "Caso destacado",
+        location: "Cliente nórdico",
+        desc: "Naming workshop, design system completo, setup en Canva, sales decks, decks internos, newsletter mensual y LinkedIn: un sistema construido y mantenido de punta a punta.",
+        scope: ["Naming workshop", "Design system", "Setup en Canva", "Sales decks", "Decks internos", "Newsletter", "LinkedIn"],
+      },
+      others: [
+        {
+          client: "Gisela Estética",
+          desc: "Manual de marca, design system y web.",
+          scope: ["Manual de marca", "Design system", "Web"],
+        },
+        {
+          client: "El Teatro Abasto",
+          desc: "Diseño web para una sala de teatro.",
+          scope: ["Web"],
+        },
+        {
+          client: "Samuray BJJ",
+          desc: "Diseño web para una academia de artes marciales.",
+          scope: ["Web"],
+        },
+      ],
+    },
+    process: {
+      eyebrow: "Cómo trabajamos",
+      title: "Proceso",
+      steps: [
+        {
+          number: "01",
+          title: "Definir",
+          desc: "Workshops para dejar en claro naming, misión y visión: la base de la que depende cada decisión de diseño posterior.",
+        },
+        {
+          number: "02",
+          title: "Construir",
+          desc: "La identidad visual y el design system que la sostiene, construido una vez, pensado para durar.",
+        },
+        {
+          number: "03",
+          title: "Activar",
+          desc: "El sistema se activa en web, decks, LinkedIn y newsletters: en todos los lugares donde la marca realmente aparece.",
+        },
+        {
+          number: "04",
+          title: "Mantener",
+          desc: "Plantillas y herramientas entregadas para que tu equipo mantenga la consistencia sin esperar a que resolvamos cada pieza.",
+        },
+      ],
+    },
+    about: {
+      eyebrow: "Sobre el estudio",
+      title: "Un estudio chico, a propósito.",
+      p1: "DevNova es un estudio de diseño y comunicación con base en Buenos Aires, que trabaja principalmente con organizaciones en crecimiento en Europa.",
+      p2: "Nos mantenemos chicos para que las personas que planean el trabajo sean las mismas que lo hacen. Sin capas de account, sin traspasos entre estrategia y ejecución. Hablás con quien está sosteniendo el lápiz.",
+      p3: "Lo que buscamos no es un lindo logo. Es que cada pieza que publiques se vea como si viniera del mismo lugar, sea un sitio web, una slide o un posteo de LinkedIn.",
+    },
+    partnership: {
+      eyebrow: "Una opción continua",
+      title: "Brand partnership",
+      desc: "La mayoría de los estudios terminan un proyecto y desaparecen hasta el próximo. Nosotros ofrecemos otra forma: una relación estable donde nos mantenemos cerca de la marca a medida que crece (nuevos decks, nuevas campañas, nuevos canales) sin renegociar el alcance cada vez que surge algo.",
+      points: [
+        "Tiempos de entrega consistentes en materiales nuevos",
+        "Un equipo que ya conoce tu marca",
+        "Sin volver a explicar todo desde cero cada vez",
+      ],
+      cta: "Consultar sobre partnership",
+    },
+    finalCta: {
+      title: "Hablemos de tu marca.",
+      sub: "Contanos dónde está la inconsistencia y te decimos qué hace falta para resolverla.",
+      cta: "Escribinos",
+    },
+    footer: {
+      tagline: "Estudio de diseño y comunicación",
+      location: "Buenos Aires, Argentina",
+      linksTitle: "Enlaces",
+      work: "Trabajos",
+      contact: "Contacto",
+      linkedin: "LinkedIn",
+      copyright: "DevNova Studio. Todos los derechos reservados.",
+    },
+    caseStudy: {
+      back: "Volver a trabajos",
+      client: "Cliente",
+      industry: "Industria",
+      services: "Servicios",
+      year: "Año",
+      challenge: "El desafío",
+      whatWeDid: "Qué hicimos",
+      results: "Resultados",
+      nextProject: "Próximo proyecto",
+      imagePlaceholder: "Imagen próximamente",
+      transformation: "La transformación",
+      before: "Antes de DevNova",
+      after: "Después de DevNova",
+    },
   },
 };
 
-// Derive a structural type from Spanish (serves as schema) then widen to string
+// Derive a structural type from English (serves as schema) then widen to string
 type DeepString<T> = T extends string
   ? string
   : T extends readonly (infer U)[]
   ? DeepString<U>[]
   : { [K in keyof T]: DeepString<T[K]> };
 
-type Translations = DeepString<typeof translations.es>;
+type Translations = DeepString<typeof translations.en>;
 
 const LangContext = createContext<{
   lang: Lang;
   t: Translations;
   toggle: () => void;
-}>({ lang: "es", t: translations.es as unknown as Translations, toggle: () => {} });
+}>({ lang: "en", t: translations.en as unknown as Translations, toggle: () => {} });
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("es");
-  const toggle = () => setLang((l) => (l === "es" ? "en" : "es"));
+  const [lang, setLang] = useState<Lang>("en");
+  const toggle = () => setLang((l) => (l === "en" ? "es" : "en"));
   return (
     <LangContext.Provider value={{ lang, t: translations[lang] as unknown as Translations, toggle }}>
       {children}

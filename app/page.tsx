@@ -1,42 +1,29 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
+import Marquee from "@/components/Marquee";
 import Services from "@/components/Services";
-import Pricing from "@/components/Pricing";
-import Portfolio from "@/components/Portfolio";
-import Testimonials from "@/components/Testimonials";
-import Benefits from "@/components/Benefits";
-import FAQ from "@/components/FAQ";
-import Contact from "@/components/Contact";
+import Work from "@/components/Work";
+import Process from "@/components/Process";
+import About from "@/components/About";
+import BrandPartnership from "@/components/BrandPartnership";
+import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import FloatingCTA from "@/components/FloatingCTA";
-import SpaceBackground from "@/components/SpaceBackground";
-import ShootingStar from "@/components/ShootingStar";
 
 export default function Home() {
   return (
     <>
-      {/* ── Immersive space background (fixed, z-index 0) ── */}
-      <SpaceBackground />
-
-      {/* ── Cinematic shooting star (fixed, z-index 40) ─── */}
-      <ShootingStar />
-
-      {/* ── Site content (z-index 1, above canvas) ─────── */}
       <Navbar />
-      <main className="content-layer">
+      <main>
         <Hero />
-        <About />
+        <Marquee />
         <Services />
-        <Benefits />
-        <Pricing />
-        <Portfolio />
-        <Testimonials />
-        <FAQ />
-        <Contact />
+        <Work />
+        <Process />
+        <About />
+        <BrandPartnership />
+        <CTA />
       </main>
-      <div className="content-layer"><Footer /></div>
-      <FloatingCTA />
+      <Footer />
     </>
   );
 }

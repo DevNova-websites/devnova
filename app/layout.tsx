@@ -1,37 +1,34 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
+import SmoothScroll from "@/components/SmoothScroll";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["300", "400"],
 });
 
 export const metadata: Metadata = {
-  title: "DevNova - Desarrollo Web",
+  title: "DevNova Studio: Design & Communication",
   description:
-    "Agencia de diseño web en Argentina. Creamos sitios modernos, rápidos y a medida. Diseño web, branding y gestión de redes sociales. Solicitá tu presupuesto gratis.",
-  keywords: ["desarrollo web", "agencia web", "landing page", "diseño web", "branding", "redes sociales", "DevNova", "diseño web Argentina"],
-  authors: [{ name: "DevNova" }],
+    "DevNova is a design and communication studio in Buenos Aires. We build brand systems and put them to work across web, decks, LinkedIn and newsletters.",
+  keywords: ["design studio", "brand system", "design system", "web design", "communication design", "Buenos Aires", "DevNova"],
+  authors: [{ name: "DevNova Studio" }],
   openGraph: {
-    title: "DevNova — Desarrollo Web",
-    description: "Creamos sitios web modernos y rápidos diseñados para vender.",
+    title: "DevNova Studio: Design & Communication",
+    description: "One system. Every channel. Nothing off-brand.",
     url: "https://devnova.com",
-    siteName: "DevNova",
-    locale: "es_AR",
+    siteName: "DevNova Studio",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevNova - Desarrollo Web",
-    description: "Creamos sitios web modernos y rápidos diseñados para vender.",
+    title: "DevNova Studio: Design & Communication",
+    description: "One system. Every channel. Nothing off-brand.",
   },
   robots: { index: true, follow: true },
 };
@@ -43,8 +40,8 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="es"
-      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      lang="en"
+      className={`${inter.variable} antialiased`}
     >
       <body>
         <Script
@@ -59,7 +56,9 @@ export default function RootLayout({
             gtag('config', 'G-XMT952YT7C');
           `}
         </Script>
-        <LangProvider>{children}</LangProvider>
+        <LangProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </LangProvider>
       </body>
     </html>
   );

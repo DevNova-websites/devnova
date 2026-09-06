@@ -9,32 +9,32 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["var(--font-geist-mono)", "monospace"],
+        heading: ["var(--font-heading)"],
+        sans: ["var(--font-body)"],
       },
       colors: {
-        brand: {
-          DEFAULT: "#F5C400",
-          amber: "#FF9F0A",
-          fire: "#FF5722",
-          gold: "#FFD60A",
+        stardust: "var(--color-stardust)",
+        deepspace: "var(--color-deepspace)",
+        nebula: "var(--color-nebula)",
+        saturn: "var(--color-saturn)",
+        orbit: "var(--color-orbit)",
+      },
+      borderRadius: {
+        card: "12px",
+        pill: "100px",
+      },
+      keyframes: {
+        "spin-slow": {
+          to: { transform: "rotate(360deg)" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
         },
       },
       animation: {
-        float: "float 5s ease-in-out infinite",
-        "pulse-ring": "pulse-ring 2s ease-out infinite",
-        "spin-slow": "spin 8s linear infinite",
-      },
-      keyframes: {
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-12px)" },
-        },
-        "pulse-ring": {
-          "0%": { boxShadow: "0 0 0 0 rgba(245,196,0,0.5)" },
-          "70%": { boxShadow: "0 0 0 12px rgba(245,196,0,0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(245,196,0,0)" },
-        },
+        "spin-slow": "spin-slow 44s linear infinite",
+        float: "float 7s ease-in-out infinite",
       },
     },
   },
