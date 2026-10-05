@@ -3,7 +3,12 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "22"
+  # El cache interno de Turbopack (.next/cache) guarda una copia de las variables
+  # de entorno, incluida RESEND_API_KEY. Ese cache no se publica en el sitio,
+  # pero el escaneo de secretos de Netlify lo detecta y frena el build.
+  # Excluimos solo esas carpetas de cache del escaneo; el resto se sigue revisando.
+  SECRETS_SCAN_OMIT_PATHS = ".netlify/.next/cache/**,.next/cache/**"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
