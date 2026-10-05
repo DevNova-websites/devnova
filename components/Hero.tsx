@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { useLang } from "@/lib/i18n";
 import { scrollToSection } from "@/components/SmoothScroll";
 import { OrbitRing } from "@/components/graphics/SpaceElements";
+import HeroShowcase from "@/components/graphics/HeroShowcase";
 
 export default function Hero() {
   const { t } = useLang();
@@ -40,7 +41,7 @@ export default function Hero() {
     return () => ctx.revert();
   }, []);
 
-  const headlineWords = t.hero.headline.split(" ");
+  const headlineLines = t.hero.headline.split("\n");
 
   return (
     <section
@@ -49,16 +50,21 @@ export default function Hero() {
     >
       <OrbitRing className="hidden md:block absolute top-10 right-0 w-40 h-40 text-nebula/60" />
 
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-[1.05fr_0.95fr] gap-14 md:gap-12 items-center">
+        <div>
         <p className="hero-fade pill mb-8 opacity-0">{t.hero.eyebrow}</p>
 
         <h1
           ref={headlineRef}
-          className="font-heading font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] tracking-[-0.02em] md:tracking-[-0.03em] text-deepspace max-w-3xl"
+          className="font-heading font-bold text-4xl sm:text-5xl md:text-[2.6rem] lg:text-[3.4rem] leading-[1.08] tracking-[-0.02em] md:tracking-[-0.03em] text-deepspace max-w-3xl"
         >
-          {headlineWords.map((word, i) => (
-            <span key={i} className="hero-word inline-block opacity-0 mr-[0.25em]">
-              {word}
+          {headlineLines.map((line, li) => (
+            <span key={li} className="block">
+              {line.split(" ").map((word, wi) => (
+                <span key={wi} className="hero-word inline-block opacity-0 mr-[0.25em]">
+                  {word}
+                </span>
+              ))}
             </span>
           ))}
         </h1>
@@ -67,7 +73,7 @@ export default function Hero() {
           {t.hero.sub}
         </p>
 
-        <div className="hero-fade opacity-0 mt-10">
+        <div className="hero-fade opacity-0 mt-10 flex flex-wrap gap-3">
           <a
             href="#work"
             onClick={(e) => {
@@ -78,15 +84,25 @@ export default function Hero() {
           >
             {t.hero.cta2}
           </a>
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("#contact");
+            }}
+            className="btn-secondary inline-block px-8 py-3.5 text-sm"
+          >
+            {t.hero.cta1}
+          </a>
         </div>
 
-        <div className="hero-fade opacity-0 mt-16 md:mt-24 grid grid-cols-3 gap-4 md:gap-6 max-w-xl">
+        <div className="hero-fade opacity-0 mt-12 md:mt-16 grid grid-cols-3 gap-4 md:gap-6 max-w-xl">
           {t.hero.stats.map((stat) => (
             <div
               key={stat.label}
               className="rounded-card border border-deepspace/10 bg-orbit/60 px-4 py-5 md:px-6 md:py-7"
             >
-              <div className="font-heading font-bold text-2xl md:text-4xl text-nebula tracking-tight">
+              <div className="font-heading font-bold text-xl md:text-3xl text-nebula tracking-tight whitespace-nowrap">
                 {stat.value}
               </div>
               <div className="text-xs md:text-sm text-deepspace/60 mt-2 leading-snug">
@@ -94,6 +110,11 @@ export default function Hero() {
               </div>
             </div>
           ))}
+        </div>
+        </div>
+
+        <div className="hero-fade opacity-0 pb-8">
+          <HeroShowcase caption={t.hero.showcaseCaption} />
         </div>
       </div>
     </section>

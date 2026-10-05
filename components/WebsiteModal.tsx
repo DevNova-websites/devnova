@@ -59,7 +59,7 @@ export default function WebsiteModal({
           <button
             onClick={onClose}
             aria-label={closeLabel}
-            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-deepspace text-stardust flex items-center justify-center text-2xl leading-none hover:bg-nebula hover:text-deepspace transition-colors shrink-0"
+            className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-deepspace text-stardust flex items-center justify-center text-2xl leading-none hover:bg-nebula transition-colors shrink-0"
           >
             ×
           </button>

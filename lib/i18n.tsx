@@ -13,25 +13,20 @@ const translations = {
       contact: "Contact",
       cta: "Get in touch",
     },
-    // Copy variants considered for the hero headline (unification is the
-    // core value prop: one agency for brand system, templates, web, decks
-    // and LinkedIn). Variant 2 was used — it names the channels explicitly,
-    // which reads more concrete to a CEO than an abstract line.
-    // 1. "One agency for everything your brand says."
-    // 2. "Brand, web, decks, LinkedIn. One agency behind all of it." ← used
-    // 3. "Stop briefing five agencies. Start with one."
+    // Hero: the headline names what DevNova does (brand, web, LinkedIn) so a
+    // first-time visitor gets it in seconds. Previous version, kept for
+    // reference: "One agency.\nZero mismatches."
     hero: {
       eyebrow: "Design & communication studio, Buenos Aires",
-      headline: "Brand, web, decks, LinkedIn. One agency behind all of it.",
-      sub: "We build your brand system and put it to work everywhere it needs to show up: web, templates, slide decks, LinkedIn. One team, one standard, nothing off-brand.",
+      headline: "Brand, web & LinkedIn.\nOne studio behind it all.",
+      sub: "We design your brand system and put it to work everywhere you show up: your website, slide decks, Canva templates and LinkedIn. All consistent, without coordinating five different suppliers.",
+      cta1: "Let's talk",
+      showcaseCaption: "Real client work: Norfalk, Gisela Rodríguez Estética, Mauro Crema",
       cta2: "See the work",
       stats: [
         { value: "4+", label: "years in business" },
         { value: "10+", label: "projects shipped" },
-        // TODO-DEVNOVA: confirm exact count of international clients — using
-        // "2+" as a verifiable placeholder (Denmark and Argentina, both
-        // mentioned in the brief).
-        { value: "2+", label: "international clients" },
+        { value: "AR → DK", label: "local & international clients" },
       ],
     },
     marquee: [
@@ -42,7 +37,7 @@ const translations = {
       "Investor decks",
       "Naming workshops",
       "Newsletters",
-      "Brand partnership",
+      "LinkedIn management",
     ],
     services: {
       eyebrow: "What we do",
@@ -87,8 +82,8 @@ const translations = {
         location: "Nordic client",
         desc: "Naming workshop, full design system, Canva setup, sales decks, internal decks, a monthly newsletter, and LinkedIn: one system built and maintained end to end.",
         scope: ["Naming workshop", "Design system", "Canva setup", "Sales decks", "Internal decks", "Newsletter", "LinkedIn"],
-        linkedinBeforeLabel: "LinkedIn — before",
-        linkedinAfterLabel: "LinkedIn — today",
+        linkedinBeforeLabel: "LinkedIn: before",
+        linkedinAfterLabel: "LinkedIn: today",
         linkedinBefore: "LinkedIn before",
         linkedinBeforeStat: "Little to no activity",
         linkedinAfter: "LinkedIn today",
@@ -113,7 +108,7 @@ const translations = {
         {
           number: "02",
           title: "Define",
-          desc: "We define the scope of the project — web, LinkedIn, design system, decks, whatever it takes — and the budget gets approved.",
+          desc: "We define the scope of the project (web, LinkedIn, design system, decks, whatever it takes) and the budget gets approved.",
         },
         {
           number: "03",
@@ -128,17 +123,17 @@ const translations = {
       ],
       agile: {
         title: "Iterative, not open-ended",
-        desc: "The process is iterative and agile: we don't wait until the end of the project to ask for feedback, we review progress with you at the close of each phase. That doesn't mean an open stream of changes — each phase has a defined scope, and iteration happens inside it, not around it.",
+        desc: "The process is iterative and agile: we don't wait until the end of the project to ask for feedback, we review progress with you at the close of each phase. That doesn't mean an open stream of changes: each phase has a defined scope, and iteration happens inside it, not around it.",
       },
     },
     about: {
       eyebrow: "About the studio",
       title: "One point of contact. One system behind everything.",
-      p1: "DevNova is a design and communication studio based in Buenos Aires, working with growing organizations internationally. You work directly with the people doing the work — no account layer, no handoff between strategy and execution. Whoever plans it is who builds it, and who you talk to.",
-      p2: "You can start from wherever you are. If there's already a design system built by someone else, we work on top of it; if there's nothing but a logo, we build the rest from there. The one thing we need from you going in is that logo — DevNova doesn't design logos.",
+      p1: "DevNova is a design and communication studio based in Buenos Aires, working with growing organizations internationally. You work directly with the people doing the work: no account layer, no handoff between strategy and execution. Whoever plans it is who builds it, and who you talk to.",
+      p2: "You can start from wherever you are. If there's already a design system built by someone else, we work on top of it; if there's nothing but a logo, we build the rest from there. The one thing we need from you going in is that logo: DevNova doesn't design logos.",
       ecosystem: {
         title: "The ecosystem is the product.",
-        desc: "The real deliverable isn't any single piece — it's the coherence across all of them. Your website, a slide, a LinkedIn post: built so every one of them reads as if it came from the same place. Most companies are missing that. It's what we build first.",
+        desc: "The real deliverable isn't any single piece: it's the coherence across all of them. Your website, a slide, a LinkedIn post: built so every one of them reads as if it came from the same place. Most companies are missing that. It's what we build first.",
       },
     },
     ongoing: {
@@ -159,14 +154,12 @@ const translations = {
     },
     contact: {
       eyebrow: "Get in touch",
-      title: "Three ways to reach us",
-      sub: "Whichever is easiest — no need to sign in anywhere.",
+      title: "Contact us",
+      sub: "Whichever is easiest, no need to sign in anywhere.",
       whatsapp: "Message us on WhatsApp",
       whatsappMessage: "Hi DevNova! I'd like to talk about a project.",
       emailCta: "Email us",
       emailSubject: "Let's talk about a project",
-      emailNote: "Opens Gmail with the message ready to send.",
-      mailtoFallback: "Prefer your own email app? Click here instead.",
       emailLabel: "Or write to us directly",
       copyEmail: "Copy",
       copied: "Copied",
@@ -176,7 +169,7 @@ const translations = {
       formMessage: "Message",
       formSubmit: "Send inquiry",
       formSending: "Sending…",
-      formSent: "Sent — we'll get back to you soon.",
+      formSent: "Sent. We'll get back to you soon.",
       formError: "Something went wrong. Try WhatsApp or email instead.",
     },
     footer: {
@@ -213,6 +206,9 @@ const translations = {
       modalFallback: "This site can't be displayed here.",
       openNewTab: "Open in a new tab",
       closeModal: "Close",
+      mobilePreview: "Mobile preview",
+      lightboxPrev: "Previous image",
+      lightboxNext: "Next image",
     },
   },
   es: {
@@ -226,16 +222,15 @@ const translations = {
     },
     hero: {
       eyebrow: "Estudio de diseño y comunicación, Buenos Aires",
-      headline: "Marca, web, decks, LinkedIn. Una sola agencia detrás de todo.",
-      sub: "Construimos el sistema de marca y lo ponemos a trabajar en todos lados donde necesita aparecer: web, templates, slides, LinkedIn. Un solo equipo, un solo estándar, nada fuera de marca.",
+      headline: "Marca, web y LinkedIn.\nUn solo estudio detrás de todo.",
+      sub: "Diseñamos tu sistema de marca y lo aplicamos en todo lo que mostrás: tu web, tus presentaciones, tus templates de Canva y tu LinkedIn. Todo coherente, sin coordinar cinco proveedores distintos.",
+      cta1: "Hablemos",
+      showcaseCaption: "Trabajos reales: Norfalk, Gisela Rodríguez Estética, Mauro Crema",
       cta2: "Ver los trabajos",
       stats: [
         { value: "4+", label: "años de trayectoria" },
         { value: "10+", label: "proyectos entregados" },
-        // TODO-DEVNOVA: confirmar el número real de clientes internacionales
-        // — se usa "2+" como placeholder verificable (Dinamarca y Argentina,
-        // ambos mencionados en el brief).
-        { value: "2+", label: "clientes internacionales" },
+        { value: "AR → DK", label: "clientes nacionales e internacionales" },
       ],
     },
     marquee: [
@@ -246,7 +241,7 @@ const translations = {
       "Investor decks",
       "Naming workshops",
       "Newsletters",
-      "Brand partnership",
+      "LinkedIn management",
     ],
     services: {
       eyebrow: "Qué hacemos",
@@ -291,8 +286,8 @@ const translations = {
         location: "Cliente nórdico",
         desc: "Naming workshop, design system completo, setup en Canva, sales decks, decks internos, newsletter mensual y LinkedIn: un sistema construido y mantenido de punta a punta.",
         scope: ["Naming workshop", "Design system", "Setup en Canva", "Sales decks", "Decks internos", "Newsletter", "LinkedIn"],
-        linkedinBeforeLabel: "LinkedIn — antes",
-        linkedinAfterLabel: "LinkedIn — hoy",
+        linkedinBeforeLabel: "LinkedIn: antes",
+        linkedinAfterLabel: "LinkedIn: hoy",
         linkedinBefore: "LinkedIn antes",
         linkedinBeforeStat: "Poca o ninguna actividad",
         linkedinAfter: "LinkedIn hoy",
@@ -317,7 +312,7 @@ const translations = {
         {
           number: "02",
           title: "Define",
-          desc: "Definimos el alcance del proyecto — web, LinkedIn, design system, decks, lo que haga falta — y se aprueba el presupuesto.",
+          desc: "Definimos el alcance del proyecto (web, LinkedIn, design system, decks, lo que haga falta) y se aprueba el presupuesto.",
         },
         {
           number: "03",
@@ -332,14 +327,14 @@ const translations = {
       ],
       agile: {
         title: "Iterativo, no abierto",
-        desc: "El proceso es iterativo y ágil: no esperamos al final del proyecto para pedir feedback, revisamos el avance con vos al cierre de cada etapa. Eso no significa una tanda abierta de cambios — cada etapa tiene un alcance definido, y la iteración ocurre dentro de esa etapa, no alrededor de ella.",
+        desc: "El proceso es iterativo y ágil: no esperamos al final del proyecto para pedir feedback, revisamos el avance con vos al cierre de cada etapa. Eso no significa una tanda abierta de cambios: cada etapa tiene un alcance definido, y la iteración ocurre dentro de esa etapa, no alrededor de ella.",
       },
     },
     about: {
       eyebrow: "Sobre el estudio",
       title: "Un solo punto de contacto. Un sistema detrás de todo.",
-      p1: "DevNova es un estudio de diseño y comunicación con base en Buenos Aires, que trabaja con organizaciones en crecimiento a nivel internacional. Trabajás directamente con las personas que hacen el trabajo — sin capas de account, sin traspasos entre estrategia y ejecución. Quien lo planea es quien lo construye, y con quien hablás.",
-      p2: "Podés empezar desde donde estés. Si ya tenés un design system hecho por otro diseñador, trabajamos sobre eso; si no tenés más que un logo, construimos el resto desde ahí. Lo único que necesitamos de tu lado para arrancar es ese logo — DevNova no diseña logos.",
+      p1: "DevNova es un estudio de diseño y comunicación con base en Buenos Aires, que trabaja con organizaciones en crecimiento a nivel internacional. Trabajás directamente con las personas que hacen el trabajo: sin capas de account, sin traspasos entre estrategia y ejecución. Quien lo planea es quien lo construye, y con quien hablás.",
+      p2: "Podés empezar desde donde estés. Si ya tenés un design system hecho por otro diseñador, trabajamos sobre eso; si no tenés más que un logo, construimos el resto desde ahí. Lo único que necesitamos de tu lado para arrancar es ese logo: DevNova no diseña logos.",
       ecosystem: {
         title: "El ecosistema es el producto.",
         desc: "Lo que realmente entregamos no es una pieza suelta: es la coherencia entre todas. Tu página web, una slide, un posteo de LinkedIn: construidos para que cada uno se vea como si viniera del mismo lugar. A la mayoría de las empresas les falta eso. Es lo primero que construimos.",
@@ -363,14 +358,12 @@ const translations = {
     },
     contact: {
       eyebrow: "Contacto",
-      title: "Tres formas de escribirnos",
-      sub: "La que te resulte más fácil — no hace falta iniciar sesión en nada.",
+      title: "Contactanos",
+      sub: "La que te resulte más fácil, no hace falta iniciar sesión en nada.",
       whatsapp: "Escribinos por WhatsApp",
       whatsappMessage: "¡Hola DevNova! Quiero hablar sobre un proyecto.",
       emailCta: "Escribinos por mail",
       emailSubject: "Quiero hablar sobre un proyecto",
-      emailNote: "Abre Gmail con el mensaje listo para enviar.",
-      mailtoFallback: "¿Preferís tu propio cliente de mail? Hacé clic acá.",
       emailLabel: "O escribinos directamente",
       copyEmail: "Copiar",
       copied: "Copiado",
@@ -380,7 +373,7 @@ const translations = {
       formMessage: "Mensaje",
       formSubmit: "Enviar consulta",
       formSending: "Enviando…",
-      formSent: "Enviado — te vamos a responder pronto.",
+      formSent: "Enviado. Te vamos a responder pronto.",
       formError: "Algo salió mal. Probá por WhatsApp o por mail.",
     },
     footer: {
@@ -417,6 +410,9 @@ const translations = {
       modalFallback: "Este sitio no se puede mostrar acá.",
       openNewTab: "Abrir en una pestaña nueva",
       closeModal: "Cerrar",
+      mobilePreview: "Vista previa en mobile",
+      lightboxPrev: "Imagen anterior",
+      lightboxNext: "Imagen siguiente",
     },
   },
 };

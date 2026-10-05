@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Logo from "@/components/Logo";
+import { LINKEDIN_URL } from "@/lib/contact";
 
 export default function Footer() {
   const { t } = useLang();
@@ -33,16 +34,14 @@ export default function Footer() {
               >
                 {t.footer.contact}
               </Link>
-              {/* TODO-DEVNOVA: activar cuando la cuenta de LinkedIn de DevNova esté operativa.
               <a
-                href="https://www.linkedin.com/company/devnova"
+                href={LINKEDIN_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-deepspace/70 hover:text-nebula transition-colors"
               >
                 {t.footer.linkedin}
               </a>
-              */}
             </div>
           </div>
         </div>

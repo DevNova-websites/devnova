@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 import { OrbitDots } from "@/components/graphics/SpaceElements";
-import { DoubleDiamond } from "@/components/graphics/DoubleDiamond";
 
 export default function Process() {
   const { t } = useLang();
@@ -68,13 +68,6 @@ export default function Process() {
     return () => ctx.revert();
   }, [t.process.steps]);
 
-  const stepTitles = t.process.steps.map((s) => s.title) as [
-    string,
-    string,
-    string,
-    string,
-  ];
-
   return (
     <section
       id="process"
@@ -94,7 +87,13 @@ export default function Process() {
         </p>
 
         <div className="process-diagram opacity-0 max-w-2xl mx-auto mb-16 md:mb-20">
-          <DoubleDiamond labels={stepTitles} className="text-deepspace" />
+          <Image
+            src="/imagenes/double-diamond.png"
+            alt="Double Diamond"
+            width={1400}
+            height={737}
+            className="w-full h-auto"
+          />
         </div>
 
         <div className="grid md:grid-cols-4 gap-12 md:gap-10">

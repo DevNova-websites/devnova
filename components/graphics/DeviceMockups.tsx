@@ -1,6 +1,7 @@
 "use client";
 
 import { forwardRef } from "react";
+import Image from "next/image";
 
 // Frames de dispositivo en línea, color plano (sin fotos de stock ni gradientes).
 // El contenido interno es siempre un placeholder marcado hasta que el equipo
@@ -24,17 +25,27 @@ function WireframeBlocks() {
   );
 }
 
-export const LaptopMockup = forwardRef<HTMLDivElement, { label: string }>(
-  function LaptopMockup({ label }, contentRef) {
+export const LaptopMockup = forwardRef<HTMLDivElement, { label: string; src?: string }>(
+  function LaptopMockup({ label, src }, contentRef) {
     return (
       <div className="w-full max-w-md">
-        <div className="relative rounded-t-xl border-2 border-dashed border-deepspace/30 bg-orbit/60 aspect-[16/10] overflow-hidden">
-          <div ref={contentRef} className="absolute inset-0 h-[140%]">
-            <WireframeBlocks />
-          </div>
-          <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wide text-deepspace/40 bg-stardust/80 px-2.5 py-1 rounded-full">
-            {label}
-          </span>
+        <div
+          className={`relative rounded-t-xl aspect-[16/10] overflow-hidden ${
+            src ? "border border-deepspace/15 bg-orbit" : "border-2 border-dashed border-deepspace/30 bg-orbit/60"
+          }`}
+        >
+          {src ? (
+            <Image src={src} alt={label} fill className="object-cover object-top" />
+          ) : (
+            <>
+              <div ref={contentRef} className="absolute inset-0 h-[140%]">
+                <WireframeBlocks />
+              </div>
+              <span className="absolute bottom-3 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-wide text-deepspace/40 bg-stardust/80 px-2.5 py-1 rounded-full">
+                {label}
+              </span>
+            </>
+          )}
         </div>
         <div className="h-2.5 md:h-3 mx-[6%] rounded-b-md bg-deepspace/25" />
       </div>
@@ -42,18 +53,28 @@ export const LaptopMockup = forwardRef<HTMLDivElement, { label: string }>(
   }
 );
 
-export function PhoneMockup({ label }: { label: string }) {
+export function PhoneMockup({ label, src }: { label: string; src?: string }) {
   return (
-    <div className="relative w-24 md:w-28 aspect-[9/19] rounded-[1.25rem] border-2 border-dashed border-deepspace/30 bg-orbit/60 overflow-hidden shrink-0">
-      <div className="absolute inset-0 flex flex-col gap-2 p-2.5">
-        <div className="h-6 w-6 rounded-full bg-deepspace/15 mx-auto" />
-        <div className="h-2 w-3/4 mx-auto rounded-full bg-deepspace/15" />
-        <div className="h-16 w-full rounded-md bg-deepspace/10 mt-1" />
-        <div className="h-16 w-full rounded-md bg-deepspace/10" />
-      </div>
-      <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[8px] uppercase tracking-wide text-deepspace/40 bg-stardust/80 px-1.5 py-0.5 rounded-full whitespace-nowrap">
-        {label}
-      </span>
+    <div
+      className={`relative w-24 md:w-28 aspect-[9/19] rounded-[1.25rem] overflow-hidden shrink-0 ${
+        src ? "border border-deepspace/15 bg-orbit" : "border-2 border-dashed border-deepspace/30 bg-orbit/60"
+      }`}
+    >
+      {src ? (
+        <Image src={src} alt={label} fill className="object-cover object-top" />
+      ) : (
+        <>
+          <div className="absolute inset-0 flex flex-col gap-2 p-2.5">
+            <div className="h-6 w-6 rounded-full bg-deepspace/15 mx-auto" />
+            <div className="h-2 w-3/4 mx-auto rounded-full bg-deepspace/15" />
+            <div className="h-16 w-full rounded-md bg-deepspace/10 mt-1" />
+            <div className="h-16 w-full rounded-md bg-deepspace/10" />
+          </div>
+          <span className="absolute bottom-2 left-1/2 -translate-x-1/2 text-[8px] uppercase tracking-wide text-deepspace/40 bg-stardust/80 px-1.5 py-0.5 rounded-full whitespace-nowrap">
+            {label}
+          </span>
+        </>
+      )}
     </div>
   );
 }

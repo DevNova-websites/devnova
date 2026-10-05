@@ -1,116 +1,61 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 import { projects, type Project } from "@/data/projects";
-import { LaptopMockup, PhoneMockup } from "@/components/graphics/DeviceMockups";
-import WebsiteModal from "@/components/WebsiteModal";
+import { imageDimensions } from "@/data/imageDimensions";
+import { ProjectImage } from "@/components/ProjectImage";
+import Lightbox, { type LightboxImage } from "@/components/Lightbox";
+import LiveEmbed from "@/components/LiveEmbed";
 
-function ImageSlot({
-  src,
-  ratio,
-  label,
-}: {
-  src?: string;
-  ratio: string;
-  label: string;
-}) {
-  return (
-    <div
-      className="relative w-full overflow-hidden rounded-card border-2 border-dashed border-deepspace/25 bg-orbit/50"
-      style={{ aspectRatio: ratio }}
-    >
-      {src ? (
-        <Image src={src} alt="" fill className="object-cover" />
-      ) : (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xs uppercase tracking-wide text-deepspace/40">
-            {label}
-          </span>
-        </div>
-      )}
-    </div>
-  );
-}
+const FALLBACK_DIMENSIONS = { width: 1600, height: 1000 };
 
-function ServiceAccordion({
-  sections,
-  labels,
-}: {
-  sections: Project["en"]["sections"];
-  labels: { discover: string; propose: string; iterate: string; result: string };
-}) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  return (
-    <div className="hairline">
-      {sections.map((section, i) => {
-        const isOpen = openIndex === i;
-        return (
-          <div key={section.title} className="hairline-b">
-            <button
-              onClick={() => setOpenIndex(isOpen ? null : i)}
-              aria-expanded={isOpen}
-              className="w-full flex items-center justify-between gap-6 py-6 md:py-7 text-left group"
-            >
-              <h3 className="font-heading font-bold text-lg md:text-2xl tracking-[-0.02em] text-deepspace group-hover:text-nebula transition-colors duration-300">
-                {section.title}
-              </h3>
-              <span
-                className={`shrink-0 text-2xl text-deepspace/40 transition-transform duration-300 group-hover:text-nebula ${
-                  isOpen ? "rotate-45" : ""
-                }`}
-              >
-                +
-              </span>
-            </button>
-            {isOpen && (
-              <div className="pb-8 grid sm:grid-cols-2 gap-6 md:gap-8 max-w-3xl">
-                <div>
-                  <p className="section-label mb-2">{labels.discover}</p>
-                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
-                    {section.discover}
-                  </p>
-                </div>
-                <div>
-                  <p className="section-label mb-2">{labels.propose}</p>
-                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
-                    {section.propose}
-                  </p>
-                </div>
-                <div>
-                  <p className="section-label mb-2">{labels.iterate}</p>
-                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
-                    {section.iterate}
-                  </p>
-                </div>
-                <div>
-                  <p className="section-label mb-2">{labels.result}</p>
-                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
-                    {section.result}
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
+function toGalleryImage(src: string, alt: string): LightboxImage {
+  return { src, alt, ...(imageDimensions[src] ?? FALLBACK_DIMENSIONS) };
 }
 
 export default function CaseStudyContent({ project }: { project: Project }) {
   const { t, lang } = useLang();
   const rootRef = useRef<HTMLDivElement>(null);
   const content = project[lang];
-  const [siteModalOpen, setSiteModalOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const nextProject = projects[(currentIndex + 1) % projects.length];
+
+  const heroSrc = project.webImage ?? project.images[0];
+  const afterSrc = project.images[0];
+
+  // Orden en el que las imágenes aparecen en la página: define el índice
+  // que se abre en el lightbox al clickear cada una.
+  const gallery = useMemo<LightboxImage[]>(() => {
+    const items: LightboxImage[] = [];
+    const seen = new Set<string>();
+    const push = (src: string | undefined, alt: string) => {
+      if (!src || seen.has(src)) return;
+      seen.add(src);
+      items.push(toGalleryImage(src, alt));
+    };
+
+    push(heroSrc, `${project.client} — ${content.category}`);
+    content.sections.forEach((section) => {
+      section.images?.forEach((src) => push(src, `${project.client} — ${section.title}`));
+    });
+    project.phoneImages?.forEach((src) => push(src, `${project.client} — ${t.caseStudy.mobilePreview}`));
+    project.deckImages?.forEach((src) => push(src, `${project.client} — ${t.caseStudy.deckPreview}`));
+    push(project.beforeImage, `${project.client} — ${t.caseStudy.before}`);
+    push(afterSrc, `${project.client} — ${t.caseStudy.after}`);
+
+    return items;
+  }, [project, content, heroSrc, afterSrc, t.caseStudy]);
+
+  const openLightbox = (src: string) => {
+    const i = gallery.findIndex((g) => g.src === src);
+    if (i >= 0) setLightboxIndex(i);
+  };
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia(
@@ -180,6 +125,18 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </p>
       </section>
 
+      {/* 2. Hero: primer vistazo grande al trabajo, sin recortar */}
+      {heroSrc && (
+        <section className="case-fade opacity-0 mb-16 md:mb-20">
+          <ProjectImage
+            src={heroSrc}
+            alt={`${project.client} — ${content.category}`}
+            preload
+            onClick={() => openLightbox(heroSrc)}
+          />
+        </section>
+      )}
+
       <div className="case-fade opacity-0 flex flex-wrap gap-x-8 gap-y-6 py-8 mb-20 md:mb-28 hairline hairline-b">
         {metadataItems.map((item, i) => (
           <div
@@ -194,7 +151,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         ))}
       </div>
 
-      {/* 2. El desafío (Discovery) */}
+      {/* 3. El desafío (Discovery) */}
       <section className="case-fade opacity-0 mb-20 md:mb-28">
         <p className="section-label mb-6">{t.caseStudy.challenge}</p>
         <p className="text-lg md:text-xl text-deepspace/80 font-light leading-relaxed">
@@ -202,77 +159,154 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </p>
       </section>
 
-      {/* 3. Acordeón por servicio (Double Diamond narrado, sin nombrarlo) */}
+      {/* 4. Relato por servicio: texto y foto siempre juntos, sin acordeón */}
       <section className="case-fade opacity-0 mb-20 md:mb-28">
-        <p className="section-label mb-6">{t.caseStudy.whatWeDid}</p>
-        <ServiceAccordion
-          sections={content.sections}
-          labels={{
-            discover: t.caseStudy.discover,
-            propose: t.caseStudy.propose,
-            iterate: t.caseStudy.iterate,
-            result: t.caseStudy.result,
-          }}
-        />
-      </section>
+        <p className="section-label mb-10 md:mb-14">{t.caseStudy.whatWeDid}</p>
+        <div className="space-y-16 md:space-y-24">
+          {content.sections.map((section) => (
+            <div key={section.title}>
+              <h3 className="font-heading font-bold text-2xl md:text-3xl tracking-[-0.02em] text-deepspace mb-6 md:mb-8">
+                {section.title}
+              </h3>
+              <div className="grid sm:grid-cols-2 gap-6 md:gap-10 mb-8">
+                <div>
+                  <p className="section-label mb-2">{t.caseStudy.discover}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.discover}
+                  </p>
+                </div>
+                <div>
+                  <p className="section-label mb-2">{t.caseStudy.propose}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.propose}
+                  </p>
+                </div>
+              </div>
 
-      {/* Frames reservados: preview de web y mobile */}
-      <section className="case-fade opacity-0 mb-20 md:mb-28">
-        <div className="grid sm:grid-cols-[1.4fr_1fr] gap-8 items-end">
-          <LaptopMockup label={t.caseStudy.previewLabel} />
-          <div className="flex gap-4 justify-center sm:justify-start">
-            <PhoneMockup label={t.caseStudy.previewLabel} />
-            <PhoneMockup label={t.caseStudy.previewLabel} />
-          </div>
+              {section.images && section.images.length > 0 && (
+                <div
+                  className={`grid gap-4 md:gap-6 mb-8 ${
+                    section.images.length > 1 ? "sm:grid-cols-2" : ""
+                  }`}
+                >
+                  {section.images.map((src) => (
+                    <ProjectImage
+                      key={src}
+                      src={src}
+                      alt={`${project.client} — ${section.title}`}
+                      onClick={() => openLightbox(src)}
+                    />
+                  ))}
+                </div>
+              )}
+
+              <div className="grid sm:grid-cols-2 gap-6 md:gap-10">
+                <div>
+                  <p className="section-label mb-2">{t.caseStudy.iterate}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.iterate}
+                  </p>
+                </div>
+                <div>
+                  <p className="section-label mb-2">{t.caseStudy.result}</p>
+                  <p className="text-sm md:text-base text-deepspace/70 font-light leading-relaxed">
+                    {section.result}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Frame reservado: preview del deck de ventas (cuando el proyecto lo incluye) */}
-      {project.deckPreviewSlides && project.deckPreviewSlides > 0 && (
+      {/* 5. Mobile */}
+      {project.phoneImages && project.phoneImages.length > 0 && (
+        <section className="case-fade opacity-0 mb-20 md:mb-28">
+          <p className="section-label mb-6">{t.caseStudy.mobilePreview}</p>
+          <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-md">
+            {project.phoneImages.map((src) => (
+              <ProjectImage
+                key={src}
+                src={src}
+                alt={`${project.client} — ${t.caseStudy.mobilePreview}`}
+                onClick={() => openLightbox(src)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 6. Sitio en vivo: embed interactivo si el proyecto tiene URL real */}
+      {project.siteUrl ? (
+        <section className="case-fade opacity-0 mb-20 md:mb-28">
+          <p className="section-label mb-6">{t.caseStudy.visitSite}</p>
+          <LiveEmbed
+            url={project.siteUrl}
+            clientName={project.client}
+            fallbackMessage={t.caseStudy.modalFallback}
+            openNewTabLabel={t.caseStudy.openNewTab}
+          />
+          <a
+            href={project.siteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm text-deepspace/50 hover:text-nebula transition-colors underline underline-offset-4 mt-4"
+          >
+            {t.caseStudy.openNewTab} ↗
+          </a>
+        </section>
+      ) : (
+        <section className="case-fade opacity-0 mb-16 md:mb-20">
+          <span className="text-sm text-deepspace/40">{t.caseStudy.noSite}</span>
+        </section>
+      )}
+
+      {/* 7. Deck de ventas */}
+      {project.deckImages && project.deckImages.length > 0 && (
         <section className="case-fade opacity-0 mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.deckPreview}</p>
-          <div className="flex gap-4 overflow-x-auto">
-            {Array.from({ length: project.deckPreviewSlides }).map((_, i) => (
-              <div
-                key={i}
-                className="shrink-0 w-56 md:w-64 rounded-card border-2 border-dashed border-deepspace/25 bg-orbit/50 aspect-[16/10] flex items-center justify-center"
-              >
-                <span className="text-xs uppercase tracking-wide text-deepspace/40">
-                  {t.caseStudy.previewLabel}
-                </span>
+          <div className="flex gap-4 md:gap-6 overflow-x-auto pb-2 -mx-6 px-6 md:mx-0 md:px-0">
+            {project.deckImages.map((src) => (
+              <div key={src} className="shrink-0 w-[280px] md:w-[360px]">
+                <ProjectImage
+                  src={src}
+                  alt={`${project.client} — ${t.caseStudy.deckPreview}`}
+                  onClick={() => openLightbox(src)}
+                />
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {project.beforeImage && (
+      {/* 8. La transformación: antes/después lado a lado, mismo tamaño */}
+      {project.beforeImage && afterSrc && (
         <section className="case-fade opacity-0 mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.transformation}</p>
-          <div className="space-y-4">
-            <div className="relative w-full overflow-hidden rounded-card bg-orbit" style={{ aspectRatio: "16/9" }}>
-              <Image
+          <div className="grid sm:grid-cols-2 gap-6 sm:gap-4 md:gap-6">
+            <div>
+              <ProjectImage
                 src={project.beforeImage}
-                alt={t.caseStudy.before}
-                fill
-                className="object-cover grayscale"
+                alt={`${project.client} — ${t.caseStudy.before}`}
+                onClick={() => openLightbox(project.beforeImage!)}
+                tallFrameHeight="h-[320px] md:h-[440px]"
               />
-              <span className="absolute top-4 left-4 rounded-full bg-deepspace/85 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-white">
-                {t.caseStudy.before}
-              </span>
+              <p className="section-label mt-3">{t.caseStudy.before}</p>
             </div>
-
-            <div className="relative">
-              <ImageSlot src={project.images[0]} ratio="16/9" label={t.caseStudy.imagePlaceholder} />
-              <span className="absolute top-4 left-4 rounded-full bg-nebula px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-white">
-                {t.caseStudy.after}
-              </span>
+            <div>
+              <ProjectImage
+                src={afterSrc}
+                alt={`${project.client} — ${t.caseStudy.after}`}
+                onClick={() => openLightbox(afterSrc)}
+                tallFrameHeight="h-[320px] md:h-[440px]"
+              />
+              <p className="section-label mt-3">{t.caseStudy.after}</p>
             </div>
           </div>
         </section>
       )}
 
-      {/* 4. Resultados y métricas */}
+      {/* 9. Resultados y métricas */}
       {content.metrics && content.metrics.length > 0 && (
         <section className="case-fade opacity-0 mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.results}</p>
@@ -302,33 +336,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </section>
       )}
 
-      {/* 5. Link al sitio real — siempre secundario, nunca lo primero que se ve */}
-      <section className="case-fade opacity-0 mb-16 md:mb-20">
-        {project.siteUrl ? (
-          <>
-            <button
-              onClick={() => setSiteModalOpen(true)}
-              className="text-sm text-deepspace/50 hover:text-nebula transition-colors underline underline-offset-4"
-            >
-              {t.caseStudy.visitSite} ↗
-            </button>
-            {siteModalOpen && (
-              <WebsiteModal
-                url={project.siteUrl}
-                onClose={() => setSiteModalOpen(false)}
-                clientName={project.client}
-                fallbackMessage={t.caseStudy.modalFallback}
-                openNewTabLabel={t.caseStudy.openNewTab}
-                closeLabel={t.caseStudy.closeModal}
-              />
-            )}
-          </>
-        ) : (
-          <span className="text-sm text-deepspace/40">{t.caseStudy.noSite}</span>
-        )}
-      </section>
-
-      {/* 6. Navegación al proyecto siguiente */}
+      {/* 10. Navegación al proyecto siguiente */}
       <section className="case-fade opacity-0 pt-10 hairline">
         <Link
           href={`/work/${nextProject.slug}`}
@@ -345,6 +353,18 @@ export default function CaseStudyContent({ project }: { project: Project }) {
           </span>
         </Link>
       </section>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={gallery}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onIndexChange={setLightboxIndex}
+          closeLabel={t.caseStudy.closeModal}
+          prevLabel={t.caseStudy.lightboxPrev}
+          nextLabel={t.caseStudy.lightboxNext}
+        />
+      )}
     </div>
   );
 }

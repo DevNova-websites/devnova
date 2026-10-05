@@ -17,8 +17,8 @@ export default function Home() {
       <main>
         <Hero />
         <Marquee />
-        <Services />
         <Work />
+        <Services />
         <Process />
         <About />
         <OngoingSupport />

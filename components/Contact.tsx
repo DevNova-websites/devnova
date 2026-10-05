@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { MessageCircle, Mail } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { CONTACT_EMAIL, whatsappUrl, gmailComposeUrl, mailtoUrl } from "@/lib/contact";
+import { CONTACT_EMAIL, LINKEDIN_URL, WHATSAPP_DISPLAY, whatsappUrl, gmailComposeUrl } from "@/lib/contact";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
@@ -91,51 +92,62 @@ export default function Contact() {
               href={whatsappUrl(t.contact.whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-primary flex items-center justify-center px-8 py-4 text-sm w-full sm:w-auto"
+              className="group flex items-center gap-4"
             >
-              {t.contact.whatsapp}
+              <span className="w-12 h-12 rounded-full bg-deepspace text-stardust flex items-center justify-center shrink-0 group-hover:bg-nebula transition-colors">
+                <MessageCircle className="w-5 h-5" strokeWidth={1.75} />
+              </span>
+              <div>
+                <div className="section-label mb-1">{t.contact.whatsapp}</div>
+                <div className="text-base md:text-lg text-deepspace font-medium group-hover:text-nebula transition-colors">
+                  {WHATSAPP_DISPLAY}
+                </div>
+              </div>
             </a>
 
             <div>
-              <a
-                href={gmailComposeUrl(t.contact.emailSubject)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-secondary flex items-center justify-center px-8 py-4 text-sm w-full sm:w-auto"
-              >
-                {t.contact.emailCta}
-              </a>
-              <p className="text-xs text-deepspace/50 mt-2">
-                {t.contact.emailNote}{" "}
-                <a href={mailtoUrl(t.contact.emailSubject)} className="underline underline-offset-4 hover:text-nebula">
-                  {t.contact.mailtoFallback}
+              <div className="flex items-center gap-4">
+                <a
+                  href={gmailComposeUrl(t.contact.emailSubject)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-4 flex-1 min-w-0"
+                >
+                  <span className="w-12 h-12 rounded-full bg-deepspace text-stardust flex items-center justify-center shrink-0 group-hover:bg-nebula transition-colors">
+                    <Mail className="w-5 h-5" strokeWidth={1.75} />
+                  </span>
+                  <div className="min-w-0">
+                    <div className="section-label mb-1">{t.contact.emailCta}</div>
+                    <div className="text-base md:text-lg text-deepspace font-medium group-hover:text-nebula transition-colors truncate">
+                      {CONTACT_EMAIL}
+                    </div>
+                  </div>
                 </a>
-              </p>
-            </div>
-
-            <div className="hairline pt-8">
-              <p className="section-label mb-3">{t.contact.emailLabel}</p>
-              <div className="flex items-center gap-3">
-                <span className="text-base md:text-lg text-deepspace font-medium">{CONTACT_EMAIL}</span>
                 <button
                   onClick={copyEmail}
-                  className="pill hover:bg-nebula/15 hover:border-nebula hover:text-nebula transition-colors"
+                  className="pill shrink-0 hover:bg-nebula/15 hover:border-nebula hover:text-nebula transition-colors"
                 >
                   {copied ? t.contact.copied : t.contact.copyEmail}
                 </button>
               </div>
             </div>
 
-            {/* TODO-DEVNOVA: activar cuando la cuenta de LinkedIn de DevNova esté operativa.
             <a
-              href="https://www.linkedin.com/company/devnova"
+              href={LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-deepspace/60 hover:text-nebula transition-colors"
+              className="group flex items-center gap-4"
             >
-              LinkedIn
+              <span className="w-12 h-12 rounded-full bg-deepspace text-stardust flex items-center justify-center shrink-0 font-heading font-bold text-sm group-hover:bg-nebula transition-colors">
+                in
+              </span>
+              <div>
+                <div className="section-label mb-1">LinkedIn</div>
+                <div className="text-base md:text-lg text-deepspace font-medium group-hover:text-nebula transition-colors">
+                  DevNova
+                </div>
+              </div>
             </a>
-            */}
           </div>
 
           <form onSubmit={handleSubmit} className="rounded-card border border-deepspace/12 p-6 md:p-8">

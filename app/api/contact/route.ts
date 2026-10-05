@@ -25,8 +25,10 @@ export async function POST(req: NextRequest) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      // TODO-DEVNOVA: reemplazar por un remitente en un dominio verificado en Resend.
-      from: "DevNova website <onboarding@resend.dev>",
+      // Remitente: RESEND_FROM (ej. "DevNova web <web@devnova.com.ar>") una vez
+      // verificado el dominio en Resend. Mientras tanto usa el remitente de prueba,
+      // que solo puede enviar al mail con el que se creó la cuenta de Resend.
+      from: process.env.RESEND_FROM || "DevNova website <onboarding@resend.dev>",
       to: CONTACT_EMAIL,
       reply_to: email,
       subject: `New inquiry from ${name} — DevNova website`,

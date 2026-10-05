@@ -8,15 +8,15 @@
   /* ── Color ─────────────────────────────────────────────────── */
   --color-stardust: #f5f3ef; /* fondo */
   --color-deepspace: #1c1b2e; /* texto / color principal (violeta oscuro) */
-  --color-nebula: #9b8ec4; /* acento */
+  --color-nebula: #6e5da4; /* acento */
   --color-saturn: #c4a98a; /* acento secundario */
   --color-orbit: #e8e4dc; /* fondo alterno */
   --color-negative: #b3543f; /* comparativas "antes" — rojo apagado, sin neón */
   --color-positive: #4c7a5d; /* comparativas "hoy/después" — verde apagado, sin neón */
 
   /* ── Tipografía ────────────────────────────────────────────── */
-  /* Cine: usada solo para títulos/headings. */
-  --font-heading: "Cine", Georgia, "Times New Roman", serif;
+  /* Syne: usada solo para títulos/headings. */
+  --font-heading: var(--font-syne), sans-serif;
   /* Inter: usada para todo el cuerpo de texto. */
   --font-body: var(--font-inter), system-ui, -apple-system, sans-serif;
 
@@ -33,21 +33,3 @@
   --space-cta-y-lg: 5rem;
 }
 
-/* ── Fuente "Cine" (títulos) ───────────────────────────────────
-   TODO-DEVNOVA: reemplazar por los archivos reales de la fuente
-   en /public/fonts/cine/. Hasta entonces el navegador cae al
-   fallback serif (Georgia) declarado en --font-heading. */
-@font-face {
-  font-family: "Cine";
-  src: url("/fonts/cine/Cine-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Cine";
-  src: url("/fonts/cine/Cine-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}

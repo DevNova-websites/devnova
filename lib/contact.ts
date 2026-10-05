@@ -2,11 +2,14 @@
 // número de WhatsApp, y los helpers que arman las URLs sin fricción para el
 // visitante (nada de abrir apps de escritorio ni pestañas que lo saquen del sitio).
 
-export const CONTACT_EMAIL = "info@devnova.com";
+export const CONTACT_EMAIL = "info@devnova.com.ar";
 
-// TODO-DEVNOVA: reemplazar por el número real de WhatsApp de DevNova.
-// Formato internacional, solo dígitos (sin "+", espacios ni guiones).
-export const WHATSAPP_NUMBER = "5491100000000";
+export const LINKEDIN_URL = "https://www.linkedin.com/company/devnova-design/";
+
+// Formato internacional, solo dígitos (sin "+", espacios ni guiones) — usado en la URL de wa.me.
+export const WHATSAPP_NUMBER = "5491166046030";
+
+export const WHATSAPP_DISPLAY = "+54 9 11 6604-6030";
 
 export function whatsappUrl(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
