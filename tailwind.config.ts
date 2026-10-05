@@ -33,10 +33,15 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "label-in": {
+          "0%": { opacity: "0", transform: "translateY(8px) scale(0.92)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
       },
       animation: {
         "spin-slow": "spin-slow 44s linear infinite",
         float: "float 7s ease-in-out infinite",
+        "label-in": "label-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both",
       },
     },
   },

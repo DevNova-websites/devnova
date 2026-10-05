@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { useLang } from "@/lib/i18n";
 import { scrollToSection } from "@/components/SmoothScroll";
-import { OrbitRing } from "@/components/graphics/SpaceElements";
 import HeroShowcase from "@/components/graphics/HeroShowcase";
 
 export default function Hero() {
@@ -48,8 +47,6 @@ export default function Hero() {
       ref={rootRef}
       className="relative pt-[var(--space-hero-top)] pb-[var(--space-hero-bottom)] md:pt-[var(--space-hero-top-lg)] md:pb-[var(--space-hero-bottom-lg)] px-6 md:px-8 overflow-hidden"
     >
-      <OrbitRing className="hidden md:block absolute top-10 right-0 w-40 h-40 text-nebula/60" />
-
       <div className="max-w-6xl mx-auto grid md:grid-cols-[1.05fr_0.95fr] gap-14 md:gap-12 items-center">
         <div>
         <p className="hero-fade pill mb-8 opacity-0">{t.hero.eyebrow}</p>
@@ -96,21 +93,6 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="hero-fade opacity-0 mt-12 md:mt-16 grid grid-cols-3 gap-4 md:gap-6 max-w-xl">
-          {t.hero.stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-card border border-deepspace/10 bg-orbit/60 px-4 py-5 md:px-6 md:py-7"
-            >
-              <div className="font-heading font-bold text-xl md:text-3xl text-nebula tracking-tight whitespace-nowrap">
-                {stat.value}
-              </div>
-              <div className="text-xs md:text-sm text-deepspace/60 mt-2 leading-snug">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </div>
         </div>
 
         <div className="hero-fade opacity-0 pb-8">
