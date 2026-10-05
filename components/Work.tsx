@@ -58,7 +58,7 @@ export default function Work() {
       className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8 bg-orbit"
     >
       <div className="max-w-6xl mx-auto">
-        <p className="work-fade opacity-0 section-label block mb-6">{t.work.eyebrow}</p>
+        <p className="work-fade opacity-0 section-label block mb-4">{t.work.eyebrow}</p>
         <h2 className="work-fade opacity-0 font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-12 md:mb-16">
           {t.work.title}
         </h2>
@@ -115,7 +115,7 @@ export default function Work() {
                 />
               </div>
               {norfalk.phoneImages?.[0] && (
-                <div className="absolute -bottom-6 -left-4 md:-left-8 w-[22%] aspect-[9/19] rounded-[1rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-xl">
+                <div className="absolute -bottom-6 -right-3 md:-right-6 w-[20%] aspect-[9/19] rounded-[1rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-xl">
                   <Image
                     src={norfalk.phoneImages[0]}
                     alt={`${norfalk.client} mobile`}

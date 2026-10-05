@@ -48,7 +48,7 @@ export default function About() {
     >
       <div className="max-w-6xl mx-auto grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16">
         <div className="about-fade opacity-0">
-          <p className="section-label block mb-16">{t.about.eyebrow}</p>
+          <p className="section-label block mb-4">{t.about.eyebrow}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace">
             {t.about.title}
           </h2>

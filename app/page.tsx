@@ -6,7 +6,6 @@ import Work from "@/components/Work";
 import Process from "@/components/Process";
 import About from "@/components/About";
 import OngoingSupport from "@/components/OngoingSupport";
-import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -22,7 +21,6 @@ export default function Home() {
         <Process />
         <About />
         <OngoingSupport />
-        <CTA />
         <Contact />
       </main>
       <Footer />

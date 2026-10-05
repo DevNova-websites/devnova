@@ -5,7 +5,6 @@ import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
-import { OrbitDots } from "@/components/graphics/SpaceElements";
 
 export default function Process() {
   const { t } = useLang();
@@ -75,10 +74,7 @@ export default function Process() {
       className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8"
     >
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-16">
-          <p className="section-label block">{t.process.eyebrow}</p>
-          <OrbitDots className="text-nebula/50" />
-        </div>
+        <p className="section-label block mb-4">{t.process.eyebrow}</p>
         <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-4">
           {t.process.title}
         </h2>
@@ -86,7 +82,7 @@ export default function Process() {
           {t.process.subtitle}
         </p>
 
-        <div className="process-diagram opacity-0 max-w-2xl mx-auto mb-16 md:mb-20">
+        <div className="process-diagram opacity-0 hidden md:block max-w-2xl mx-auto mb-20">
           <Image
             src="/imagenes/double-diamond.png"
             alt="Double Diamond"

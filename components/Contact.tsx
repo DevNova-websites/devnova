@@ -78,7 +78,7 @@ export default function Contact() {
       className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8"
     >
       <div className="max-w-6xl mx-auto">
-        <p className="contact-fade opacity-0 section-label block mb-16">{t.contact.eyebrow}</p>
+        <p className="contact-fade opacity-0 section-label block mb-4">{t.contact.eyebrow}</p>
         <h2 className="contact-fade opacity-0 font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-4">
           {t.contact.title}
         </h2>
@@ -111,7 +111,7 @@ export default function Contact() {
                   href={gmailComposeUrl(t.contact.emailSubject)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-4 flex-1 min-w-0"
+                  className="group flex items-center gap-4 min-w-0"
                 >
                   <span className="w-12 h-12 rounded-full bg-deepspace text-stardust flex items-center justify-center shrink-0 group-hover:bg-nebula transition-colors">
                     <Mail className="w-5 h-5" strokeWidth={1.75} />

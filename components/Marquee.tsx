@@ -32,14 +32,14 @@ export default function Marquee() {
   const items = [...t.marquee, ...t.marquee];
 
   return (
-    <div className="hairline hairline-b py-6 md:py-8 overflow-hidden bg-orbit">
+    <div className="hairline hairline-b py-5 md:py-6 overflow-hidden bg-orbit">
       <div ref={trackRef} className="marquee-track">
         {items.map((item, i) => (
           <div key={i} className="flex items-center shrink-0 gap-8 md:gap-14 px-4 md:px-7">
-            <span className="font-heading font-bold text-2xl md:text-4xl text-deepspace/80 tracking-tight whitespace-nowrap">
+            <span className="font-heading font-bold text-xl md:text-3xl text-deepspace/70 tracking-tight whitespace-nowrap">
               {item}
             </span>
-            <span className="text-nebula text-2xl md:text-4xl">·</span>
+            <span className="text-nebula text-xl md:text-3xl">·</span>
           </div>
         ))}
       </div>

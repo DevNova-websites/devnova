@@ -44,7 +44,7 @@ export default function OngoingSupport() {
     <section ref={rootRef} className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8 bg-orbit">
       <div className="max-w-6xl mx-auto ongoing-fade opacity-0 grid md:grid-cols-[1fr_1.4fr] gap-10 md:gap-16 items-start">
         <div>
-          <p className="section-label block mb-16">{t.ongoing.eyebrow}</p>
+          <p className="section-label block mb-4">{t.ongoing.eyebrow}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace">
             {t.ongoing.title}
           </h2>

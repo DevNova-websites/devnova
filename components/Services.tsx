@@ -49,7 +49,7 @@ export default function Services() {
     >
       <div className="max-w-6xl mx-auto">
         <div className="mb-12 md:mb-16">
-          <p className="section-label block mb-16">{t.services.eyebrow}</p>
+          <p className="section-label block mb-4">{t.services.eyebrow}</p>
           <h2 className="font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace">
             {t.services.title}
           </h2>
@@ -62,7 +62,7 @@ export default function Services() {
               <a
                 key={item.title}
                 href="#contact"
-                className={`service-row opacity-0 group hairline-b flex items-center justify-between gap-6 py-9 md:py-12 px-4 -mx-4 transition-all duration-300 ease-out hover:translate-x-3 hover:bg-nebula/5 ${
+                className={`service-row opacity-0 group hairline-b flex items-center justify-between gap-6 py-8 md:py-10 px-3 md:px-4 transition-all duration-300 ease-out hover:translate-x-3 hover:bg-nebula/5 ${
                   isRecurring ? "bg-nebula/5" : ""
                 }`}
               >

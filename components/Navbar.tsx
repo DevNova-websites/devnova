@@ -18,8 +18,8 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-stardust/90 backdrop-blur-sm hairline-b">
-      <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 md:px-8 h-16 md:h-20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-stardust/90 backdrop-blur-sm hairline-b px-6 md:px-8">
+      <nav className="max-w-6xl mx-auto flex items-center justify-between h-16 md:h-20">
         <Link href="/">
           <Logo className="text-lg" />
         </Link>
@@ -65,7 +65,7 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="md:hidden hairline-b bg-stardust px-6 pb-6 flex flex-col gap-4">
+        <div className="md:hidden bg-stardust pb-6 flex flex-col gap-4">
           {links.map((link) => (
             <Link
               key={link.key}

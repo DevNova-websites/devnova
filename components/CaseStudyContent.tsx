@@ -137,14 +137,14 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </section>
       )}
 
-      <div className="case-fade opacity-0 flex flex-wrap gap-x-8 gap-y-6 py-8 mb-20 md:mb-28 hairline hairline-b">
+      <div className="case-fade opacity-0 grid grid-cols-2 md:grid-cols-[0.8fr_1.2fr_1.6fr_0.6fr] gap-x-8 gap-y-6 py-8 mb-20 md:mb-28 hairline hairline-b">
         {metadataItems.map((item, i) => (
           <div
             key={item.label}
-            className={i > 0 ? "pl-8 border-l border-deepspace/10" : ""}
+            className={i > 0 ? "md:pl-8 md:border-l md:border-deepspace/10" : ""}
           >
             <div className="section-label mb-2">{item.label}</div>
-            <div className="text-sm text-deepspace/80 max-w-[220px]">
+            <div className="text-sm text-deepspace/80">
               {item.value}
             </div>
           </div>

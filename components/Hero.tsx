@@ -53,7 +53,7 @@ export default function Hero() {
 
         <h1
           ref={headlineRef}
-          className="font-heading font-bold text-4xl sm:text-5xl md:text-[2.6rem] lg:text-[3.4rem] leading-[1.08] tracking-[-0.02em] md:tracking-[-0.03em] text-deepspace max-w-3xl"
+          className="font-heading font-bold text-4xl sm:text-5xl md:text-[2.6rem] lg:text-[3.4rem] leading-[1.08] tracking-[-0.02em] md:tracking-[-0.03em] text-deepspace max-w-3xl text-balance"
         >
           {headlineLines.map((line, li) => (
             <span key={li} className="block">

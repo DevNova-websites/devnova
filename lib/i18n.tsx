@@ -17,11 +17,11 @@ const translations = {
     // first-time visitor gets it in seconds. Previous version, kept for
     // reference: "One agency.\nZero mismatches."
     hero: {
-      eyebrow: "Design & communication studio, Buenos Aires",
+      eyebrow: "Design studio · Buenos Aires",
       headline: "Brand, web & LinkedIn.\nOne studio behind it all.",
       sub: "We design your brand system and put it to work everywhere you show up: your website, slide decks, Canva templates and LinkedIn. All consistent, without coordinating five different suppliers.",
       cta1: "Let's talk",
-      showcaseCaption: "Real work for our clients: hover to pause, click to see the case",
+      showcaseCaption: "Real work for our clients",
       cta2: "See the work",
       stats: [
         { value: "4+", label: "years in business" },
@@ -221,11 +221,11 @@ const translations = {
       cta: "Escribinos",
     },
     hero: {
-      eyebrow: "Estudio de diseño y comunicación, Buenos Aires",
+      eyebrow: "Estudio de diseño · Buenos Aires",
       headline: "Marca, web y LinkedIn.\nUn solo estudio detrás de todo.",
       sub: "Diseñamos tu sistema de marca y lo aplicamos en todo lo que mostrás: tu web, tus presentaciones, tus templates de Canva y tu LinkedIn. Todo coherente, sin coordinar cinco proveedores distintos.",
       cta1: "Hablemos",
-      showcaseCaption: "Trabajos reales para nuestros clientes: pasá el mouse para pausar, hacé clic para ver el caso",
+      showcaseCaption: "Trabajos reales para nuestros clientes",
       cta2: "Ver los trabajos",
       stats: [
         { value: "4+", label: "años de trayectoria" },

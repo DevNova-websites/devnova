@@ -1,5 +1,9 @@
 import type { Config } from "tailwindcss";
 
+// <alpha-value> lo reemplaza Tailwind por la opacidad pedida (1 si no hay).
+const token = (name: string) =>
+  `color-mix(in srgb, var(--color-${name}) calc(<alpha-value> * 100%), transparent)`;
+
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -12,14 +16,17 @@ const config: Config = {
         heading: ["var(--font-heading)"],
         sans: ["var(--font-body)"],
       },
+      // Cada color sale de styles/tokens.css. Se define con color-mix para que
+      // los modificadores de opacidad (text-deepspace/60, bg-nebula/5, etc.)
+      // funcionen: con un var() plano, Tailwind v3 no genera esas clases.
       colors: {
-        stardust: "var(--color-stardust)",
-        deepspace: "var(--color-deepspace)",
-        nebula: "var(--color-nebula)",
-        saturn: "var(--color-saturn)",
-        orbit: "var(--color-orbit)",
-        negative: "var(--color-negative)",
-        positive: "var(--color-positive)",
+        stardust: token("stardust"),
+        deepspace: token("deepspace"),
+        nebula: token("nebula"),
+        saturn: token("saturn"),
+        orbit: token("orbit"),
+        negative: token("negative"),
+        positive: token("positive"),
       },
       borderRadius: {
         card: "12px",
