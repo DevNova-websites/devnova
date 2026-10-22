@@ -1,51 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 import { projects } from "@/data/projects";
+import { cover } from "@/data/covers";
 
 // Home: Norfalk como caso destacado + grilla con el resto de los casos, todos
 // con su screenshot real (sale de webImage en data/projects.ts).
 export default function Work() {
   const { t, lang } = useLang();
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        gsap.set(".work-fade", { opacity: 1, y: 0 });
-        return;
-      }
-
-      gsap.fromTo(
-        ".work-fade",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top 75%",
-          },
-        }
-      );
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const featured = t.work.featured;
   const norfalk = projects.find((p) => p.slug === "norfalk");
@@ -54,12 +18,11 @@ export default function Work() {
   return (
     <section
       id="work"
-      ref={rootRef}
       className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8 bg-orbit"
     >
       <div className="max-w-6xl mx-auto">
-        <p className="work-fade opacity-0 section-label block mb-4">{t.work.eyebrow}</p>
-        <h2 className="work-fade opacity-0 font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-12 md:mb-16">
+        <p className="reveal section-label block mb-4">{t.work.eyebrow}</p>
+        <h2 className="reveal font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-12 md:mb-16">
           {t.work.title}
         </h2>
 
@@ -67,7 +30,7 @@ export default function Work() {
         {norfalk && (
           <Link
             href="/work/norfalk"
-            className="work-fade opacity-0 group grid md:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-14 items-center rounded-card border border-deepspace/10 bg-stardust p-6 md:p-10 transition-colors hover:border-nebula/40"
+            className="reveal group grid md:grid-cols-[0.9fr_1.1fr] gap-10 md:gap-14 items-center rounded-card border border-deepspace/10 bg-stardust p-6 md:p-10 transition-colors hover:border-nebula/40"
           >
             <div>
               <div className="flex flex-wrap items-center gap-3 mb-5">
@@ -107,7 +70,7 @@ export default function Work() {
             <div className="relative">
               <div className="relative aspect-[16/10] rounded-card overflow-hidden border border-deepspace/12">
                 <Image
-                  src={norfalk.webImage ?? norfalk.images[0]}
+                  src={cover(norfalk.webImage ?? norfalk.images[0])}
                   alt={norfalk.client}
                   fill
                   sizes="(max-width: 768px) 100vw, 600px"
@@ -117,7 +80,7 @@ export default function Work() {
               {norfalk.phoneImages?.[0] && (
                 <div className="absolute -bottom-6 -right-3 md:-right-6 w-[20%] aspect-[9/19] rounded-[1rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-xl">
                   <Image
-                    src={norfalk.phoneImages[0]}
+                    src={cover(norfalk.phoneImages[0])}
                     alt={`${norfalk.client} mobile`}
                     fill
                     sizes="120px"
@@ -138,12 +101,12 @@ export default function Work() {
               <Link
                 key={project.slug}
                 href={`/work/${project.slug}`}
-                className="work-fade opacity-0 group block rounded-card border border-deepspace/10 bg-stardust overflow-hidden transition-colors hover:border-nebula/40"
+                className="reveal group block rounded-card border border-deepspace/10 bg-stardust overflow-hidden transition-colors hover:border-nebula/40"
               >
                 {img && (
                   <div className="relative aspect-[16/10] overflow-hidden border-b border-deepspace/10">
                     <Image
-                      src={img}
+                      src={cover(img)}
                       alt={project.client}
                       fill
                       sizes="(max-width: 640px) 100vw, 560px"
@@ -170,7 +133,7 @@ export default function Work() {
           })}
         </div>
 
-        <div className="work-fade opacity-0 mt-12 md:mt-16 text-center">
+        <div className="reveal mt-12 md:mt-16 text-center">
           <Link href="/work" className="btn-secondary inline-block px-8 py-3.5 text-sm">
             {t.work.viewMore}
           </Link>

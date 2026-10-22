@@ -19,19 +19,36 @@ export default function LiveEmbed({
   openNewTabLabel: string;
 }) {
   const [status, setStatus] = useState<"loading" | "loaded" | "failed">("loading");
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // El iframe es loading="lazy": recién empieza a cargar cerca del viewport,
+  // así que el margen de carga corre desde que el bloque entra en pantalla,
+  // no desde que se montó la página.
   useEffect(() => {
-    timeoutRef.current = setTimeout(() => {
-      setStatus((s) => (s === "loading" ? "failed" : s));
-    }, LOAD_TIMEOUT_MS);
+    const el = containerRef.current;
+    if (!el) return;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        timeout = setTimeout(() => {
+          setStatus((s) => (s === "loading" ? "failed" : s));
+        }, LOAD_TIMEOUT_MS);
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
     return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      observer.disconnect();
+      if (timeout) clearTimeout(timeout);
     };
   }, [url]);
 
   return (
-    <div className="relative w-full h-[480px] md:h-[620px] rounded-card overflow-hidden border border-deepspace/12 bg-orbit flex flex-col">
+    <div
+      ref={containerRef}
+      className="relative w-full h-[480px] md:h-[620px] rounded-card overflow-hidden border border-deepspace/12 bg-orbit flex flex-col">
       <div className="flex items-center gap-1.5 px-3 py-2 border-b border-deepspace/10 bg-stardust shrink-0">
         <span className="w-2 h-2 rounded-full bg-deepspace/15" />
         <span className="w-2 h-2 rounded-full bg-deepspace/15" />

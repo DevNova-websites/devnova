@@ -15,6 +15,7 @@ export async function POST(req: NextRequest) {
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
+    console.error("[contact] RESEND_API_KEY no está configurada");
     return NextResponse.json({ error: "Email service not configured" }, { status: 500 });
   }
 
@@ -37,6 +38,9 @@ export async function POST(req: NextRequest) {
   });
 
   if (!res.ok) {
+    // Queda en los logs de la función en Netlify. El caso típico es un 403 de
+    // Resend por usar el remitente de prueba sin dominio verificado.
+    console.error(`[contact] Resend respondió ${res.status}: ${await res.text().catch(() => "")}`);
     return NextResponse.json({ error: "Failed to send" }, { status: 502 });
   }
 

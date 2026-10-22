@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
+import { cover } from "@/data/covers";
 
 // Collage animado del hero, organizado por cliente: las tres piezas (pantalla
 // grande, web secundaria y celular) muestran siempre al mismo cliente. Dentro
@@ -109,18 +110,44 @@ export default function HeroShowcase({ caption }: { caption: string }) {
   const { lang } = useLang();
   const [tick, setTick] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [ready, setReady] = useState(false);
 
+  // La rotación arranca recién cuando terminó de cargar la página, y solo en
+  // desktop: en mobile el collage queda debajo del pliegue y se muestra fijo.
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (paused) return;
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
+    const start = () => setReady(true);
+    if (document.readyState === "complete") {
+      const id = window.setTimeout(start, 0);
+      return () => window.clearTimeout(id);
+    }
+    window.addEventListener("load", start, { once: true });
+    return () => window.removeEventListener("load", start);
+  }, []);
+
+  useEffect(() => {
+    if (!ready || paused) return;
     const id = window.setInterval(() => setTick((t) => t + 1), STEP_MS);
     return () => window.clearInterval(id);
-  }, [paused]);
+  }, [ready, paused]);
 
-  const { s: sceneIdx, m: mainIdx } = STEPS[tick % STEPS.length];
+  const step = tick % STEPS.length;
+  const { s: sceneIdx, m: mainIdx } = STEPS[step];
   const scene = SCENES[sceneIdx];
   const current = scene.main[mainIdx];
   const href = `/work/${scene.slug}`;
+
+  // Solo se montan el paso anterior (para el fundido de salida), el actual y
+  // el siguiente (para que ya esté descargado cuando le toque).
+  const stepMounted = (i: number) =>
+    i === step ||
+    (ready && i === (step + 1) % STEPS.length) ||
+    (tick > 0 && i === (step - 1 + STEPS.length) % STEPS.length);
+  const nextScene = STEPS[(step + 1) % STEPS.length].s;
+  const prevScene = STEPS[(step - 1 + STEPS.length) % STEPS.length].s;
+  const sceneMounted = (si: number) =>
+    si === sceneIdx || (ready && si === nextScene) || (tick > 0 && si === prevScene);
 
   return (
     <div
@@ -149,21 +176,24 @@ export default function HeroShowcase({ caption }: { caption: string }) {
         <div className="rounded-card overflow-hidden border border-deepspace/12 bg-stardust shadow-[0_24px_60px_-20px_rgba(28,27,46,0.35)]">
           <Chrome />
           <div className="relative aspect-[16/10] bg-orbit">
-            {SCENES.flatMap((sc, si) =>
-              sc.main.map((item, mi) => (
+            {STEPS.map(({ s: si, m: mi }, i) => {
+              if (!stepMounted(i)) return null;
+              const sc = SCENES[si];
+              const item = sc.main[mi];
+              return (
                 <Image
                   key={`${si}-${mi}`}
-                  src={item.src}
+                  src={cover(item.src)}
                   alt={`${sc.client}: ${item.label[lang]}`}
                   fill
                   sizes="(max-width: 768px) 86vw, 480px"
-                  preload={si === 0 && mi === 0}
+                  preload={i === 0}
                   className={`${item.fit === "contain" ? "object-contain" : "object-cover object-top"} ${fade(
-                    si === sceneIdx && mi === mainIdx
+                    i === step
                   )}`}
                 />
-              ))
-            )}
+              );
+            })}
           </div>
         </div>
 
@@ -173,7 +203,7 @@ export default function HeroShowcase({ caption }: { caption: string }) {
           className="absolute -top-4 -left-4 md:-left-6 animate-label-in motion-reduce:animate-none inline-flex items-center gap-2 rounded-pill bg-deepspace text-stardust pl-3 pr-4 py-2 text-xs md:text-sm shadow-lg"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-saturn" />
-          <span className="font-medium">{current.label[lang]}</span>
+          <span className="font-normal">{current.label[lang]}</span>
           <span className="text-stardust/50">· {scene.client}</span>
         </span>
       </Link>
@@ -188,10 +218,10 @@ export default function HeroShowcase({ caption }: { caption: string }) {
         <div className="rounded-card overflow-hidden border border-deepspace/12 bg-stardust shadow-[0_24px_60px_-20px_rgba(28,27,46,0.35)]">
           <Chrome />
           <div className="relative aspect-[16/10] bg-orbit">
-            {SCENES.map((sc, si) => (
+            {SCENES.map((sc, si) => sceneMounted(si) && (
               <Image
                 key={sc.slug}
-                src={sc.secondary}
+                src={cover(sc.secondary)}
                 alt={sc.client}
                 fill
                 sizes="(max-width: 768px) 58vw, 330px"
@@ -210,10 +240,10 @@ export default function HeroShowcase({ caption }: { caption: string }) {
         style={{ animationDuration: "8s", animationDelay: "0.6s" }}
       >
         <div className="relative aspect-[9/19] rounded-[1.25rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-[0_24px_60px_-20px_rgba(28,27,46,0.45)]">
-          {SCENES.map((sc, si) => (
+          {SCENES.map((sc, si) => sceneMounted(si) && (
             <Image
               key={sc.slug}
-              src={sc.phone}
+              src={cover(sc.phone)}
               alt={`${sc.client} mobile`}
               fill
               sizes="140px"

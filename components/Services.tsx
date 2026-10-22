@@ -1,50 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 
 export default function Services() {
   const { t } = useLang();
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        gsap.set(".service-row", { opacity: 1, y: 0 });
-        return;
-      }
-      gsap.fromTo(
-        ".service-row",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: rootRef.current,
-            start: "top 75%",
-          },
-        }
-      );
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, [t.services.items]);
 
   return (
     <section
       id="services"
-      ref={rootRef}
       className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8"
     >
       <div className="max-w-6xl mx-auto">
@@ -57,12 +20,12 @@ export default function Services() {
 
         <div className="hairline">
           {t.services.items.map((item, i) => {
-            const isRecurring = i === 1; // LinkedIn Management: fuente de ingreso recurrente y de alto margen.
+            const isRecurring = i === 1; // LinkedIn Management: único servicio mensual, se destaca con el badge.
             return (
               <a
                 key={item.title}
                 href="#contact"
-                className={`service-row opacity-0 group hairline-b flex items-center justify-between gap-6 py-8 md:py-10 px-3 md:px-4 transition-all duration-300 ease-out hover:translate-x-3 hover:bg-nebula/5 ${
+                className={`reveal group hairline-b flex items-center justify-between gap-6 py-8 md:py-10 px-3 md:px-4 transition-all duration-300 ease-out hover:translate-x-3 hover:bg-nebula/5 ${
                   isRecurring ? "bg-nebula/5" : ""
                 }`}
               >
@@ -81,7 +44,7 @@ export default function Services() {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm md:text-base text-deepspace/60 mt-4 max-w-xl font-light leading-relaxed hidden md:block">
+                    <p className="text-sm md:text-base text-deepspace/60 mt-4 max-w-xl font-light leading-relaxed">
                       {item.desc}
                     </p>
                   </div>

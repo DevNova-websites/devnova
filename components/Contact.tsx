@@ -1,53 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState } from "react";
 import { MessageCircle, Mail } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { CONTACT_EMAIL, LINKEDIN_URL, WHATSAPP_DISPLAY, whatsappUrl, gmailComposeUrl } from "@/lib/contact";
+import { trackContact } from "@/lib/analytics";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
 
 export default function Contact() {
   const { t } = useLang();
-  const rootRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      if (prefersReducedMotion) {
-        gsap.set(".contact-fade", { opacity: 1, y: 0 });
-        return;
-      }
-      gsap.fromTo(
-        ".contact-fade",
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: { trigger: rootRef.current, start: "top 75%" },
-        }
-      );
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, []);
 
   async function copyEmail() {
     try {
       await navigator.clipboard.writeText(CONTACT_EMAIL);
       setCopied(true);
+      trackContact("copy_email", "contact");
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Clipboard API no disponible: no hay nada más que hacer, el email ya está visible en texto plano.
@@ -65,6 +36,7 @@ export default function Contact() {
       });
       if (!res.ok) throw new Error("failed");
       setStatus("sent");
+      trackContact("form", "contact");
       setForm({ name: "", email: "", message: "" });
     } catch {
       setStatus("error");
@@ -74,22 +46,22 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      ref={rootRef}
       className="py-[var(--space-section-y)] md:py-[var(--space-section-y-lg)] px-6 md:px-8"
     >
       <div className="max-w-6xl mx-auto">
-        <p className="contact-fade opacity-0 section-label block mb-4">{t.contact.eyebrow}</p>
-        <h2 className="contact-fade opacity-0 font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-4">
+        <p className="reveal section-label block mb-4">{t.contact.eyebrow}</p>
+        <h2 className="reveal font-heading font-bold text-4xl md:text-5xl tracking-[-0.02em] text-deepspace mb-4">
           {t.contact.title}
         </h2>
-        <p className="contact-fade opacity-0 text-deepspace/60 font-light max-w-lg mb-14 md:mb-20">
+        <p className="reveal text-deepspace/60 font-light max-w-lg mb-14 md:mb-20">
           {t.contact.sub}
         </p>
 
-        <div className="contact-fade opacity-0 grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-16">
+        <div className="reveal grid md:grid-cols-[1fr_1.2fr] gap-12 md:gap-16">
           <div className="space-y-8">
             <a
               href={whatsappUrl(t.contact.whatsappMessage)}
+              onClick={() => trackContact("whatsapp", "contact")}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4"
@@ -99,7 +71,7 @@ export default function Contact() {
               </span>
               <div>
                 <div className="section-label mb-1">{t.contact.whatsapp}</div>
-                <div className="text-base md:text-lg text-deepspace font-medium group-hover:text-nebula transition-colors">
+                <div className="text-base md:text-lg text-deepspace font-normal group-hover:text-nebula transition-colors">
                   {WHATSAPP_DISPLAY}
                 </div>
               </div>
@@ -109,6 +81,7 @@ export default function Contact() {
               <div className="flex items-center gap-4">
                 <a
                   href={gmailComposeUrl(t.contact.emailSubject)}
+                  onClick={() => trackContact("email", "contact")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-4 min-w-0"
@@ -118,7 +91,7 @@ export default function Contact() {
                   </span>
                   <div className="min-w-0">
                     <div className="section-label mb-1">{t.contact.emailCta}</div>
-                    <div className="text-base md:text-lg text-deepspace font-medium group-hover:text-nebula transition-colors truncate">
+                    <div className="text-base md:text-lg text-deepspace font-normal group-hover:text-nebula transition-colors truncate">
                       {CONTACT_EMAIL}
                     </div>
                   </div>
@@ -134,6 +107,7 @@ export default function Contact() {
 
             <a
               href={LINKEDIN_URL}
+              onClick={() => trackContact("linkedin", "contact")}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4"
@@ -143,7 +117,7 @@ export default function Contact() {
               </span>
               <div>
                 <div className="section-label mb-1">LinkedIn</div>
-                <div className="text-base md:text-lg text-deepspace font-medium group-hover:text-nebula transition-colors">
+                <div className="text-base md:text-lg text-deepspace font-normal group-hover:text-nebula transition-colors">
                   DevNova
                 </div>
               </div>
@@ -202,7 +176,20 @@ export default function Contact() {
                 <p className="text-sm text-positive">{t.contact.formSent}</p>
               )}
               {status === "error" && (
-                <p className="text-sm text-negative">{t.contact.formError}</p>
+                <div className="space-y-3">
+                  <p className="text-sm text-negative">{t.contact.formError}</p>
+                  {/* Fallback: el mismo mensaje que escribió, precargado en WhatsApp. */}
+                  <a
+                    href={whatsappUrl(`${form.message}\n\n— ${form.name} (${form.email})`)}
+                    onClick={() => trackContact("whatsapp", "form_fallback")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex items-center justify-center gap-2 w-full px-8 py-3.5 text-sm"
+                  >
+                    <MessageCircle className="w-4 h-4" strokeWidth={1.75} />
+                    {t.contact.formErrorWhatsapp}
+                  </a>
+                </div>
               )}
             </div>
           </form>

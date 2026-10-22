@@ -3,7 +3,6 @@ import { Syne, Inter } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
-import SmoothScroll from "@/components/SmoothScroll";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -63,7 +62,7 @@ export default function RootLayout({
           `}
         </Script>
         <LangProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          {children}
         </LangProvider>
       </body>
     </html>

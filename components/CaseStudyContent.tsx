@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/lib/i18n";
 import { projects, type Project } from "@/data/projects";
 import { imageDimensions } from "@/data/imageDimensions";
@@ -19,7 +17,6 @@ function toGalleryImage(src: string, alt: string): LightboxImage {
 
 export default function CaseStudyContent({ project }: { project: Project }) {
   const { t, lang } = useLang();
-  const rootRef = useRef<HTMLDivElement>(null);
   const content = project[lang];
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
@@ -57,42 +54,6 @@ export default function CaseStudyContent({ project }: { project: Project }) {
     if (i >= 0) setLightboxIndex(i);
   };
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const targets = gsap.utils.toArray<HTMLElement>(".case-fade");
-
-      if (prefersReducedMotion) {
-        gsap.set(targets, { opacity: 1, y: 0 });
-        return;
-      }
-
-      targets.forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
-            },
-          }
-        );
-      });
-    }, rootRef);
-
-    return () => ctx.revert();
-  }, [project.slug, lang]);
-
   const metadataItems = [
     { label: t.caseStudy.client, value: project.client },
     { label: t.caseStudy.industry, value: content.industry },
@@ -102,18 +63,17 @@ export default function CaseStudyContent({ project }: { project: Project }) {
 
   return (
     <div
-      ref={rootRef}
       className="max-w-[780px] mx-auto px-6 md:px-8 pt-32 pb-24 md:pt-40 md:pb-32"
     >
       <Link
         href="/#work"
-        className="case-fade opacity-0 inline-flex items-center gap-2 text-sm text-deepspace/60 hover:text-nebula transition-colors mb-16 md:mb-20"
+        className="reveal inline-flex items-center gap-2 text-sm text-deepspace/60 hover:text-nebula transition-colors mb-16 md:mb-20"
       >
         ← {t.caseStudy.back}
       </Link>
 
       {/* 1. Encabezado */}
-      <section className="case-fade opacity-0 mb-16 md:mb-20">
+      <section className="reveal mb-16 md:mb-20">
         <p className="section-label mb-4">
           {content.category} · {project.year}
         </p>
@@ -127,7 +87,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
 
       {/* 2. Hero: primer vistazo grande al trabajo, sin recortar */}
       {heroSrc && (
-        <section className="case-fade opacity-0 mb-16 md:mb-20">
+        <section className="reveal mb-16 md:mb-20">
           <ProjectImage
             src={heroSrc}
             alt={`${project.client} — ${content.category}`}
@@ -137,7 +97,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
         </section>
       )}
 
-      <div className="case-fade opacity-0 grid grid-cols-2 md:grid-cols-[0.8fr_1.2fr_1.6fr_0.6fr] gap-x-8 gap-y-6 py-8 mb-20 md:mb-28 hairline hairline-b">
+      <div className="reveal grid grid-cols-2 md:grid-cols-[0.8fr_1.2fr_1.6fr_0.6fr] gap-x-8 gap-y-6 py-8 mb-20 md:mb-28 hairline hairline-b">
         {metadataItems.map((item, i) => (
           <div
             key={item.label}
@@ -152,7 +112,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
       </div>
 
       {/* 3. El desafío (Discovery) */}
-      <section className="case-fade opacity-0 mb-20 md:mb-28">
+      <section className="reveal mb-20 md:mb-28">
         <p className="section-label mb-6">{t.caseStudy.challenge}</p>
         <p className="text-lg md:text-xl text-deepspace/80 font-light leading-relaxed">
           {content.challenge}
@@ -160,7 +120,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
       </section>
 
       {/* 4. Relato por servicio: texto y foto siempre juntos, sin acordeón */}
-      <section className="case-fade opacity-0 mb-20 md:mb-28">
+      <section className="reveal mb-20 md:mb-28">
         <p className="section-label mb-10 md:mb-14">{t.caseStudy.whatWeDid}</p>
         <div className="space-y-16 md:space-y-24">
           {content.sections.map((section) => (
@@ -221,7 +181,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
 
       {/* 5. Mobile */}
       {project.phoneImages && project.phoneImages.length > 0 && (
-        <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <section className="reveal mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.mobilePreview}</p>
           <div className="grid grid-cols-2 gap-4 md:gap-6 max-w-md">
             {project.phoneImages.map((src) => (
@@ -238,7 +198,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
 
       {/* 6. Sitio en vivo: embed interactivo si el proyecto tiene URL real */}
       {project.siteUrl ? (
-        <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <section className="reveal mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.visitSite}</p>
           <LiveEmbed
             url={project.siteUrl}
@@ -256,14 +216,14 @@ export default function CaseStudyContent({ project }: { project: Project }) {
           </a>
         </section>
       ) : (
-        <section className="case-fade opacity-0 mb-16 md:mb-20">
+        <section className="reveal mb-16 md:mb-20">
           <span className="text-sm text-deepspace/40">{t.caseStudy.noSite}</span>
         </section>
       )}
 
       {/* 7. Deck de ventas */}
       {project.deckImages && project.deckImages.length > 0 && (
-        <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <section className="reveal mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.deckPreview}</p>
           <div className="flex gap-4 md:gap-6 overflow-x-auto pb-2 -mx-6 px-6 md:mx-0 md:px-0">
             {project.deckImages.map((src) => (
@@ -281,7 +241,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
 
       {/* 8. La transformación: antes/después lado a lado, mismo tamaño */}
       {project.beforeImage && afterSrc && (
-        <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <section className="reveal mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.transformation}</p>
           <div className="grid sm:grid-cols-2 gap-6 sm:gap-4 md:gap-6">
             <div>
@@ -308,7 +268,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
 
       {/* 9. Resultados y métricas */}
       {content.metrics && content.metrics.length > 0 && (
-        <section className="case-fade opacity-0 mb-20 md:mb-28">
+        <section className="reveal mb-20 md:mb-28">
           <p className="section-label mb-6">{t.caseStudy.results}</p>
           <div className="grid grid-cols-2 gap-4">
             {content.metrics.map((m) => (
@@ -337,7 +297,7 @@ export default function CaseStudyContent({ project }: { project: Project }) {
       )}
 
       {/* 10. Navegación al proyecto siguiente */}
-      <section className="case-fade opacity-0 pt-10 hairline">
+      <section className="reveal pt-10 hairline">
         <Link
           href={`/work/${nextProject.slug}`}
           className="group flex items-center justify-between gap-6"

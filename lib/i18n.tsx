@@ -42,7 +42,7 @@ const translations = {
     services: {
       eyebrow: "What we do",
       title: "Services",
-      recurringBadge: "Recurring revenue",
+      recurringBadge: "Monthly",
       items: [
         {
           title: "Web design",
@@ -170,7 +170,8 @@ const translations = {
       formSubmit: "Send inquiry",
       formSending: "Sending…",
       formSent: "Sent. We'll get back to you soon.",
-      formError: "Something went wrong. Try WhatsApp or email instead.",
+      formError: "The message couldn't be sent, but nothing is lost.",
+      formErrorWhatsapp: "Send it on WhatsApp instead",
     },
     footer: {
       tagline: "Design & communication studio",
@@ -246,7 +247,7 @@ const translations = {
     services: {
       eyebrow: "Qué hacemos",
       title: "Servicios",
-      recurringBadge: "Ingreso recurrente",
+      recurringBadge: "Mensual",
       items: [
         {
           title: "Diseño web",
@@ -374,7 +375,8 @@ const translations = {
       formSubmit: "Enviar consulta",
       formSending: "Enviando…",
       formSent: "Enviado. Te vamos a responder pronto.",
-      formError: "Algo salió mal. Probá por WhatsApp o por mail.",
+      formError: "No se pudo enviar el mensaje, pero no se perdió nada.",
+      formErrorWhatsapp: "Mandalo por WhatsApp",
     },
     footer: {
       tagline: "Estudio de diseño y comunicación",
