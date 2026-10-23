@@ -9,7 +9,9 @@ import { cover } from "@/data/covers";
 // Collage animado del hero, organizado por cliente: las tres piezas (pantalla
 // grande, web secundaria y celular) muestran siempre al mismo cliente. Dentro
 // de cada cliente, la pantalla grande recorre sus entregables y la etiqueta
-// flotante dice cuál es. Después pasa al cliente siguiente.
+// flotante dice cuál es. El celular acompaña a cada entregable: muestra su
+// versión mobile, o se oculta si ese entregable no tiene una (phone: null).
+// Después pasa al cliente siguiente.
 // Para cambiar qué se muestra, editá SCENES (rutas en /public/imagenes).
 
 type Label = { en: string; es: string };
@@ -17,9 +19,8 @@ type Label = { en: string; es: string };
 type Scene = {
   client: string;
   slug: string;
-  main: { src: string; label: Label; fit?: "cover" | "contain" }[];
+  main: { src: string; label: Label; phone: string | null; fit?: "cover" | "contain" }[];
   secondary: string;
-  phone: string;
 };
 
 const WEB: Label = { en: "Web design", es: "Diseño web" };
@@ -29,54 +30,68 @@ const SCENES: Scene[] = [
     client: "Norfalk",
     slug: "norfalk",
     main: [
-      { src: "/imagenes/norfalk/web-2.png", label: WEB },
-      { src: "/imagenes/norfalk/newsletter-1.png", label: { en: "Newsletter", es: "Newsletter" } },
-      { src: "/imagenes/norfalk/canva-1.png", label: { en: "Canva templates", es: "Templates en Canva" } },
-      { src: "/imagenes/norfalk/naming-1.png", label: { en: "Naming workshop", es: "Taller de naming" } },
-      { src: "/imagenes/norfalk/linkedin-after.jpg", label: { en: "LinkedIn management", es: "Gestión de LinkedIn" } },
+      { src: "/imagenes/norfalk/web-2.png", label: WEB, phone: "/imagenes/covers/norfalk-celu-web.jpg" },
+      {
+        src: "/imagenes/norfalk/newsletter-1.png",
+        label: { en: "Newsletter", es: "Newsletter" },
+        phone: "/imagenes/covers/norfalk-celu-newsletter.jpg",
+      },
+      { src: "/imagenes/norfalk/canva-1.png", label: { en: "Canva templates", es: "Templates en Canva" }, phone: null },
+      { src: "/imagenes/norfalk/naming-1.png", label: { en: "Naming workshop", es: "Taller de naming" }, phone: null },
+      // Siempre la vista pública ("Ver como miembro"), nunca el panel de admin.
+      {
+        src: "/imagenes/covers/norfalk-linkedin-post.png",
+        label: { en: "LinkedIn management", es: "Gestión de LinkedIn" },
+        phone: "/imagenes/norfalk/linkedin-mobile-view-user.png",
+        fit: "contain",
+      },
     ],
     secondary: "/imagenes/norfalk/canva-2.png",
-    phone: "/imagenes/norfalk/celu-1.png",
   },
   {
     client: "Gisela Rodríguez Estética",
     slug: "gisela-estetica",
     main: [
-      { src: "/imagenes/gisela/web-1.png", label: WEB },
-      { src: "/imagenes/gisela/design-system-1.png", label: { en: "Design system", es: "Design system" }, fit: "contain" },
+      { src: "/imagenes/gisela/web-1.png", label: WEB, phone: "/imagenes/gisela/celu-pantalla.jpg" },
+      {
+        src: "/imagenes/gisela/design-system-1.png",
+        label: { en: "Design system", es: "Design system" },
+        phone: null,
+        fit: "contain",
+      },
     ],
     secondary: "/imagenes/gisela/web-3.png",
-    phone: "/imagenes/gisela/celu-pantalla.jpg",
   },
   {
     client: "Mauro Crema",
     slug: "mauro-crema",
     main: [
-      { src: "/imagenes/mauro-crema/web-1.png", label: { en: "Landing page", es: "Landing page" } },
-      { src: "/imagenes/mauro-crema/slide-servicios.png", label: { en: "Sales deck", es: "Deck de ventas" } },
+      {
+        src: "/imagenes/mauro-crema/web-1.png",
+        label: { en: "Landing page", es: "Landing page" },
+        phone: "/imagenes/mauro-crema/celu-2.jpg",
+      },
+      { src: "/imagenes/mauro-crema/slide-servicios.png", label: { en: "Sales deck", es: "Deck de ventas" }, phone: null },
     ],
     secondary: "/imagenes/mauro-crema/slide-internacional.png",
-    phone: "/imagenes/mauro-crema/celu-2.jpg",
   },
   {
     client: "Samuray BJJ Academy",
     slug: "samuray-bjj",
     main: [
-      { src: "/imagenes/samuray/web-1.png", label: WEB },
-      { src: "/imagenes/samuray/web-3.png", label: WEB },
+      { src: "/imagenes/samuray/web-1.png", label: WEB, phone: "/imagenes/samuray/celu-pantalla.jpg" },
+      { src: "/imagenes/samuray/web-3.png", label: WEB, phone: "/imagenes/samuray/celu-pantalla.jpg" },
     ],
     secondary: "/imagenes/samuray/web-2.png",
-    phone: "/imagenes/samuray/celu-pantalla.jpg",
   },
   {
     client: "Mercedes Chanquia Aguirre",
     slug: "mer-aguirre",
     main: [
-      { src: "/imagenes/mercedes-chanquia/web-1.png", label: WEB },
-      { src: "/imagenes/mercedes-chanquia/web-3.png", label: WEB },
+      { src: "/imagenes/mercedes-chanquia/web-1.png", label: WEB, phone: "/imagenes/mercedes-chanquia/celu-pantalla.jpg" },
+      { src: "/imagenes/mercedes-chanquia/web-3.png", label: WEB, phone: "/imagenes/mercedes-chanquia/celu-pantalla.jpg" },
     ],
     secondary: "/imagenes/mercedes-chanquia/web-2.png",
-    phone: "/imagenes/mercedes-chanquia/celu-pantalla.jpg",
   },
 ];
 
@@ -148,6 +163,17 @@ export default function HeroShowcase({ caption }: { caption: string }) {
   const prevScene = STEPS[(step - 1 + STEPS.length) % STEPS.length].s;
   const sceneMounted = (si: number) =>
     si === sceneIdx || (ready && si === nextScene) || (tick > 0 && si === prevScene);
+
+  // Celular: una capa por imagen distinta (dos pasos seguidos con la misma
+  // captura no parpadean). Se montan las de los pasos anterior, actual y siguiente.
+  const phoneSrc = current.phone;
+  const phoneLayers = Array.from(
+    new Set(
+      STEPS.filter((_, i) => stepMounted(i))
+        .map(({ s: si, m: mi }) => SCENES[si].main[mi].phone)
+        .filter((src): src is string => !!src)
+    )
+  );
 
   return (
     <div
@@ -232,22 +258,26 @@ export default function HeroShowcase({ caption }: { caption: string }) {
         </div>
       </Link>
 
-      {/* Celular */}
+      {/* Celular: solo aparece si el entregable actual tiene versión mobile */}
       <Link
         href={href}
         aria-label={`${scene.client} mobile`}
-        className="absolute bottom-0 right-[6%] w-[24%] animate-float motion-reduce:animate-none"
-        style={{ animationDuration: "8s", animationDelay: "0.6s" }}
+        aria-hidden={!phoneSrc}
+        tabIndex={phoneSrc ? undefined : -1}
+        className={`absolute bottom-0 right-[6%] w-[24%] ${fade(!!phoneSrc)} ${phoneSrc ? "" : "pointer-events-none"}`}
       >
-        <div className="relative aspect-[9/19] rounded-[1.25rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-[0_24px_60px_-20px_rgba(28,27,46,0.45)]">
-          {SCENES.map((sc, si) => sceneMounted(si) && (
+        <div
+          className="relative aspect-[9/19] rounded-[1.25rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-[0_24px_60px_-20px_rgba(28,27,46,0.45)] animate-float motion-reduce:animate-none"
+          style={{ animationDuration: "8s", animationDelay: "0.6s" }}
+        >
+          {phoneLayers.map((src) => (
             <Image
-              key={sc.slug}
-              src={cover(sc.phone)}
-              alt={`${sc.client} mobile`}
+              key={src}
+              src={cover(src)}
+              alt={`${scene.client} mobile`}
               fill
               sizes="140px"
-              className={`object-cover object-top ${fade(si === sceneIdx)}`}
+              className={`object-cover object-top ${fade(src === phoneSrc)}`}
             />
           ))}
         </div>

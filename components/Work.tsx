@@ -77,17 +77,16 @@ export default function Work() {
                   className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.02]"
                 />
               </div>
-              {norfalk.phoneImages?.[0] && (
-                <div className="absolute -bottom-6 -right-3 md:-right-6 w-[20%] aspect-[9/19] rounded-[1rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-xl">
+              {/* Pantalla mobile real de la web, recortada del mockup de celular */}
+              <div className="absolute -bottom-6 -right-3 md:-right-6 w-[20%] aspect-[9/19] rounded-[1rem] overflow-hidden border-4 border-deepspace bg-deepspace shadow-xl">
                   <Image
-                    src={cover(norfalk.phoneImages[0])}
+                    src="/imagenes/covers/norfalk-celu-web.jpg"
                     alt={`${norfalk.client} mobile`}
                     fill
                     sizes="120px"
                     className="object-cover object-top"
                   />
-                </div>
-              )}
+              </div>
             </div>
           </Link>
         )}
