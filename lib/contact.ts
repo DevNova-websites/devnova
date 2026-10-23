@@ -8,7 +8,7 @@ export const CONTACT_EMAIL = "info@devnova.com.ar";
 // endpoint, ej. "https://formspree.io/f/xyzabcd" → "xyzabcd". No es secreto.
 // Mientras esté vacío, el formulario muestra el aviso de error y ofrece
 // mandar el mensaje por WhatsApp.
-export const FORMSPREE_FORM_ID = "";
+export const FORMSPREE_FORM_ID = "xgaaejgg";
 
 export const LINKEDIN_URL = "https://www.linkedin.com/company/devnova-design/";
 
