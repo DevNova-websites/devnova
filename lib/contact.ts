@@ -4,6 +4,12 @@
 
 export const CONTACT_EMAIL = "info@devnova.com.ar";
 
+// ID del formulario de Formspree (https://formspree.io): es la parte final del
+// endpoint, ej. "https://formspree.io/f/xyzabcd" → "xyzabcd". No es secreto.
+// Mientras esté vacío, el formulario muestra el aviso de error y ofrece
+// mandar el mensaje por WhatsApp.
+export const FORMSPREE_FORM_ID = "";
+
 export const LINKEDIN_URL = "https://www.linkedin.com/company/devnova-design/";
 
 // Formato internacional, solo dígitos (sin "+", espacios ni guiones) — usado en la URL de wa.me.

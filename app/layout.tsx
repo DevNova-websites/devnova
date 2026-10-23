@@ -17,22 +17,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "DevNova Studio: Design & Communication",
+  title: "DevNova: Design & Communication",
   description:
     "DevNova is a design and communication studio in Buenos Aires. We build brand systems and put them to work across web, decks, LinkedIn and newsletters.",
   keywords: ["design studio", "brand system", "design system", "web design", "communication design", "Buenos Aires", "DevNova"],
-  authors: [{ name: "DevNova Studio" }],
+  authors: [{ name: "DevNova" }],
   openGraph: {
-    title: "DevNova Studio: Design & Communication",
+    title: "DevNova: Design & Communication",
     description: "One system. Every channel. Nothing off-brand.",
     url: "https://devnova.com.ar",
-    siteName: "DevNova Studio",
+    siteName: "DevNova",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "DevNova Studio: Design & Communication",
+    title: "DevNova: Design & Communication",
     description: "One system. Every channel. Nothing off-brand.",
   },
   robots: { index: true, follow: true },

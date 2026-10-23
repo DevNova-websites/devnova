@@ -80,7 +80,7 @@ h1, h2, h3, h4 {
 }
 
 /* Los links a #secciones no quedan tapados por la navbar fija. */
-section[id] {
+:where(section[id]) {
   scroll-margin-top: 4rem;
 }
 

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle, Mail } from "lucide-react";
+import { MessageCircle, Mail, Copy, Check } from "lucide-react";
 import { useLang } from "@/lib/i18n";
-import { CONTACT_EMAIL, LINKEDIN_URL, WHATSAPP_DISPLAY, whatsappUrl, gmailComposeUrl } from "@/lib/contact";
+import { CONTACT_EMAIL, FORMSPREE_FORM_ID, LINKEDIN_URL, WHATSAPP_DISPLAY, whatsappUrl, gmailComposeUrl } from "@/lib/contact";
 import { trackContact } from "@/lib/analytics";
 
 type FormStatus = "idle" | "sending" | "sent" | "error";
@@ -29,10 +29,15 @@ export default function Contact() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/api/contact", {
+      if (!FORMSPREE_FORM_ID) throw new Error("Formspree form ID not configured");
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          ...form,
+          _replyto: form.email,
+          _subject: `New inquiry from ${form.name}: DevNova website`,
+        }),
       });
       if (!res.ok) throw new Error("failed");
       setStatus("sent");
@@ -97,10 +102,17 @@ export default function Contact() {
                   </div>
                 </a>
                 <button
+                  type="button"
                   onClick={copyEmail}
-                  className="pill shrink-0 hover:bg-nebula/15 hover:border-nebula hover:text-nebula transition-colors"
+                  aria-label={copied ? t.contact.copied : t.contact.copyEmail}
+                  title={copied ? t.contact.copied : t.contact.copyEmail}
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-colors ${
+                    copied
+                      ? "border-positive text-positive"
+                      : "border-deepspace/15 text-deepspace/55 hover:bg-nebula/15 hover:border-nebula hover:text-nebula"
+                  }`}
                 >
-                  {copied ? t.contact.copied : t.contact.copyEmail}
+                  {copied ? <Check className="w-4 h-4" strokeWidth={2} /> : <Copy className="w-4 h-4" strokeWidth={1.75} />}
                 </button>
               </div>
             </div>

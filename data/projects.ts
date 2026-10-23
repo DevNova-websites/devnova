@@ -16,6 +16,8 @@ export interface ProjectServiceSection {
   result: string;
   // Fotos de proceso/entregable propias de este servicio (opcional).
   images?: string[];
+  // Epígrafe opcional por foto, en el mismo orden que images.
+  captions?: string[];
 }
 
 export interface ProjectMetric {
@@ -43,7 +45,8 @@ export interface Project {
   beforeImage?: string;
   // Screenshot de la web mostrado en el mockup de laptop.
   webImage?: string;
-  // Screenshots mostrados en los mockups de celular (hasta 2).
+  // Capturas mobile (hasta 2). Las de /imagenes/phones/ ya traen el marco del
+  // celular dibujado; el resto son capturas crudas y se enmarcan por CSS.
   phoneImages?: string[];
   // Screenshots del deck de ventas, en el mismo orden que deckPreviewSlides.
   deckImages?: string[];
@@ -62,7 +65,7 @@ export const projects: Project[] = [
     images: ["/imagenes/norfalk/web-1.png"],
     beforeImage: "/imagenes/norfalk-before.png",
     webImage: "/imagenes/norfalk/web-2.png",
-    phoneImages: ["/imagenes/norfalk/celu-1.png", "/imagenes/norfalk/celu-2.png"],
+    phoneImages: ["/imagenes/norfalk/celu-1.png", "/imagenes/phones/norfalk-celu-2.png"],
     siteUrl: "https://nor-falk.com/",
     en: {
       category: "Design system, web & communication",
@@ -127,8 +130,9 @@ export const projects: Project[] = [
           propose: "Ongoing management of their LinkedIn presence, with a fixed weekly posting schedule.",
           iterate:
             "Adjusted format and timing month over month, always posting at the same time slot to work with the algorithm rather than against it.",
-          result: "+600% follower growth in 3 months, with a consistency the page never had before.",
-          images: ["/imagenes/norfalk/linkedin-before.png"],
+          result: "From 2,470 to 2,713 followers in just 3 months, with a consistency the page never had before.",
+          images: ["/imagenes/norfalk/linkedin-before.png", "/imagenes/norfalk/linkedin-after.jpg"],
+          captions: ["Before: 2,470 followers", "Today: 2,713 followers"],
         },
         {
           title: "Newsletter",
@@ -145,8 +149,8 @@ export const projects: Project[] = [
         // Datos reales de Google Analytics (GA4), relevados el 5/10/2026. No usar el total de usuarios: incluye tráfico de bots.
         { label: "Visitors from Google search, no ads (Jul–Oct 2026)", value: "313", positive: true },
         { label: "Visitors from Denmark who spent 1+ minute on the site (Jul–Oct 2026)", value: "273", positive: true },
-        { label: "LinkedIn followers", value: "2,470" },
-        { label: "LinkedIn follower growth (3 months)", value: "+600%", positive: true },
+        { label: "New LinkedIn followers in 3 months (2,470 → 2,713)", value: "+243", positive: true },
+        { label: "LinkedIn followers today", value: "2,713" },
       ],
     },
     es: {
@@ -158,8 +162,8 @@ export const projects: Project[] = [
         "Design System",
         "Diseño web",
         "Setup en Canva",
-        "Naming workshop",
-        "LinkedIn Management",
+        "Taller de naming",
+        "Gestión de LinkedIn",
         "Newsletter",
       ],
       challenge:
@@ -192,11 +196,11 @@ export const projects: Project[] = [
           propose: "Llevamos el design system a Canva y se lo entregamos para que el equipo pudiera seguir produciendo por su cuenta.",
           iterate:
             "Rediseñamos los decks que ya tenían y construimos nuevos decks comerciales y para inversores sobre las mismas plantillas.",
-          result: "Un equipo que produce materiales on-brand sin esperar a una agencia, y decks que por fin parecen de la misma empresa.",
+          result: "Un equipo que produce materiales coherentes con la marca sin esperar a una agencia, y decks que por fin parecen de la misma empresa.",
           images: ["/imagenes/norfalk/canva-1.png", "/imagenes/norfalk/canva-2.png"],
         },
         {
-          title: "Naming workshop",
+          title: "Taller de naming",
           discover: "Los productos se nombraban de forma inconsistente, sin criterios compartidos en el equipo.",
           propose:
             "Un taller virtual facilitado por DevNova, con actividades de reflexión para definir cómo nombrar los productos de ahí en adelante.",
@@ -206,13 +210,14 @@ export const projects: Project[] = [
           images: ["/imagenes/norfalk/naming-1.png", "/imagenes/norfalk/naming-2.png"],
         },
         {
-          title: "LinkedIn Management",
+          title: "Gestión de LinkedIn",
           discover: "Norfalk tenía una página de LinkedIn con casi nada de actividad y sin consistencia de publicación.",
           propose: "Gestión continua de su presencia en LinkedIn, con una frecuencia fija de una publicación semanal.",
           iterate:
             "Ajustamos formato y horario mes a mes, publicando siempre en el mismo horario para favorecer al algoritmo en lugar de ir en contra.",
-          result: "+600% de crecimiento de seguidores en 3 meses, con una consistencia que la página nunca había tenido.",
-          images: ["/imagenes/norfalk/linkedin-before.png"],
+          result: "De 2.470 a 2.713 seguidores en solo 3 meses, con una consistencia que la página nunca había tenido.",
+          images: ["/imagenes/norfalk/linkedin-before.png", "/imagenes/norfalk/linkedin-after.jpg"],
+          captions: ["Antes: 2.470 seguidores", "Hoy: 2.713 seguidores"],
         },
         {
           title: "Newsletter",
@@ -229,8 +234,8 @@ export const projects: Project[] = [
         // Datos reales de Google Analytics (GA4), relevados el 5/10/2026. No usar el total de usuarios: incluye tráfico de bots.
         { label: "Visitantes desde Google, sin publicidad (jul–oct 2026)", value: "313", positive: true },
         { label: "Visitantes de Dinamarca que pasaron más de 1 minuto en el sitio (jul–oct 2026)", value: "273", positive: true },
-        { label: "Seguidores en LinkedIn", value: "2.470" },
-        { label: "Crecimiento de seguidores en LinkedIn (3 meses)", value: "+600%", positive: true },
+        { label: "Nuevos seguidores en LinkedIn en 3 meses (2.470 → 2.713)", value: "+243", positive: true },
+        { label: "Seguidores en LinkedIn hoy", value: "2.713" },
       ],
     },
   },
@@ -240,7 +245,7 @@ export const projects: Project[] = [
     year: "2023",
     images: [],
     webImage: "/imagenes/gisela/web-1.png",
-    phoneImages: ["/imagenes/gisela/celu-1.png", "/imagenes/gisela/celu-2.png"],
+    phoneImages: ["/imagenes/phones/gisela-celu-1.png", "/imagenes/phones/gisela-celu-2.png"],
     siteUrl: "https://dragiselarodriguez.com.ar/",
     en: {
       category: "Design system & web",
@@ -315,7 +320,7 @@ export const projects: Project[] = [
     year: "2022",
     images: [],
     webImage: "/imagenes/samuray/web-1.png",
-    phoneImages: ["/imagenes/samuray/celu-1.png", "/imagenes/samuray/celu-2.png"],
+    phoneImages: ["/imagenes/phones/samuray-celu-1.png", "/imagenes/phones/samuray-celu-2.png"],
     siteUrl: "https://samuraybjj.com/",
     en: {
       category: "Web design",
@@ -370,7 +375,7 @@ export const projects: Project[] = [
     year: "2024",
     images: [],
     webImage: "/imagenes/mercedes-chanquia/web-1.png",
-    phoneImages: ["/imagenes/mercedes-chanquia/celu-1.png"],
+    phoneImages: ["/imagenes/phones/mercedes-chanquia-celu-1.png"],
     siteUrl: "https://mercedeschanquia.netlify.app/#home",
     en: {
       category: "Web design",
@@ -427,7 +432,7 @@ export const projects: Project[] = [
     year: "2024",
     images: [],
     webImage: "/imagenes/mauro-crema/web-1.png",
-    phoneImages: ["/imagenes/mauro-crema/celu-1.png", "/imagenes/mauro-crema/celu-2.jpg"],
+    phoneImages: ["/imagenes/phones/mauro-crema-celu-1.png", "/imagenes/mauro-crema/celu-2.jpg"],
     deckImages: ["/imagenes/mauro-crema/slide-servicios.png", "/imagenes/mauro-crema/slide-internacional.png"],
     deckPreviewSlides: 2,
     siteUrl: "https://maurocrema.com/",
