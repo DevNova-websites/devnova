@@ -4,7 +4,7 @@
 import { CONTACT_EMAIL } from "./contact";
 
 export const LEGAL = {
-  companyName: "[RAZÓN SOCIAL]",
+  companyName: "DevNova",
   taxId: "[CUIT]",
   address: "[DIRECCIÓN]",
   email: CONTACT_EMAIL,
