@@ -1,4 +1,5 @@
-// Eventos de Google Analytics (gtag se carga en app/layout.tsx). Si el script
+// Eventos de Google Analytics (gtag lo carga components/CookieConsent.tsx, solo
+// si el visitante aceptó las cookies). Si no aceptó, si el script
 // todavía no cargó o lo bloqueó un adblocker, no pasa nada.
 // generate_lead es el evento recomendado de GA4 para consultas: se puede
 // marcar como conversión en el panel de Analytics.

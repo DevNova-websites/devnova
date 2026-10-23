@@ -172,6 +172,8 @@ const translations = {
       formSent: "Sent. We'll get back to you soon.",
       formError: "The message couldn't be sent, but nothing is lost.",
       formErrorWhatsapp: "Send it on WhatsApp instead",
+      formPrivacy: "We only use your details to reply to your inquiry. See our",
+      formPrivacyLink: "Privacy Policy",
     },
     footer: {
       tagline: "Design & communication studio",
@@ -181,6 +183,17 @@ const translations = {
       contact: "Contact",
       linkedin: "LinkedIn",
       copyright: "DevNova. All rights reserved.",
+      legalTitle: "Legal",
+      privacy: "Privacy Policy",
+      cookies: "Cookie Policy",
+    },
+    cookies: {
+      title: "Cookies on this site",
+      text: "We only use optional statistics cookies (Google Analytics) if you accept. Read more in our",
+      policyLink: "Cookie Policy",
+      accept: "Accept",
+      reject: "Reject",
+      settings: "Cookie settings",
     },
     caseStudy: {
       back: "Back to work",
@@ -379,6 +392,8 @@ const translations = {
       formSent: "Enviado. Te vamos a responder pronto.",
       formError: "No se pudo enviar el mensaje, pero no se perdió nada.",
       formErrorWhatsapp: "Mandalo por WhatsApp",
+      formPrivacy: "Usamos tus datos solo para responder tu consulta. Mirá nuestra",
+      formPrivacyLink: "Política de Privacidad",
     },
     footer: {
       tagline: "Estudio de diseño y comunicación",
@@ -388,6 +403,17 @@ const translations = {
       contact: "Contacto",
       linkedin: "LinkedIn",
       copyright: "DevNova. Todos los derechos reservados.",
+      legalTitle: "Legal",
+      privacy: "Política de Privacidad",
+      cookies: "Política de Cookies",
+    },
+    cookies: {
+      title: "Cookies en este sitio",
+      text: "Solo usamos cookies opcionales de estadísticas (Google Analytics) si las aceptás. Más info en nuestra",
+      policyLink: "Política de Cookies",
+      accept: "Aceptar",
+      reject: "Rechazar",
+      settings: "Configurar cookies",
     },
     caseStudy: {
       back: "Volver a trabajos",

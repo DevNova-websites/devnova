@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Syne, Inter } from "next/font/google";
-import Script from "next/script";
 import "./globals.css";
 import { LangProvider } from "@/lib/i18n";
+import CookieConsent from "@/components/CookieConsent";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -49,20 +49,10 @@ export default function RootLayout({
       className={`${syne.variable} ${inter.variable} antialiased`}
     >
       <body>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XMT952YT7C"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XMT952YT7C');
-          `}
-        </Script>
         <LangProvider>
           {children}
+          {/* Google Analytics se carga desde acá, solo después de "Aceptar". */}
+          <CookieConsent />
         </LangProvider>
       </body>
     </html>

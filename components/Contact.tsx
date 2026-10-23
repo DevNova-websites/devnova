@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { MessageCircle, Mail, Copy, Check } from "lucide-react";
 import { useLang } from "@/lib/i18n";
 import { CONTACT_EMAIL, FORMSPREE_FORM_ID, LINKEDIN_URL, WHATSAPP_DISPLAY, whatsappUrl, gmailComposeUrl } from "@/lib/contact";
@@ -183,6 +184,13 @@ export default function Contact() {
               >
                 {status === "sending" ? t.contact.formSending : t.contact.formSubmit}
               </button>
+              <p className="text-xs text-deepspace/50">
+                {t.contact.formPrivacy}{" "}
+                <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-nebula transition-colors">
+                  {t.contact.formPrivacyLink}
+                </Link>
+                .
+              </p>
 
               {status === "sent" && (
                 <p className="text-sm text-positive">{t.contact.formSent}</p>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import Logo from "@/components/Logo";
 import { LINKEDIN_URL } from "@/lib/contact";
+import CookieSettingsButton from "@/components/CookieSettingsButton";
 
 export default function Footer() {
   const { t } = useLang();
@@ -42,6 +43,20 @@ export default function Footer() {
               >
                 {t.footer.linkedin}
               </a>
+            </div>
+          </div>
+          <div>
+            <div className="text-xs uppercase tracking-wide text-deepspace/40 mb-3">
+              {t.footer.legalTitle}
+            </div>
+            <div className="flex flex-col items-start gap-2 text-sm">
+              <Link href="/privacy-policy" className="text-deepspace/70 hover:text-nebula transition-colors">
+                {t.footer.privacy}
+              </Link>
+              <Link href="/cookie-policy" className="text-deepspace/70 hover:text-nebula transition-colors">
+                {t.footer.cookies}
+              </Link>
+              <CookieSettingsButton className="text-left text-deepspace/70 hover:text-nebula transition-colors" />
             </div>
           </div>
         </div>
